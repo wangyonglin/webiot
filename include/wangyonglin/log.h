@@ -5,16 +5,18 @@
 #include <wangyonglin/core.h>
 
 
+typedef enum {
+	LOG_INFO,LOG_DEBUG,LOG_WARN,LOG_ERROR,LOG_EMERG
+}wangyonglin_log_levels_t;
 
 struct wangyonglin_log_s{
 	wangyonglin_uint_t log_level;
-	FILE * fd;
-	char * msg;
+	wangyonglin_fd_t * fd;
 };
 
 
-void wangyonglin_file_fopen(wangyonglin_string_t file,wangyonglin_log_t * log);
-void wangyonglin_log_error(wangyonglin_uint_t level,wangyonglin_log_t * log,const char *fmt, ...);
+
+void wangyonglin_log_error(wangyonglin_uint_t level,const char *fmt, ...);
 
 
 #endif /**_WANGYONGLIN_LOG_H_INCLUDE_**/

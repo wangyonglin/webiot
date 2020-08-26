@@ -128,7 +128,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
-am_libcore_la_OBJECTS = log.lo string.lo
+am_libcore_la_OBJECTS = log.lo string.lo core.lo time.lo file.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -149,7 +149,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/log.Plo ./$(DEPDIR)/string.Plo
+am__depfiles_remade = ./$(DEPDIR)/core.Plo ./$(DEPDIR)/file.Plo \
+	./$(DEPDIR)/log.Plo ./$(DEPDIR)/string.Plo \
+	./$(DEPDIR)/time.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -314,8 +316,12 @@ top_builddir = ../..
 top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libcore.la
-libcore_la_SOURCES = log.c       \
-    string.c        
+libcore_la_SOURCES = \
+    log.c                       \
+    string.c                    \
+    core.c                      \
+    time.c                      \
+    file.c                      
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -396,8 +402,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/core.Plo # am--include-marker
+include ./$(DEPDIR)/file.Plo # am--include-marker
 include ./$(DEPDIR)/log.Plo # am--include-marker
 include ./$(DEPDIR)/string.Plo # am--include-marker
+include ./$(DEPDIR)/time.Plo # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -560,8 +569,11 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/log.Plo
+		-rm -f ./$(DEPDIR)/core.Plo
+	-rm -f ./$(DEPDIR)/file.Plo
+	-rm -f ./$(DEPDIR)/log.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
+	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -607,8 +619,11 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/log.Plo
+		-rm -f ./$(DEPDIR)/core.Plo
+	-rm -f ./$(DEPDIR)/file.Plo
+	-rm -f ./$(DEPDIR)/log.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
+	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

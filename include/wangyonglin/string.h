@@ -4,6 +4,8 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
+#define  wangyonglin_buffer_t	char
+
 typedef struct {
 	size_t      len;
 	u_char     *data;
@@ -15,4 +17,6 @@ typedef struct {
 #define wangyonglin_str_set(str, text)                                               \
 	    (str)->len = sizeof(text) - 1; (str)->data = (u_char *) text
 #define wangyonglin_string_null(str)   (str)->len = 0; (str)->data = NULL
+
+
 #endif /**_WANGYONGLIN_STRING_H_INCLUDE_**/

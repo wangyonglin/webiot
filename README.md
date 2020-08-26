@@ -1,16 +1,21 @@
-### Hi there 👋
+#WANGYONGLIN HTTP SERVER
 
-<!--
-**wangyonglin/wangyonglin** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+##安装Tengine 编译参数
+```shell
+./configure --prefix=/usr/local/wangyonglin
+```
 
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## 配置wangyonglin开机启动，切换到/lib/systemd/system目录,创建 wangyonglin.service文件：
+```shell
+[Unit]
+Description=wangyonglin
+After=network.target
+[Service]
+Type=forking
+ExecStart=/usr/local/wangyonglin/bin/wangyonglin
+ExecReload=/usr/local/wangyonglin/bin/wangyonglin reload
+ExecStop=/usr/local/wangyonglin/bin/wangyonglin quit
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
+```

@@ -103,7 +103,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_wangyonglin_OBJECTS = main.$(OBJEXT)
 wangyonglin_OBJECTS = $(am_wangyonglin_OBJECTS)
-wangyonglin_LDADD = $(LDADD)
+wangyonglin_DEPENDENCIES = ../src/unix/libunix.la \
+	../src/wangyonglin/libcore.la
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
@@ -289,6 +290,7 @@ top_srcdir = ..
 AUTOMAKE_OPTIONS = foreign
 wangyonglin_SOURCES = main.c
 AM_CPPFLAGS = -I ../include/
+wangyonglin_LDADD = ../src/unix/libunix.la ../src/wangyonglin/libcore.la $(FLIBS)
 all: all-am
 
 .SUFFIXES:

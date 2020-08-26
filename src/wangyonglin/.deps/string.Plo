@@ -26,13 +26,22 @@ string.lo: string.c /usr/include/stdc-predef.h \
  /usr/include/bits/pthreadtypes.h /usr/include/bits/thread-shared-types.h \
  /usr/include/bits/pthreadtypes-arch.h /usr/include/alloca.h \
  /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
+ /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+ /usr/include/bits/environments.h /usr/include/bits/confname.h \
+ /usr/include/bits/getopt_posix.h /usr/include/bits/getopt_core.h \
  /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/string.h /usr/include/bits/types/locale_t.h \
  /usr/include/bits/types/__locale_t.h /usr/include/strings.h \
- ../../include/wangyonglin/core.h ../../include/wangyonglin/string.h \
- ../../include/wangyonglin/log.h
+ /usr/include/time.h /usr/include/bits/time.h \
+ /usr/include/bits/types/struct_tm.h \
+ /usr/include/bits/types/struct_itimerspec.h /usr/include/sys/time.h \
+ /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/bits/fcntl-linux.h /usr/include/bits/stat.h \
+ /usr/include/sys/stat.h ../../include/wangyonglin/core.h \
+ ../../include/wangyonglin/time.h ../../include/wangyonglin/string.h \
+ ../../include/wangyonglin/file.h ../../include/wangyonglin/log.h
 
 /usr/include/stdc-predef.h:
 
@@ -136,6 +145,18 @@ string.lo: string.c /usr/include/stdc-predef.h \
 
 /usr/include/bits/stdlib-float.h:
 
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/environments.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/bits/getopt_posix.h:
+
+/usr/include/bits/getopt_core.h:
+
 /usr/include/errno.h:
 
 /usr/include/bits/errno.h:
@@ -156,8 +177,32 @@ string.lo: string.c /usr/include/stdc-predef.h \
 
 /usr/include/strings.h:
 
+/usr/include/time.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/bits/types/struct_tm.h:
+
+/usr/include/bits/types/struct_itimerspec.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/bits/fcntl.h:
+
+/usr/include/bits/fcntl-linux.h:
+
+/usr/include/bits/stat.h:
+
+/usr/include/sys/stat.h:
+
 ../../include/wangyonglin/core.h:
 
+../../include/wangyonglin/time.h:
+
 ../../include/wangyonglin/string.h:
+
+../../include/wangyonglin/file.h:
 
 ../../include/wangyonglin/log.h:
