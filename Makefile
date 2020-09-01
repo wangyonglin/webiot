@@ -318,6 +318,8 @@ top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = src/unix src/wangyonglin tests
+logdir = $(prefix)/log
+confdir = $(prefix)/conf
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

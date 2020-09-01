@@ -46,6 +46,4 @@ void wangyonglin_log_error(wangyonglin_log_levels_t level,const char *fmt, ...){
 			va_end(args);
 			fclose(fd);
 		
-		
-		
 }

@@ -1,4 +1,4 @@
-file.lo: file.c /usr/include/stdc-predef.h \
+daemon.lo: daemon.c /usr/include/stdc-predef.h \
  ../../include/wangyonglin/config.h /usr/include/stdio.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \

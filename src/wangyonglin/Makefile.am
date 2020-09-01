@@ -5,7 +5,10 @@ libcore_la_SOURCES=             \
     string.c                    \
     core.c                      \
     time.c                      \
-    file.c                      
+    file.c                      \
+    json.c                      \
+    daemon.c                    \
+    pid.c
 
 
 AM_CPPFLAGS=-I ../../include/

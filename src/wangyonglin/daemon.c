@@ -1,7 +1,7 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
-pid_t unix_daemon(){
+pid_t wangyonglin_daemon(){
     pid_t pid;int fd;
     switch (fork()) {
     case -1:

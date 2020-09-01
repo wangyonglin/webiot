@@ -4,8 +4,8 @@
 int main(){
 
 	printf("hello wangyonglin \n");
-	pid_t pid = unix_pid_create("/usr/local/wangyonglin/wangyonglin.pid");
-	if(unix_daemon()==WANGYONGLIN_OK){
+	pid_t pid = wangyonglin_pid_create("/usr/local/wangyonglin/wangyonglin.pid");
+	if(wangyonglin_daemon()==WANGYONGLIN_OK){
 		
 	}
 	for(;;){

@@ -475,9 +475,6 @@ config.status:1401: $? = 0
 config.status:1396: cd src/wangyonglin       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
 make: Nothing to be done for 'am--depfiles'.
 config.status:1401: $? = 0
-config.status:1396: cd src/unix       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
-make: Nothing to be done for 'am--depfiles'.
-config.status:1401: $? = 0
 config.status:1319: executing libtool commands
 
 ## ---------------- ##

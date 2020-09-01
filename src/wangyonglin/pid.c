@@ -1,7 +1,7 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
-int unix_pid_create(const char *__file){
+int wangyonglin_pid_create(const char *__file){
     int pid_fd;
      if (__file != NULL)
     {

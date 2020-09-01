@@ -128,7 +128,8 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
-am_libcore_la_OBJECTS = log.lo string.lo core.lo time.lo file.lo
+am_libcore_la_OBJECTS = log.lo string.lo core.lo time.lo file.lo \
+	json.lo daemon.lo pid.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -149,8 +150,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/core.Plo ./$(DEPDIR)/file.Plo \
-	./$(DEPDIR)/log.Plo ./$(DEPDIR)/string.Plo \
+am__depfiles_remade = ./$(DEPDIR)/core.Plo ./$(DEPDIR)/daemon.Plo \
+	./$(DEPDIR)/file.Plo ./$(DEPDIR)/json.Plo ./$(DEPDIR)/log.Plo \
+	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/string.Plo \
 	./$(DEPDIR)/time.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -321,7 +323,10 @@ libcore_la_SOURCES = \
     string.c                    \
     core.c                      \
     time.c                      \
-    file.c                      
+    file.c                      \
+    json.c                      \
+    daemon.c                    \
+    pid.c
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -403,8 +408,11 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/core.Plo # am--include-marker
+include ./$(DEPDIR)/daemon.Plo # am--include-marker
 include ./$(DEPDIR)/file.Plo # am--include-marker
+include ./$(DEPDIR)/json.Plo # am--include-marker
 include ./$(DEPDIR)/log.Plo # am--include-marker
+include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/string.Plo # am--include-marker
 include ./$(DEPDIR)/time.Plo # am--include-marker
 
@@ -570,8 +578,11 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/core.Plo
+	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
+	-rm -f ./$(DEPDIR)/json.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
+	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f Makefile
@@ -620,8 +631,11 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/core.Plo
+	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
+	-rm -f ./$(DEPDIR)/json.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
+	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f Makefile
