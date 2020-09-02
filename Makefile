@@ -317,7 +317,7 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = src/unix src/wangyonglin tests
+SUBDIRS = src/cjson src/wangyonglin app
 logdir = $(prefix)/log
 confdir = $(prefix)/conf
 all: config.h

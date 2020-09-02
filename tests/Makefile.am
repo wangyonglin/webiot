@@ -1,5 +1,6 @@
 AUTOMAKE_OPTIONS=foreign
-bin_PROGRAMS=wangyonglin
-wangyonglin_SOURCES=main.c
+bin_PROGRAMS=test
+test_SOURCES=main.c http.c
 AM_CPPFLAGS=-I ../include/
-wangyonglin_LDADD= ../src/unix/libunix.la ../src/wangyonglin/libcore.la $(FLIBS)
+test_LDADD= ../src/cjson/libjson.la ../src/wangyonglin/libcore.la $(FLIBS)
+LIBS += -lm -levent

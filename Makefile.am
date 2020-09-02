@@ -1,5 +1,5 @@
 AUTOMAKE_OPTIONS=foreign
-SUBDIRS = src/unix src/wangyonglin tests
+SUBDIRS = src/cjson src/wangyonglin app
 bindir =    $(prefix)/bin
 libdir =    $(prefix)/lib
 logdir =    $(prefix)/log

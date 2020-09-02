@@ -4,4 +4,5 @@
 #include <wangyonglin/core.h>
 
 int wangyonglin_pid_create(const char * __file);
+
 #endif /**_WANGYONGLIN_PID_H_INCLUDE_**/

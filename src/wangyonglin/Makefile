@@ -129,7 +129,7 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = log.lo string.lo core.lo time.lo file.lo \
-	json.lo daemon.lo pid.lo
+	daemon.lo pid.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -151,9 +151,8 @@ DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/core.Plo ./$(DEPDIR)/daemon.Plo \
-	./$(DEPDIR)/file.Plo ./$(DEPDIR)/json.Plo ./$(DEPDIR)/log.Plo \
-	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/string.Plo \
-	./$(DEPDIR)/time.Plo
+	./$(DEPDIR)/file.Plo ./$(DEPDIR)/log.Plo ./$(DEPDIR)/pid.Plo \
+	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -324,9 +323,8 @@ libcore_la_SOURCES = \
     core.c                      \
     time.c                      \
     file.c                      \
-    json.c                      \
     daemon.c                    \
-    pid.c
+    pid.c                       
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -410,7 +408,6 @@ distclean-compile:
 include ./$(DEPDIR)/core.Plo # am--include-marker
 include ./$(DEPDIR)/daemon.Plo # am--include-marker
 include ./$(DEPDIR)/file.Plo # am--include-marker
-include ./$(DEPDIR)/json.Plo # am--include-marker
 include ./$(DEPDIR)/log.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/string.Plo # am--include-marker
@@ -580,7 +577,6 @@ distclean: distclean-am
 		-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
-	-rm -f ./$(DEPDIR)/json.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
@@ -633,7 +629,6 @@ maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
-	-rm -f ./$(DEPDIR)/json.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/string.Plo

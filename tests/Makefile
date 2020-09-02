@@ -101,9 +101,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_wangyonglin_OBJECTS = main.$(OBJEXT)
+am_wangyonglin_OBJECTS = main.$(OBJEXT) http.$(OBJEXT)
 wangyonglin_OBJECTS = $(am_wangyonglin_OBJECTS)
-wangyonglin_DEPENDENCIES = ../src/unix/libunix.la \
+wangyonglin_DEPENDENCIES = ../src/cjson/libjson.la \
 	../src/wangyonglin/libcore.la
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -124,7 +124,7 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/main.Po
+am__depfiles_remade = ./$(DEPDIR)/http.Po ./$(DEPDIR)/main.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -206,7 +206,7 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lpthread 
+LIBS = -lpthread  -lm -levent
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
@@ -288,9 +288,9 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AUTOMAKE_OPTIONS = foreign
-wangyonglin_SOURCES = main.c
+wangyonglin_SOURCES = main.c http.c
 AM_CPPFLAGS = -I ../include/
-wangyonglin_LDADD = ../src/unix/libunix.la ../src/wangyonglin/libcore.la $(FLIBS)
+wangyonglin_LDADD = ../src/cjson/libjson.la ../src/wangyonglin/libcore.la $(FLIBS)
 all: all-am
 
 .SUFFIXES:
@@ -384,6 +384,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/http.Po # am--include-marker
 include ./$(DEPDIR)/main.Po # am--include-marker
 
 $(am__depfiles_remade):
@@ -546,7 +547,8 @@ clean: clean-am
 clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/main.Po
+		-rm -f ./$(DEPDIR)/http.Po
+	-rm -f ./$(DEPDIR)/main.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -592,7 +594,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/main.Po
+		-rm -f ./$(DEPDIR)/http.Po
+	-rm -f ./$(DEPDIR)/main.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

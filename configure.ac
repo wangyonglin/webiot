@@ -24,7 +24,7 @@ AC_TYPE_SIZE_T
 
 # Checks for library functions.
 AC_CONFIG_FILES([Makefile
-                 tests/Makefile
+                 app/Makefile
                  src/wangyonglin/Makefile
-                 src/unix/Makefile])
+                 src/cjson/Makefile])
 AC_OUTPUT
