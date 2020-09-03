@@ -19,13 +19,8 @@ typedef struct httpd_info{
 	struct evhttp *httpd;
 }httpd_info;
 
-int wangyonglin_httpserver_create(uint16_t __hostshort,int __n);
-int wangyonglin_httpserver_build(int __fd,uint16_t __nthreads,int __timeout,const char *path,void * cb_arg);
 
-
-char * wangyonglin_httpserver_header(struct evhttp_request *req,struct evkeyvalq *params,const char *query_char);
-
-
+int wangyonglin_httpserver_start(int port, int nthreads, int backlog);
 
 
 

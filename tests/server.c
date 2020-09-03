@@ -106,7 +106,7 @@ int bind_socket(){
 	memset(&addr,0,sizeof(addr));
 	addr.sin_family=AF_INET;
 	addr.sin_addr.s_addr=INADDR_ANY;
-	addr.sin_port=htons(8080);
+	addr.sin_port=htons(80);
 	ret=bind(server_socket,(struct sockaddr*)&addr,sizeof(struct sockaddr));
 	if(ret<0)
         errx(-1,"bind error\n");

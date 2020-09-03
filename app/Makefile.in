@@ -104,8 +104,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_wangyonglin_OBJECTS = main.$(OBJEXT) httpserver.$(OBJEXT) \
 	jsonresult.$(OBJEXT)
 wangyonglin_OBJECTS = $(am_wangyonglin_OBJECTS)
-wangyonglin_DEPENDENCIES = ../src/cjson/libjson.la \
-	../src/wangyonglin/libcore.la
+wangyonglin_DEPENDENCIES = ../src/ccl/libccl.la \
+	../src/cjson/libjson.la ../src/wangyonglin/libcore.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -292,7 +292,7 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 wangyonglin_SOURCES = main.c httpserver.c jsonresult.c
 AM_CPPFLAGS = -I ../include/
-wangyonglin_LDADD = ../src/cjson/libjson.la ../src/wangyonglin/libcore.la $(FLIBS)
+wangyonglin_LDADD = ../src/ccl/libccl.la ../src/cjson/libjson.la ../src/wangyonglin/libcore.la $(FLIBS)
 all: all-am
 
 .SUFFIXES:

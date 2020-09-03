@@ -7,8 +7,8 @@ libcore_la_SOURCES=             \
     time.c                      \
     file.c                      \
     daemon.c                    \
-    pid.c                       
-
+    pid.c                       \
+    conf.c
 
 
 AM_CPPFLAGS=-I ../../include/

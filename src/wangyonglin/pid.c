@@ -1,12 +1,12 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
-int wangyonglin_pid_create(const char *__file){
+int wangyonglin_pid_create(wangyonglin_pid_t * pid){
     int pid_fd;
-     if (__file != NULL)
+     if (pid->filename != NULL)
     {
         char str[256];
-        pid_fd = open(__file, O_RDWR|O_CREAT, 0640);
+        pid_fd = open(pid->filename , O_RDWR|O_CREAT, 0640);
         if (pid_fd < 0) {
             fprintf(stderr,"Fail to open file!\n");
             exit(EXIT_FAILURE);

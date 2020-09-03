@@ -106,7 +106,7 @@ void http_handler_testget_msg(struct evhttp_request *req,void *arg)
 		printf("====line:%d,%s\n",__LINE__,"input param req is null.");
 		return;
 	}
-	
+	printf("### THREAD  IP: %s:%d\n",req->remote_host,req->remote_port);
 	char *sign = NULL;
 	char *data = NULL;
 	struct evkeyvalq sign_params = {0};

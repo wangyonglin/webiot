@@ -65,6 +65,7 @@ time.lo: time.c /usr/include/stdc-predef.h \
  /usr/include/event2/tag_compat.h /usr/include/event2/http.h \
  /usr/include/event2/http_struct.h /usr/include/event2/http_compat.h \
  /usr/include/err.h ../../include/wangyonglin/core.h \
+ ../../include/wangyonglin/pid.h ../../include/wangyonglin/conf.h \
  ../../include/wangyonglin/time.h ../../include/wangyonglin/string.h \
  ../../include/wangyonglin/file.h ../../include/wangyonglin/log.h \
  ../../include/wangyonglin/json.h
@@ -320,6 +321,10 @@ time.lo: time.c /usr/include/stdc-predef.h \
 /usr/include/err.h:
 
 ../../include/wangyonglin/core.h:
+
+../../include/wangyonglin/pid.h:
+
+../../include/wangyonglin/conf.h:
 
 ../../include/wangyonglin/time.h:
 

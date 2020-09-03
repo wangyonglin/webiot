@@ -1,0 +1,13 @@
+ccl_iterate.lo: ccl_iterate.c /usr/include/stdc-predef.h \
+ ../../include/ccl/ccl.h ../../config.h ../../include/ccl/bst.h \
+ /usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h
+
+/usr/include/stdc-predef.h:
+
+../../include/ccl/ccl.h:
+
+../../config.h:
+
+../../include/ccl/bst.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/8/include/stddef.h:

@@ -129,7 +129,7 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = log.lo string.lo core.lo time.lo file.lo \
-	daemon.lo pid.lo
+	daemon.lo pid.lo conf.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -150,9 +150,10 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/core.Plo ./$(DEPDIR)/daemon.Plo \
-	./$(DEPDIR)/file.Plo ./$(DEPDIR)/log.Plo ./$(DEPDIR)/pid.Plo \
-	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo
+am__depfiles_remade = ./$(DEPDIR)/conf.Plo ./$(DEPDIR)/core.Plo \
+	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/file.Plo \
+	./$(DEPDIR)/log.Plo ./$(DEPDIR)/pid.Plo ./$(DEPDIR)/string.Plo \
+	./$(DEPDIR)/time.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -324,7 +325,8 @@ libcore_la_SOURCES = \
     time.c                      \
     file.c                      \
     daemon.c                    \
-    pid.c                       
+    pid.c                       \
+    conf.c
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -405,6 +407,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/conf.Plo # am--include-marker
 include ./$(DEPDIR)/core.Plo # am--include-marker
 include ./$(DEPDIR)/daemon.Plo # am--include-marker
 include ./$(DEPDIR)/file.Plo # am--include-marker
@@ -574,7 +577,8 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/core.Plo
+		-rm -f ./$(DEPDIR)/conf.Plo
+	-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
@@ -626,7 +630,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/core.Plo
+		-rm -f ./$(DEPDIR)/conf.Plo
+	-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/file.Plo
 	-rm -f ./$(DEPDIR)/log.Plo

@@ -10,12 +10,12 @@ typedef enum {
 }wangyonglin_log_levels_t;
 
 struct wangyonglin_log_s{
-	wangyonglin_uint_t log_level;
-	wangyonglin_fd_t * fd;
+	char  error_log[128];
+	char  access_log[128];
 };
 
-
-
+int  wangyonglin_log_init(wangyonglin_log_t * log);
+void wangyonglin_log_info(const char *fmt, ...);
 void wangyonglin_log_error(wangyonglin_uint_t level,const char *fmt, ...);
 
 

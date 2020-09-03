@@ -6,6 +6,9 @@
 
 #define  wangyonglin_buffer_t	char
 
+typedef char *	wangyonglin_str_t;
+typedef int 	wangyonglin_int_t;
+
 typedef struct {
 	size_t      len;
 	u_char     *data;
