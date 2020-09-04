@@ -50,7 +50,7 @@ void http_handler_testget_msg(struct evhttp_request *req,void *arg)
 	
 
   	
-	wangyonglin_jsonresult_success(req,"OK",req->remote_host);
+	wangyonglin_jsonresult_success(req,"Your web page sent successfully request",req->remote_host);
 	return;
 }
 
