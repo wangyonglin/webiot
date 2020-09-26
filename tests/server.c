@@ -1,146 +1,182 @@
-#include<sys/socket.h>
-#include<stdio.h>
-#include<pthread.h>
-#include<unistd.h>
-#include<stdlib.h>
-#include<evhttp.h>
-#include<string.h>
-#include<err.h>
-#define NTHREADS 5
- 
-typedef struct httpd_info{
-	struct event_base *base;
-	struct evhttp *httpd;
-}httpd_info;
-void print_request(struct evhttp_request *request){
-	switch(request->type)
-	{
-		case EVHTTP_REQ_GET:
-		    printf("GET");
-		    break;
-		case EVHTTP_REQ_POST:
-		    printf("POST");
-		    break;
-		case EVHTTP_REQ_HEAD:
-		    printf("HEAD");
-		    break;
-		case EVHTTP_REQ_PUT:
-		    printf("PUT");
-		    break;
-		case EVHTTP_REQ_DELETE:
-		    printf("DELETE");
-		    break;
-		case EVHTTP_REQ_OPTIONS:
-		    printf("OPTIONS");
-		    break;
-		case EVHTTP_REQ_TRACE:
-		    printf("TRACE");
-		    break;
-		case EVHTTP_REQ_CONNECT:
-		    printf("CONNECT");
-		    break;
-		case EVHTTP_REQ_PATCH:
-		    printf("PATCH");
-		    break;
-		default:
-			printf("UNKNOWN");
-	}
-	printf(" %s \n",request->uri);
-    struct evkeyvalq *headers = evhttp_request_get_input_headers(request);
-    struct evkeyval* kv = headers->tqh_first;
-    while (kv) {
-        printf("%s: %s\n", kv->key, kv->value);
-        kv = kv->next.tqe_next;
+#include "server.h"
+#define MAXSLEEP 128
+#define MAXBUF 1024
+void ____epoll_pool(void *arg);
+void __exit(wangyonglin_server_t *server);
+int ____server_recv(struct wangyonglin_client_s *client);
+
+wangyonglin_server_t *wangyonglin_server_create(uint16_t __hostshort)
+{
+    int len = sizeof(wangyonglin_server_t);
+    wangyonglin_server_t *server = (wangyonglin_server_t *)malloc(len);
+    if (server == NULL)
+    {
+        fprintf(stderr, "wangyonglin_server_t failed \n");
+        return NULL;
     }
-	struct evbuffer *buffer=NULL;
-	buffer=evhttp_request_get_input_buffer(request);
-	int len=evbuffer_get_length(buffer);
-	char *data=malloc(len+1);
-	data[len]='\0';
-	evbuffer_copyout(buffer,data,len);
-	printf("\n%s\n",data);
-	evhttp_clear_headers(headers);
-	free(data);
- 
+    server->port = __hostshort;
+    if ((server->sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) /*建立一个流式套接字*/
+    {
+        printf("create socket error: %s(errno: %d)\n", strerror(errno), errno);
+        free(server);
+        return NULL;
+    }
+
+    /*设置服务端地址*/
+    struct sockaddr_in sockaddr;
+    bzero(&sockaddr, sizeof(struct sockaddr_in));
+    sockaddr.sin_family = AF_INET;                /*AF_INET表示 IPv4 Intern 协议*/
+    sockaddr.sin_addr.s_addr = htonl(INADDR_ANY); /*INADDR_ANY 可以监听任意IP */
+    sockaddr.sin_port = htons(server->port);      /*设置端口*/
+    socklen_t socklen = sizeof(struct sockaddr_in);
+    /*绑定地址结构到套接字描述符*/
+    if (bind(server->sockfd, (struct sockaddr *)&sockaddr, socklen) == -1)
+    {
+        printf("bind socket error: %s(errno: %d)\n", strerror(errno), errno);
+        free(server);
+        return NULL;
+    }
+
+    /*设置监听队列，这里设置为1，表示只能同时处理一个客户端的连接*/
+    if (listen(server->sockfd, server->count) == -1)
+    {
+        printf("listen socket error: %s(errno: %d)\n", strerror(errno), errno);
+        free(server);
+        return NULL;
+    }
+
+    return server;
 }
-void testing(struct evhttp_request * request,void * args){
-	if (request==NULL)
-	{
-		printf("request timeout\n");
-		return;
-	}
-	
-	printf("===THREAD %ld===\n",pthread_self());
-	printf("IP: %s:%d\n",request->remote_host,request->remote_port);
-    print_request(request);
-    //const char *uri=evhttp_request_get_uri(request);
-	struct evbuffer *buffer=evbuffer_new();
-	//evbuffer_add(buffer,"coucou !",8);
-	evbuffer_add_printf(buffer,"Hello World!");
-	evhttp_add_header(evhttp_request_get_output_headers(request),"Content-Type","text/plain");
-	evhttp_send_reply(request,HTTP_OK,"OK",buffer);
-	evbuffer_free(buffer);
-	
-	return;
-	
+
+int wangyonglin_server_epoll(wangyonglin_server_t *server, int count, int timeout, void *(*recv)(wangyonglin_client_t *client, uint8_t *data, int len))
+{
+    int rc = 0;
+    server->epsize = count;
+    server->eptimeout = timeout;
+    // epoll 初始化
+    server->epfd = epoll_create(server->epsize);
+
+    server->event.events = EPOLLIN | EPOLLET;
+    server->event.data.fd = server->sockfd;
+    server->client.recv = recv;
+    pthread_t id;
+    pthread_create(&id, NULL, (void *)____epoll_pool, server);
+
+    return rc;
 }
-void notfound(struct evhttp_request * request,void * args){
-	evhttp_send_error(request,HTTP_NOTFOUND,"Not Found");
+void ____epoll_pool(void *arg)
+{
+    wangyonglin_server_t *server = (wangyonglin_server_t *)arg;
+
+    struct epoll_event eventList[server->epsize];
+    //add Event
+    if (epoll_ctl(server->epfd, EPOLL_CTL_ADD, server->sockfd, &server->event) < 0)
+    {
+       // printf("epoll add fail : fd = %d\n", server->sockfd);
+        return;
+    }
+    while (1)
+    {
+        //epoll_wait
+        int ret = epoll_wait(server->epfd, eventList, server->epsize, server->eptimeout);
+
+        if (ret < 0)
+        {
+           // printf("epoll error\n");
+            break;
+        }
+        else if (ret == 0)
+        {
+           // printf("timeout ...\n");
+            continue;
+        }
+        //直接获取了事件数量,给出了活动的流,这里是和poll区别的关键
+        int i = 0;
+        for (i = 0; i < ret; i++)
+        {
+            //错误退出
+            if ((eventList[i].events & EPOLLERR) ||
+                (eventList[i].events & EPOLLHUP) ||
+                !(eventList[i].events & EPOLLIN))
+            {
+
+                close(eventList[i].data.fd);
+                break;
+            }
+
+            if (eventList[i].data.fd == server->sockfd)
+            {
+
+                if (wangyonglin_server_accept(server) >= 0)
+                {
+                    //将新建立的连接添加到EPOLL的监听中
+                    struct epoll_event event;
+                    event.data.fd = server->client.sockfd;
+                    event.events = EPOLLIN | EPOLLET;
+                    epoll_ctl(server->epfd, EPOLL_CTL_ADD, server->client.sockfd, &event);
+                }
+                else
+                {
+                    printf("bad accept\n");
+                }
+            }
+            else
+            {
+
+                ____server_recv(&server->client);
+            }
+        }
+    }
+    pthread_exit(NULL);
 }
-void *dispatch(void *args){
-	struct httpd_info *info=(struct httpd_info *)args;
-	printf("thread %ld start\n",pthread_self());
-	event_base_dispatch(info->base);
-	printf("thread %ld done\n",pthread_self());
-	event_base_free(info->base);
-	evhttp_free(info->httpd);
+int wangyonglin_server_accept(wangyonglin_server_t *server)
+{
+
+    int rc = -1;
+
+    // struct sockaddr_in sin;
+    server->client.socklen = sizeof(struct sockaddr_in);
+    bzero(&server->client.addr, server->client.socklen);
+
+    rc = accept(server->sockfd, (struct sockaddr *)&server->client.addr, &server->client.socklen);
+
+    if (rc < 0)
+    {
+        printf("bad accept\n");
+        return rc;
+    }
+    else
+    {
+
+        server->client.sockfd = rc;
+    }
+
+    return rc;
 }
-int bind_socket(){
-	int ret,server_socket,opt=1;
-	server_socket=socket(AF_INET,SOCK_STREAM|SOCK_NONBLOCK,0);//NOTE 多线程evhttp必须非阻塞
-	if (server_socket<0)
-        errx(-1,"ERROR get socket: %d\n",server_socket);
- 
-	setsockopt(server_socket,SOL_SOCKET,SO_REUSEADDR,&opt,sizeof(opt));
-	struct sockaddr_in addr;
-	memset(&addr,0,sizeof(addr));
-	addr.sin_family=AF_INET;
-	addr.sin_addr.s_addr=INADDR_ANY;
-	addr.sin_port=htons(80);
-	ret=bind(server_socket,(struct sockaddr*)&addr,sizeof(struct sockaddr));
-	if(ret<0)
-        errx(-1,"bind error\n");
- 
-	listen(server_socket,1024);
-	return server_socket;
+void __exit(wangyonglin_server_t *server)
+{
+    close(server->epfd);
+    close(server->sockfd);
 }
-int main(){
-    pthread_t ths[NTHREADS];
-	httpd_info info_arr[NTHREADS],*pinfo;
-	int i,ret,opt=1,server_socket;
-	server_socket=bind_socket();
-	
-	for(i=0;i<NTHREADS;i++)
-	{
-		pinfo=&info_arr[i];
-		pinfo->base=event_base_new();
-		if (pinfo->base==NULL)
-			errx(-1,"ERROR new base\n");
-		pinfo->httpd=evhttp_new(pinfo->base);
-		if (pinfo->httpd==NULL)
-            errx(-1,"ERROR new evhttp\n");
-		ret=evhttp_accept_socket(pinfo->httpd,server_socket);
-		if (ret!=0)
-            errx(-1,"Error evhttp_accept_socket\n");
- 
-		evhttp_set_cb(pinfo->httpd,"/testing",testing,0);
-		evhttp_set_gencb(pinfo->httpd,notfound,0);
-		ret=pthread_create(&ths[i],NULL,dispatch,pinfo);
-	}
-	for(i=0;i<NTHREADS;i++)
-	{
-		pthread_join(ths[i],NULL);
-	}
-    
- 
+
+int ____server_recv(struct wangyonglin_client_s *client)
+{
+    int flag = fcntl(client->sockfd, F_GETFL, 0);
+    flag |= O_NONBLOCK;
+    fcntl(client->sockfd, F_SETFL, flag);
+
+    int rc;
+    char buff[MAXBUF + 1];
+    while (1)
+    {
+        bzero(buff, sizeof(buff));
+        rc = recv(client->sockfd, buff, MAXBUF, 0);
+        if (rc > 0)
+        {
+            buff[25] = '\0';
+            client->recv(client, buff, rc);
+        }
+        sleep(2);
+    }
+    return rc;
 }

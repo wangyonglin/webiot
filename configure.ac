@@ -4,13 +4,13 @@
 AC_PREREQ([2.69])
 AC_INIT(wangyonglin,1.0.0,admin@wangyonglin.com)
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([tests/main.c])
+AC_CONFIG_SRCDIR([app/main.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_RANLIB
-AC_PROG_LIBTOOL
+LD_LIBRARY_PATH
 LT_INIT
 
 # Checks for libraries.
@@ -24,8 +24,9 @@ AC_TYPE_SIZE_T
 
 # Checks for library functions.
 AC_CONFIG_FILES([Makefile
-                 app/Makefile
-                 src/ccl/Makefile
-                 src/wangyonglin/Makefile
-                 src/cjson/Makefile])
+                app/Makefile
+                src/ccl/Makefile
+                src/core/Makefile
+                src/cjson/Makefile
+                src/network/Makefile])
 AC_OUTPUT

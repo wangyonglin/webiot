@@ -595,7 +595,7 @@ PACKAGE_STRING='wangyonglin 1.0.0'
 PACKAGE_BUGREPORT='admin@wangyonglin.com'
 PACKAGE_URL=''
 
-ac_unique_file="tests/main.c"
+ac_unique_file="app/main.c"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -4008,6 +4008,7 @@ else
   RANLIB="$ac_cv_prog_RANLIB"
 fi
 
+LD_LIBRARY_PATH
 case `pwd` in
   *\ * | *\	*)
     { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Libtool does not cope well with whitespace in \`pwd\`" >&5
@@ -12081,7 +12082,6 @@ CC=$lt_save_CC
 
 
 
-
 # Checks for libraries.
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lpthread" >&5
 $as_echo_n "checking for main in -lpthread... " >&6; }
@@ -12152,7 +12152,7 @@ fi
 
 
 # Checks for library functions.
-ac_config_files="$ac_config_files Makefile app/Makefile src/ccl/Makefile src/wangyonglin/Makefile src/cjson/Makefile"
+ac_config_files="$ac_config_files Makefile app/Makefile src/ccl/Makefile src/core/Makefile src/cjson/Makefile src/network/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -13168,8 +13168,9 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "app/Makefile") CONFIG_FILES="$CONFIG_FILES app/Makefile" ;;
     "src/ccl/Makefile") CONFIG_FILES="$CONFIG_FILES src/ccl/Makefile" ;;
-    "src/wangyonglin/Makefile") CONFIG_FILES="$CONFIG_FILES src/wangyonglin/Makefile" ;;
+    "src/core/Makefile") CONFIG_FILES="$CONFIG_FILES src/core/Makefile" ;;
     "src/cjson/Makefile") CONFIG_FILES="$CONFIG_FILES src/cjson/Makefile" ;;
+    "src/network/Makefile") CONFIG_FILES="$CONFIG_FILES src/network/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
