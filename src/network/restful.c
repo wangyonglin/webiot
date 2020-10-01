@@ -48,6 +48,7 @@ int network_restful_bind(network_restful_t *restful)
 
 int network_restful_run(network_restful_t *restful)
 {
+
 	
     int nthreads = 10;
     pthread_t ths[nthreads];
@@ -66,7 +67,7 @@ int network_restful_run(network_restful_t *restful)
         if (ret != 0)
             errx(-1, "Error evhttp_accept_socket\n");
 
-        evhttp_set_cb(pinfo->httpd, "/testing", network_restful_get, 0);
+        evhttp_set_cb(pinfo->httpd, "/testing", network_restful_get,restful);
         evhttp_set_gencb(pinfo->httpd, network_restful_notfound, 0);
         ret = pthread_create(&ths[i], NULL, network_restful_dispatch, pinfo);
     }
@@ -74,6 +75,7 @@ int network_restful_run(network_restful_t *restful)
     {
         pthread_join(ths[i], NULL);
     }
+	wangyonglin_message_msgctl(restful->id);
     return ret;
 }
 
@@ -91,6 +93,8 @@ void network_restful_notfound(struct evhttp_request *request, void *args)
 //处理get请求
 void network_restful_get(struct evhttp_request *req, void *arg)
 {
+	network_restful_t *restful = (network_restful_t*)arg;
+	int rc = 0;
 	wangyonglin_log_info("### IP: %s:%d CODE: %d URL: %s", req->remote_host, req->remote_port, HTTP_OK, evhttp_request_get_uri(req));
 	if (req == NULL)
 	{
@@ -114,8 +118,9 @@ void network_restful_get(struct evhttp_request *req, void *arg)
 		network_response_failure(req, HTTP_BADREQUEST, "request uri no param data.");
 		return;
 	}
-
-	network_response_success(req, "Your web page sent successfully request", req->remote_host);
+	
+	wangyonglin_pipe_write(restful->pipe,data,strlen(data));
+	network_response_success(req, data, req->remote_host);
 	return;
 }
 
@@ -184,4 +189,7 @@ void *network_restful_dispatch(void *args)
 }
 void netwrok_restful_close(network_restful_t * restful){
 	close(restful->sockfd);
+}
+int network_restful_message(network_restful_t * restful){
+	restful->id= wangyonglin_message_create();
 }

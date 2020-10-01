@@ -8,5 +8,7 @@ libcore_la_SOURCES=             \
     pid.c            \
     log.c               \
     daemon.c    \
-    hmacsha1.c
+    hmacsha1.c  \
+    message.c   \
+    pipe.c
 AM_CPPFLAGS=-I ../../include/

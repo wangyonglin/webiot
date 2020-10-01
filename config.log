@@ -480,7 +480,6 @@ config.status:1398: cd src/ccl       && sed -e '/# am--include-marker/d' Makefil
 make: Nothing to be done for 'am--depfiles'.
 config.status:1403: $? = 0
 config.status:1398: cd src/core       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
-make: Nothing to be done for 'am--depfiles'.
 config.status:1403: $? = 0
 config.status:1398: cd src/cjson       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
 make: Nothing to be done for 'am--depfiles'.

@@ -129,7 +129,7 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = wangyonglin.lo dictionary.lo iniparser.lo \
-	conf.lo pid.lo log.lo daemon.lo hmacsha1.lo
+	conf.lo pid.lo log.lo daemon.lo hmacsha1.lo message.lo pipe.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -153,7 +153,8 @@ am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/conf.Plo ./$(DEPDIR)/daemon.Plo \
 	./$(DEPDIR)/dictionary.Plo ./$(DEPDIR)/hmacsha1.Plo \
 	./$(DEPDIR)/iniparser.Plo ./$(DEPDIR)/log.Plo \
-	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/wangyonglin.Plo
+	./$(DEPDIR)/message.Plo ./$(DEPDIR)/pid.Plo \
+	./$(DEPDIR)/pipe.Plo ./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -326,7 +327,9 @@ libcore_la_SOURCES = \
     pid.c            \
     log.c               \
     daemon.c    \
-    hmacsha1.c
+    hmacsha1.c  \
+    message.c   \
+    pipe.c
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -413,7 +416,9 @@ include ./$(DEPDIR)/dictionary.Plo # am--include-marker
 include ./$(DEPDIR)/hmacsha1.Plo # am--include-marker
 include ./$(DEPDIR)/iniparser.Plo # am--include-marker
 include ./$(DEPDIR)/log.Plo # am--include-marker
+include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
+include ./$(DEPDIR)/pipe.Plo # am--include-marker
 include ./$(DEPDIR)/wangyonglin.Plo # am--include-marker
 
 $(am__depfiles_remade):
@@ -583,7 +588,9 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/iniparser.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
+	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
+	-rm -f ./$(DEPDIR)/pipe.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -636,7 +643,9 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/iniparser.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
+	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
+	-rm -f ./$(DEPDIR)/pipe.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

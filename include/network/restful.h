@@ -15,14 +15,22 @@ struct network_restful_s
 	int sockfd;
 	int port;
 	int backlog;
+	wangyonglin_pipe_t *pipe;
+	wangyonglin_core_t core;
+	wangyonglin_message_id_t id;
+	void (*call)(void *args, unsigned char *data, size_t len);
 };
 void network_restful_conf(network_restful_t *restful);
 void network_restful_notfound(struct evhttp_request *request, void *args);
 void network_restful_get(struct evhttp_request *req, void *arg);
 void *network_restful_dispatch(void *args);
 int network_restful_bind(network_restful_t *restful);
-int network_restful_run(network_restful_t *restful);
+
 char *network_restful_params(struct evhttp_request *req, struct evkeyvalq *params, const char *query_char);
 void *network_restful_dispatch(void *args);
 void netwrok_restful_close(network_restful_t *restful);
+
+int network_restful_run(network_restful_t *restful);
+
+int network_restful_message(network_restful_t *restful);
 #endif

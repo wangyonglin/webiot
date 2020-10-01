@@ -64,8 +64,10 @@ restful.lo: restful.c /usr/include/stdc-predef.h \
  /usr/include/bits/cpu-set.h /usr/include/time.h /usr/include/bits/time.h \
  /usr/include/bits/types/struct_tm.h \
  /usr/include/bits/types/struct_itimerspec.h /usr/include/bits/setjmp.h \
- /usr/include/err.h ../../include/wangyonglin/core.h \
- ../../include/wangyonglin/lib.h ../../include/wangyonglin/wangyonglin.h \
+ /usr/include/err.h /usr/include/sys/ipc.h /usr/include/bits/ipctypes.h \
+ /usr/include/bits/ipc.h /usr/include/sys/msg.h /usr/include/bits/msq.h \
+ ../../include/wangyonglin/core.h ../../include/wangyonglin/lib.h \
+ ../../include/wangyonglin/wangyonglin.h \
  ../../include/wangyonglin/iniparser.h \
  ../../include/wangyonglin/dictionary.h ../../include/wangyonglin/pid.h \
  ../../include/wangyonglin/conf.h ../../include/wangyonglin/log.h \
@@ -87,7 +89,8 @@ restful.lo: restful.c /usr/include/stdc-predef.h \
  /usr/include/openssl/asn1err.h /usr/include/openssl/bn.h \
  /usr/include/openssl/bnerr.h /usr/include/openssl/objectserr.h \
  /usr/include/openssl/hmac.h /usr/include/openssl/buffer.h \
- /usr/include/openssl/buffererr.h ../../include/network/restful.h \
+ /usr/include/openssl/buffererr.h ../../include/wangyonglin/message.h \
+ ../../include/wangyonglin/pipe.h ../../include/network/restful.h \
  /usr/include/evhttp.h /usr/include/event.h \
  /usr/include/event2/event-config.h /usr/include/event2/event-config-64.h \
  /usr/include/evutil.h /usr/include/event2/util.h \
@@ -354,6 +357,16 @@ restful.lo: restful.c /usr/include/stdc-predef.h \
 
 /usr/include/err.h:
 
+/usr/include/sys/ipc.h:
+
+/usr/include/bits/ipctypes.h:
+
+/usr/include/bits/ipc.h:
+
+/usr/include/sys/msg.h:
+
+/usr/include/bits/msq.h:
+
 ../../include/wangyonglin/core.h:
 
 ../../include/wangyonglin/lib.h:
@@ -437,6 +450,10 @@ restful.lo: restful.c /usr/include/stdc-predef.h \
 /usr/include/openssl/buffer.h:
 
 /usr/include/openssl/buffererr.h:
+
+../../include/wangyonglin/message.h:
+
+../../include/wangyonglin/pipe.h:
 
 ../../include/network/restful.h:
 

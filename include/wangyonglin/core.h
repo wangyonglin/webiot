@@ -8,4 +8,6 @@
 #include <wangyonglin/log.h>
 #include <wangyonglin/daemon.h>
 #include <wangyonglin/hmacsha1.h>
+#include <wangyonglin/message.h>
+#include <wangyonglin/pipe.h>
 #endif 
