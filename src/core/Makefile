@@ -128,8 +128,9 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
-am_libcore_la_OBJECTS = wangyonglin.lo dictionary.lo iniparser.lo \
-	conf.lo pid.lo log.lo daemon.lo hmacsha1.lo message.lo pipe.lo
+am_libcore_la_OBJECTS = error.lo socket.lo wangyonglin.lo \
+	dictionary.lo iniparser.lo conf.lo pid.lo log.lo daemon.lo \
+	hmacsha1.lo message.lo pipe.lo time.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -151,10 +152,12 @@ DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/conf.Plo ./$(DEPDIR)/daemon.Plo \
-	./$(DEPDIR)/dictionary.Plo ./$(DEPDIR)/hmacsha1.Plo \
-	./$(DEPDIR)/iniparser.Plo ./$(DEPDIR)/log.Plo \
-	./$(DEPDIR)/message.Plo ./$(DEPDIR)/pid.Plo \
-	./$(DEPDIR)/pipe.Plo ./$(DEPDIR)/wangyonglin.Plo
+	./$(DEPDIR)/dictionary.Plo ./$(DEPDIR)/error.Plo \
+	./$(DEPDIR)/hmacsha1.Plo ./$(DEPDIR)/iniparser.Plo \
+	./$(DEPDIR)/log.Plo ./$(DEPDIR)/message.Plo \
+	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/pipe.Plo \
+	./$(DEPDIR)/socket.Plo ./$(DEPDIR)/time.Plo \
+	./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -320,6 +323,8 @@ top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libcore.la
 libcore_la_SOURCES = \
+    error.c \
+    socket.c    \
     wangyonglin.c   \
     dictionary.c    \
     iniparser.c     \
@@ -329,7 +334,8 @@ libcore_la_SOURCES = \
     daemon.c    \
     hmacsha1.c  \
     message.c   \
-    pipe.c
+    pipe.c  \
+    time.c
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -413,12 +419,15 @@ distclean-compile:
 include ./$(DEPDIR)/conf.Plo # am--include-marker
 include ./$(DEPDIR)/daemon.Plo # am--include-marker
 include ./$(DEPDIR)/dictionary.Plo # am--include-marker
+include ./$(DEPDIR)/error.Plo # am--include-marker
 include ./$(DEPDIR)/hmacsha1.Plo # am--include-marker
 include ./$(DEPDIR)/iniparser.Plo # am--include-marker
 include ./$(DEPDIR)/log.Plo # am--include-marker
 include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/pipe.Plo # am--include-marker
+include ./$(DEPDIR)/socket.Plo # am--include-marker
+include ./$(DEPDIR)/time.Plo # am--include-marker
 include ./$(DEPDIR)/wangyonglin.Plo # am--include-marker
 
 $(am__depfiles_remade):
@@ -585,12 +594,15 @@ distclean: distclean-am
 		-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/dictionary.Plo
+	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/iniparser.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/pipe.Plo
+	-rm -f ./$(DEPDIR)/socket.Plo
+	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -640,12 +652,15 @@ maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/dictionary.Plo
+	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/iniparser.Plo
 	-rm -f ./$(DEPDIR)/log.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/pipe.Plo
+	-rm -f ./$(DEPDIR)/socket.Plo
+	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic

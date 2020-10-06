@@ -4,6 +4,7 @@ SUBDIRS = \
     src/cjson \
     src/core \
     src/network \
+    src/https \
     app
 bindir =    $(prefix)/bin
 libdir =    $(prefix)/lib

@@ -352,6 +352,7 @@ SUBDIRS = \
     src/cjson \
     src/core \
     src/network \
+    src/https \
     app
 
 logsdir = $(prefix)/logs

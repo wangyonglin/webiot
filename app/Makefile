@@ -106,7 +106,8 @@ wangyonglin_OBJECTS = $(am_wangyonglin_OBJECTS)
 wangyonglin_DEPENDENCIES = $(top_srcdir)/src/ccl/libccl.la \
 	$(top_srcdir)/src/cjson/libjson.la \
 	$(top_srcdir)/src/core/libcore.la \
-	$(top_srcdir)/src/network/libnetwork.la
+	$(top_srcdir)/src/network/libnetwork.la \
+	$(top_srcdir)/src/https/libhttps.la
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
@@ -297,7 +298,7 @@ wangyonglin_LDADD = \
     $(top_srcdir)/src/cjson/libjson.la \
     $(top_srcdir)/src/core/libcore.la \
     $(top_srcdir)/src/network/libnetwork.la \
-    $(FLIBS)
+    $(top_srcdir)/src/https/libhttps.la 
 
 all: all-am
 
@@ -637,6 +638,7 @@ uninstall-am: uninstall-binPROGRAMS
 
 .PRECIOUS: Makefile
 
+    $(FLIBS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

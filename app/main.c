@@ -1,7 +1,10 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 #include <network/server.h>
-#include <network/restful.h>
+
+
+#include <https/restful.h>
+
 #define MAXLINE 4096 /* max line length */
 void app_main_pipecall(void *arg)
 {
@@ -32,6 +35,7 @@ int main(int argc, char *argv[])
 	printf("fd[0] is : %d \n", __pipe_t.fd[0]);
 	printf("fd[1] is : %d \n", __pipe_t.fd[1]);
 
+	/*
 	network_restful_t restful;
 	network_restful_conf(&restful);
 	restful.pipe = &__pipe_t;
@@ -41,6 +45,10 @@ int main(int argc, char *argv[])
 	network_restful_bind(&restful);
 	network_restful_run(&restful);
 	//	netwrok_restful_close(&restful);
+	*/
+	https_restful_t restful;
+	https_restful_conf(&restful);
 
+	https_restful_start(&restful);
 	return rc;
 }

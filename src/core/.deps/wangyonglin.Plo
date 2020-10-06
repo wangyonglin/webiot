@@ -67,6 +67,7 @@ wangyonglin.lo: wangyonglin.c /usr/include/stdc-predef.h \
  /usr/include/err.h /usr/include/sys/ipc.h /usr/include/bits/ipctypes.h \
  /usr/include/bits/ipc.h /usr/include/sys/msg.h /usr/include/bits/msq.h \
  ../../include/wangyonglin/core.h ../../include/wangyonglin/lib.h \
+ ../../include/wangyonglin/error.h ../../include/wangyonglin/socket.h \
  ../../include/wangyonglin/wangyonglin.h \
  ../../include/wangyonglin/iniparser.h \
  ../../include/wangyonglin/dictionary.h ../../include/wangyonglin/pid.h \
@@ -90,7 +91,7 @@ wangyonglin.lo: wangyonglin.c /usr/include/stdc-predef.h \
  /usr/include/openssl/bnerr.h /usr/include/openssl/objectserr.h \
  /usr/include/openssl/hmac.h /usr/include/openssl/buffer.h \
  /usr/include/openssl/buffererr.h ../../include/wangyonglin/message.h \
- ../../include/wangyonglin/pipe.h
+ ../../include/wangyonglin/pipe.h ../../include/wangyonglin/time.h
 
 /usr/include/stdc-predef.h:
 
@@ -358,6 +359,10 @@ wangyonglin.lo: wangyonglin.c /usr/include/stdc-predef.h \
 
 ../../include/wangyonglin/lib.h:
 
+../../include/wangyonglin/error.h:
+
+../../include/wangyonglin/socket.h:
+
 ../../include/wangyonglin/wangyonglin.h:
 
 ../../include/wangyonglin/iniparser.h:
@@ -441,3 +446,5 @@ wangyonglin.lo: wangyonglin.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/message.h:
 
 ../../include/wangyonglin/pipe.h:
+
+../../include/wangyonglin/time.h:

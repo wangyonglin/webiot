@@ -17,4 +17,4 @@ ssize_t wangyonglin_message_msgrcv(wangyonglin_message_id_t id, int type, wangyo
 
 void wangyonglin_message_msgctl(wangyonglin_message_id_t id);
 
-#endif;
+#endif

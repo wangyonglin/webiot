@@ -1,6 +1,8 @@
 AUTOMAKE_OPTIONS=foreign
 lib_LTLIBRARIES=libcore.la
 libcore_la_SOURCES=             \
+    error.c \
+    socket.c    \
     wangyonglin.c   \
     dictionary.c    \
     iniparser.c     \
@@ -10,5 +12,6 @@ libcore_la_SOURCES=             \
     daemon.c    \
     hmacsha1.c  \
     message.c   \
-    pipe.c
+    pipe.c  \
+    time.c
 AM_CPPFLAGS=-I ../../include/

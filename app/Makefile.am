@@ -7,5 +7,6 @@ wangyonglin_LDADD= \
     $(top_srcdir)/src/cjson/libjson.la \
     $(top_srcdir)/src/core/libcore.la \
     $(top_srcdir)/src/network/libnetwork.la \
+    $(top_srcdir)/src/https/libhttps.la 
     $(FLIBS)
 LIBS += -lm -levent -lssl  -lcrypto -lpthread
