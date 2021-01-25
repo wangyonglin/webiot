@@ -40,3 +40,34 @@ int wangyonglin_socket_master(wangyonglin_socket_t *socket_t)
         return -1;
     return 0;
 }
+
+ssize_t wangyonglin_socket_send(int sockfd, uint8_t *data, size_t len)
+{
+    ssize_t rc;
+    rc = send(sockfd, data, len, NULL);
+
+    return rc;
+}
+ssize_t wangyonglin_socket_recv(int sockfd, uint8_t *data)
+{
+    ssize_t rc;
+    rc = recv(sockfd, data, 1024, 0);
+    return rc;
+}
+
+void wangyonglin_socket_setnonblocking(int sockfd)
+{
+	int opts;
+	opts = fcntl(sockfd, F_GETFL);
+	if (opts < 0)
+	{
+		perror("fcntl(sock,GETFL)");
+		exit(1);
+	}
+	opts = opts | O_NONBLOCK;
+	if (fcntl(sockfd, F_SETFL, opts) < 0)
+	{
+		perror("fcntl(sock,SETFL,opts)");
+		exit(1);
+	}
+}

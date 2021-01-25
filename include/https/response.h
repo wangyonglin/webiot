@@ -10,7 +10,7 @@ struct https_result_s
     /* data */
     int code;
     const char * reason;
-    char * result;
+    cJSON * result;
     char timestamp[20];
 };
 
@@ -25,6 +25,6 @@ struct https_response_s
 };
 
 int https_response_send(https_response_t *response);
-int https_response_success(https_response_t *response, char *result);
+int https_response_success(https_response_t *response, cJSON *result);
 int https_response_failure(https_response_t *response, int error, const char *reason);
 #endif

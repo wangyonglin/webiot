@@ -130,7 +130,7 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = error.lo socket.lo wangyonglin.lo \
 	dictionary.lo iniparser.lo conf.lo pid.lo log.lo daemon.lo \
-	hmacsha1.lo message.lo pipe.lo time.lo
+	hmacsha1.lo message.lo pipe.lo time.lo epoll.lo client.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -151,8 +151,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/conf.Plo ./$(DEPDIR)/daemon.Plo \
-	./$(DEPDIR)/dictionary.Plo ./$(DEPDIR)/error.Plo \
+am__depfiles_remade = ./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
+	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/dictionary.Plo \
+	./$(DEPDIR)/epoll.Plo ./$(DEPDIR)/error.Plo \
 	./$(DEPDIR)/hmacsha1.Plo ./$(DEPDIR)/iniparser.Plo \
 	./$(DEPDIR)/log.Plo ./$(DEPDIR)/message.Plo \
 	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/pipe.Plo \
@@ -205,13 +206,13 @@ ETAGS = etags
 CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/github/wangyonglin/missing aclocal-1.16
+ACLOCAL = ${SHELL} /home/wangyonglin/github/wangyonglin/missing aclocal-1.16
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AR = ar
-AUTOCONF = ${SHELL} /home/github/wangyonglin/missing autoconf
-AUTOHEADER = ${SHELL} /home/github/wangyonglin/missing autoheader
-AUTOMAKE = ${SHELL} /home/github/wangyonglin/missing automake-1.16
+AUTOCONF = ${SHELL} /home/wangyonglin/github/wangyonglin/missing autoconf
+AUTOHEADER = ${SHELL} /home/wangyonglin/github/wangyonglin/missing autoheader
+AUTOMAKE = ${SHELL} /home/wangyonglin/github/wangyonglin/missing automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -245,7 +246,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 LT_SYS_LIBRARY_PATH = 
-MAKEINFO = ${SHELL} /home/github/wangyonglin/missing makeinfo
+MAKEINFO = ${SHELL} /home/wangyonglin/github/wangyonglin/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /usr/bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -268,10 +269,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = strip
 VERSION = 1.0.0
-abs_builddir = /home/github/wangyonglin/src/core
-abs_srcdir = /home/github/wangyonglin/src/core
-abs_top_builddir = /home/github/wangyonglin
-abs_top_srcdir = /home/github/wangyonglin
+abs_builddir = /home/wangyonglin/github/wangyonglin/src/core
+abs_srcdir = /home/wangyonglin/github/wangyonglin/src/core
+abs_top_builddir = /home/wangyonglin/github/wangyonglin
+abs_top_srcdir = /home/wangyonglin/github/wangyonglin
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -300,7 +301,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/github/wangyonglin/install-sh
+install_sh = ${SHELL} /home/wangyonglin/github/wangyonglin/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -335,7 +336,9 @@ libcore_la_SOURCES = \
     hmacsha1.c  \
     message.c   \
     pipe.c  \
-    time.c
+    time.c \
+    epoll.c \
+    client.c
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -416,9 +419,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/client.Plo # am--include-marker
 include ./$(DEPDIR)/conf.Plo # am--include-marker
 include ./$(DEPDIR)/daemon.Plo # am--include-marker
 include ./$(DEPDIR)/dictionary.Plo # am--include-marker
+include ./$(DEPDIR)/epoll.Plo # am--include-marker
 include ./$(DEPDIR)/error.Plo # am--include-marker
 include ./$(DEPDIR)/hmacsha1.Plo # am--include-marker
 include ./$(DEPDIR)/iniparser.Plo # am--include-marker
@@ -591,9 +596,11 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/conf.Plo
+		-rm -f ./$(DEPDIR)/client.Plo
+	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/dictionary.Plo
+	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/iniparser.Plo
@@ -649,9 +656,11 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/conf.Plo
+		-rm -f ./$(DEPDIR)/client.Plo
+	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/dictionary.Plo
+	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/iniparser.Plo

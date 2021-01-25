@@ -6,7 +6,8 @@ wangyonglin_LDADD= \
     $(top_srcdir)/src/ccl/libccl.la \
     $(top_srcdir)/src/cjson/libjson.la \
     $(top_srcdir)/src/core/libcore.la \
-    $(top_srcdir)/src/network/libnetwork.la \
-    $(top_srcdir)/src/https/libhttps.la 
+    $(top_srcdir)/src/server/libserver.la \
+    $(top_srcdir)/src/https/libhttps.la \
+    $(top_srcdir)/src/aliyun/libaliyun.la 
     $(FLIBS)
-LIBS += -lm -levent -lssl  -lcrypto -lpthread
+LIBS += -lm -levent -lssl  -lcrypto -lpthread -lcurl

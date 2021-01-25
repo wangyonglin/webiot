@@ -15,5 +15,5 @@ void wangyonglin_error_perror(const char *__format, ...)
 {
     va_list args;
     va_start(args, __format);
-    perror(args);
+    perror((const char *)args);
 }

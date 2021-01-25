@@ -13,5 +13,7 @@ libcore_la_SOURCES=             \
     hmacsha1.c  \
     message.c   \
     pipe.c  \
-    time.c
+    time.c \
+    epoll.c \
+    client.c
 AM_CPPFLAGS=-I ../../include/

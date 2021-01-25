@@ -3,7 +3,7 @@
 
 void wangyonglin_pid_conf(wangyonglin_pid_t * pid)
 {
-  wangyonglin_conf_get(pid->name,"pid:pid",wangyonglin_type_string);
+  wangyonglin_conf_string(pid->name,"pid:pid");
 }
 int wangyonglin_pid_init(wangyonglin_pid_t *pid)
 {

@@ -9,41 +9,40 @@ int wangyonglin_conf_init(const char *ininame)
   {
     fprintf(stderr, "\t%s %s\n", ininame, strerror(errno));
     rc = error;
-    return wangyonglin_result_error;
+    return -1;
   }
   __ininame = ininame;
-  return wangyonglin_result_success;
+  return 0;
 }
-int wangyonglin_conf_get(void *dest, const char *key, wangyonglin_type_t type)
-{
-  int ret;
 
-  if (rc != ok)
-  {
-    fprintf(stderr, "\tconf file is not empty!\n");
-    return wangyonglin_result_error;
-  }
-  dictionary *ini;
-  ini = iniparser_load(__ininame);
-  if (ini == NULL)
+char *wangyonglin_conf_string(char * dest,const char *key)
+{
+  dictionary *dict;
+
+  dict = iniparser_load(__ininame);
+  if (dict == NULL)
   {
     fprintf(stderr, "cannot parse file: %s\n", __ininame);
-    return wangyonglin_result_error;
-  }
-  switch (type)
-  {
-  case wangyonglin_type_string:
-    strcpy(dest, iniparser_getstring(ini, key, "null"));
-    break;
-  case wangyonglin_type_int:
-    ret = iniparser_getint(ini, key, 0);
-    memcpy(dest, &ret, sizeof(int));
-    break;
-  default:
-    fprintf(stderr, "\ttype error: %s\n", key);
-    break;
+    return NULL;
   }
 
-  iniparser_freedict(ini);
-  return wangyonglin_result_success;
+  strcpy(dest, iniparser_getstring(dict, key, ""));
+  iniparser_freedict(dict);
+  return dest;
+}
+int wangyonglin_conf_number(const char *key)
+{
+  int rc;
+  dictionary *dict;
+  dict = iniparser_load(__ininame);
+  if (dict == NULL)
+  {
+    fprintf(stderr, "cannot parse file: %s\n", __ininame);
+    return -1;
+  }
+
+  rc = iniparser_getint(dict, key, 41);
+
+  iniparser_freedict(dict);
+  return rc;
 }

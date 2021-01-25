@@ -12148,7 +12148,7 @@ fi
 
 
 # Checks for library functions.
-ac_config_files="$ac_config_files Makefile app/Makefile src/ccl/Makefile src/core/Makefile src/cjson/Makefile src/https/Makefile src/network/Makefile"
+ac_config_files="$ac_config_files Makefile app/Makefile src/ccl/Makefile src/core/Makefile src/cjson/Makefile src/https/Makefile src/aliyun/Makefile src/server/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -13167,7 +13167,8 @@ do
     "src/core/Makefile") CONFIG_FILES="$CONFIG_FILES src/core/Makefile" ;;
     "src/cjson/Makefile") CONFIG_FILES="$CONFIG_FILES src/cjson/Makefile" ;;
     "src/https/Makefile") CONFIG_FILES="$CONFIG_FILES src/https/Makefile" ;;
-    "src/network/Makefile") CONFIG_FILES="$CONFIG_FILES src/network/Makefile" ;;
+    "src/aliyun/Makefile") CONFIG_FILES="$CONFIG_FILES src/aliyun/Makefile" ;;
+    "src/server/Makefile") CONFIG_FILES="$CONFIG_FILES src/server/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

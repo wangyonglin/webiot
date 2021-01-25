@@ -6,15 +6,15 @@ void *https_restful_dispatch(void *args);
 void https_restful_get(struct evhttp_request *req, void *arg);
 void https_restful_conf(https_restful_t *restful)
 {
-    wangyonglin_conf_get(&restful->sock.host, "https:host", wangyonglin_type_string);
-    wangyonglin_conf_get(&restful->sock.port, "https:port", wangyonglin_type_int);
-    wangyonglin_conf_get(&restful->sock.backlog, "https:backlog", wangyonglin_type_int);
+    wangyonglin_socket_t *socket_t = &restful->socket_t;
+    socket_t->port = wangyonglin_conf_number("https:port");
+    socket_t->backlog == wangyonglin_conf_number("https:backlog");
 }
 
 int https_restful_start(https_restful_t *restful)
 {
-
-    wangyonglin_socket_master(&restful->sock);
+    wangyonglin_socket_t *socket_t = &restful->socket_t;
+    wangyonglin_socket_master(socket_t);
     int nthreads = 10;
     pthread_t ths[nthreads];
     https_info info_arr[nthreads], *pinfo;
@@ -36,13 +36,13 @@ int https_restful_start(https_restful_t *restful)
             return -1;
         }
 
-        if (evhttp_accept_socket(pinfo->httpd, restful->sock.sockfd) != 0)
+        if (evhttp_accept_socket(pinfo->httpd, socket_t->sockfd) != 0)
         {
-            wangyonglin_error_perror(EXIT_FAILURE, "bind socket failed! port:%d\n", restful->sock.port);
+            wangyonglin_error_perror(EXIT_FAILURE, "evhttp_accept_socket failed! port:%d\n", socket_t->port);
             return -1;
         }
 
-        evhttp_set_cb(pinfo->httpd, "/testing", https_restful_get, &restful->sock);
+        evhttp_set_cb(pinfo->httpd, "/testing", https_restful_get, restful);
 
         evhttp_set_gencb(pinfo->httpd, https_restful_notfound, 0);
         ret = pthread_create(&ths[i], NULL, https_restful_dispatch, pinfo);
@@ -108,7 +108,6 @@ char *https_restful_params(https_response_t *response, const char *query_char)
     {
         path = "/";
     }
-   
 
     //获取uri中的参数部分
     query = (char *)evhttp_uri_get_query(decoded);
@@ -129,20 +128,21 @@ char *https_restful_params(https_response_t *response, const char *query_char)
 void https_restful_get(struct evhttp_request *req, void *arg)
 {
     https_response_t response;
-
     response.request = req;
+    https_restful_t *restful = (https_restful_t *)arg;
 
     wangyonglin_log_info("### IP: %s:%d CODE: %d URL: %s", req->remote_host, req->remote_port, HTTP_OK, evhttp_request_get_uri(req));
-    if (response.request == NULL || response.params == NULL)
+    if (response.request == NULL)
     {
         https_response_failure(&response, HTTP_BADREQUEST, "input params is null.");
         https_response_send(&response);
-        return ;
+        return;
     }
 
     char *sign = NULL;
+    char *id = NULL;
     char *data = NULL;
-  
+
     sign = https_restful_params(&response, "sign"); //获取get请求uri中的sign参数
     if (sign == NULL)
     {
@@ -151,7 +151,14 @@ void https_restful_get(struct evhttp_request *req, void *arg)
         https_response_send(&response);
         return;
     }
+    id = https_restful_params(&response, "id"); //获取get请求uri中的sign参数
+    if (id == NULL)
+    {
 
+        https_response_failure(&response, HTTP_BADREQUEST, "request uri no param id.");
+        https_response_send(&response);
+        return;
+    }
     data = https_restful_params(&response, "data"); //获取get请求uri中的data参数
     if (data == NULL)
     {
@@ -159,6 +166,11 @@ void https_restful_get(struct evhttp_request *req, void *arg)
         https_response_send(&response);
         return;
     }
-    https_response_success(&response, data);
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "id", id);
+    cJSON_AddStringToObject(root, "data", data);
+    char *json = cJSON_Print(root);
+    https_response_success(&response, root);
+    wangyonglin_pipe_write(&restful->pipe, json, strlen(json));
     https_response_send(&response);
 }

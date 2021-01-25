@@ -13,7 +13,8 @@ typedef struct https_info
 
 struct https_restful_s
 {
-    wangyonglin_socket_t sock;
+    wangyonglin_socket_t socket_t;
+    wangyonglin_pipe_t pipe;
 };
 
 struct https_callback_s

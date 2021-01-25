@@ -3,7 +3,8 @@ SUBDIRS = \
     src/ccl  \
     src/cjson \
     src/core \
-    src/network \
+     src/aliyun \
+    src/server \
     src/https \
     app
 bindir =    $(prefix)/bin

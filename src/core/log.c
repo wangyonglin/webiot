@@ -7,12 +7,13 @@ wangyonglin_log_t __log;
 
 void wangyonglin_log_conf(wangyonglin_log_t *log)
 {
-	wangyonglin_conf_get(log->access_log, "logs:access", wangyonglin_type_string);
-	wangyonglin_conf_get(log->error_log, "logs:error", wangyonglin_type_string);
+	wangyonglin_conf_string(log->access_log, "logs:access");
+	wangyonglin_conf_string(log->error_log, "logs:error");
 }
 
 void wangyonglin_log_info(const char *format, ...)
 {
+
 	if (__log.access_log == NULL && __log.access_log == "")
 	{
 		fprintf(stderr, "_log_t->access_log : not null \n");
@@ -60,8 +61,9 @@ int wangyonglin_log_init(wangyonglin_log_t *log)
 }
 void wangyonglin_log_error(wangyonglin_log_levels_t level, const char *format, ...)
 {
-	if(access(__log.error_log,F_OK)!=0){
-		fprintf(stderr,"\tlog error %s %s \n",__log.error_log,strerror(errno));
+	if (access(__log.error_log, F_OK) != 0)
+	{
+		fprintf(stderr, "\tlog error %s %s \n", __log.error_log, strerror(errno));
 		return;
 	}
 
@@ -112,7 +114,7 @@ void wangyonglin_log_error(wangyonglin_log_levels_t level, const char *format, .
 	va_start(args, format);
 
 	fprintf(fd, "%04d-%02d-%02d %02d:%02d:%02d\t", t->tm_year, t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-	fprintf(fd,"%s\t", err_levels);
+	fprintf(fd, "%s\t", err_levels);
 	vfprintf(fd, format, args);
 	fputc('\r', fd);
 	fputc('\n', fd);

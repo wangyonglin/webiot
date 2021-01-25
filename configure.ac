@@ -29,5 +29,6 @@ AC_CONFIG_FILES([Makefile
                 src/core/Makefile
                 src/cjson/Makefile
                 src/https/Makefile
-                src/network/Makefile])
+                src/aliyun/Makefile
+                src/server/Makefile])
 AC_OUTPUT

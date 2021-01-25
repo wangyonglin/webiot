@@ -28,7 +28,7 @@ int https_response_send(https_response_t *response)
     return 0;
 }
 
-int https_response_success(https_response_t *response, char *text)
+int https_response_success(https_response_t *response, cJSON *text)
 {
     struct https_result_s *result = &response->result;
     result->code = 200;
@@ -43,7 +43,7 @@ int https_response_success(https_response_t *response, char *text)
 
     cJSON_AddTrueToObject(response->root, "success");
     cJSON_AddStringToObject(response->root, "reason", result->reason);
-    cJSON_AddStringToObject(response->root, "result", result->result);
+    cJSON_AddItemToObject(response->root, "result", result->result);
     cJSON_AddNumberToObject(response->root, "errcode", result->code);
     cJSON_AddStringToObject(response->root, "timestamp", result->timestamp);
     response->out = cJSON_Print(response->root);
