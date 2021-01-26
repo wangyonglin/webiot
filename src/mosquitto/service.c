@@ -66,23 +66,15 @@ void *callback_mosquitto_task(void *arg)
         printf("mosquitto loop error\n");
         pthread_exit(NULL);
     }
-    for (;;)
-    {
-
-        sleep(5);
-        mosquitto_publish(mosquitto_t->mosq, NULL, "wangyonglin", 11, "wangyonglin", 0, 0);
-        memset(buff, 0, sizeof(buff));
-    }
+    for (;;);
 }
 
 void wangyonglin_mosquitto_create(wangyonglin_mosquitto_t *mosquitto_t)
 {
-
-    pthread_t pid;
-    pthread_create(&pid, NULL, callback_mosquitto_task, mosquitto_t);
-    pthread_join(pid, NULL);
-    mosquitto_destroy(mosquitto_t->mosq);
-    mosquitto_lib_cleanup();
+    pthread_create(&mosquitto_t->pid, NULL, callback_mosquitto_task, mosquitto_t);
+    //pthread_join(pid, NULL);
+   // mosquitto_destroy(mosquitto_t->mosq);
+   // mosquitto_lib_cleanup();
     printf("End!\n");
 }
 void wangyonglin_mosquitto_init(wangyonglin_mosquitto_t *mosquitto_t, wangyonglin_signal_t *signal_t)

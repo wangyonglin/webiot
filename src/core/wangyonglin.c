@@ -10,7 +10,7 @@ wangyonglin_core_t *wangyonglin(int argc, char *argv[])
     wangyonglin_pid_init(&pid);
     wangyonglin_log_conf(&log);
     wangyonglin_log_init(&log);
-    //wangyonglin_daemon();
+    wangyonglin_daemon();
     wangyonglin_core_t core;
     return &core;
 }

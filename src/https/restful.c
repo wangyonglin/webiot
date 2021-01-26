@@ -170,7 +170,8 @@ void https_restful_get(struct evhttp_request *req, void *arg)
     cJSON_AddStringToObject(root, "topic", topic);
     cJSON_AddStringToObject(root, "payload", payload);
     char *json = cJSON_Print(root);
+    printf("\tjson:%s\r\n", json);
     https_response_success(&response, root);
-    wangyonglin_signal_queue(restful->signal_t,SIGUSR1, 100, payload);
+    wangyonglin_signal_queue(restful->signal_t, SIGUSR1, 100, json);
     https_response_send(&response);
 }

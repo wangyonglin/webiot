@@ -9,6 +9,7 @@ typedef struct wangyonglin_mosquitto_conf_s wangyonglin_mosquitto_conf_t;
 
 struct wangyonglin_mosquitto_s
 {
+    pthread_t pid;
     wangyonglin_mosquitto_conf_t *conf;
     wangyonglin_signal_t * signal_t;
     struct mosquitto *mosq;

@@ -112,7 +112,8 @@ main.o: main.c /usr/include/stdc-predef.h \
  /usr/include/event2/bufferevent_struct.h \
  /usr/include/event2/bufferevent_compat.h /usr/include/event2/tag.h \
  /usr/include/event2/tag_compat.h /usr/include/event2/http.h \
- /usr/include/event2/http_struct.h /usr/include/event2/http_compat.h
+ /usr/include/event2/http_struct.h /usr/include/event2/http_compat.h \
+ main.h
 
 /usr/include/stdc-predef.h:
 
@@ -551,3 +552,5 @@ main.o: main.c /usr/include/stdc-predef.h \
 /usr/include/event2/http_struct.h:
 
 /usr/include/event2/http_compat.h:
+
+main.h:
