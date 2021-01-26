@@ -1,29 +1,29 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 #include <wangyonglin/signal.h>
-void wangyonglin_signal_action(wangyonglin_signal_t *signal_t,int signo)
+void wangyonglin_signal_action(wangyonglin_signal_t *signal_t,int signo,wangyonglin_signal_callback_t * call)
 {
-    signal_t->signo=signo;
+    signal_t->pid=getpid();
     sigemptyset(&signal_t->act.sa_mask);
 
-    signal_t->act.sa_sigaction = new_op;
+    signal_t->act.sa_sigaction = call;
 
     signal_t->act.sa_flags = SA_SIGINFO;
 
-    if (sigaction(signal_t->signo, &signal_t->act, NULL) < 0)
+    if (sigaction(signo, &signal_t->act, NULL) < 0)
 
     {
 
         printf("install sigal error\n");
     }
 }
-void wangyonglin_signal_queue(wangyonglin_signal_t *signal_t,int sival_int, char *sival_ptr)
+void wangyonglin_signal_queue(wangyonglin_signal_t *signal_t,int signo,int sival_int, char *sival_ptr)
 {
     signal_t->act.sa_flags = SA_SIGINFO;
     signal_t->sval.sival_int=sival_int;
     signal_t->sval.sival_ptr = sival_ptr;
     //向本进程发送信号，并传递附加信息
-    if (sigqueue(getpid(), signal_t->signo, signal_t->sval) < 0)
+    if (sigqueue(signal_t->pid,signo, signal_t->sval) < 0)
     {
         printf("install sigal error\n");
     }

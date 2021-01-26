@@ -8,12 +8,12 @@ typedef struct wangyonglin_signal_s wangyonglin_signal_t;
 
 struct wangyonglin_signal_s
 {
+    pid_t pid;
     struct sigaction act;
-    int signo;
     union sigval sval;
 };
 
-void new_op(int, siginfo_t *, void *);
-void wangyonglin_signal_action(wangyonglin_signal_t *signal_t,int signo);
-void wangyonglin_signal_queue(wangyonglin_signal_t *signal_t,int sival_int, char *sival_ptr);
+typedef void (*wangyonglin_signal_callback_t)(int, siginfo_t *, void *);
+void wangyonglin_signal_action(wangyonglin_signal_t *signal_t,int signo,wangyonglin_signal_callback_t * call);
+void wangyonglin_signal_queue(wangyonglin_signal_t *signal_t,int signo,int sival_int, char *sival_ptr);
 #endif
