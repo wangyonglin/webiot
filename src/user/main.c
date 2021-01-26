@@ -3,6 +3,7 @@
 #include <mosquitto/service.h>
 #include <https/https.h>
 wangyonglin_signal_t signal_t;
+wangyonglin_mosquitto_t mosquitto_t;
 void wangyonglin_signal_callback(int signum, siginfo_t *s_t, void *p)
 {
 	/*
@@ -35,11 +36,8 @@ int main(int argc, char *argv[])
 	//restful.signal_t = &signal_t;
 	//https_restful_conf(&restful);
 	//https_restful_start(&restful);
-	wangyonglin_mosquitto_start();
-	for (;;)
-	{
-		sleep(5);
-		wangyonglin_signal_queue(&signal_t,SIGUSR1, 100, "wangxiaoli");
-	}
+	wangyonglin_mosquitto_init(&mosquitto_t,&signal_t);
+	wangyonglin_mosquitto_create(&mosquitto_t);
+	for (;;);
 	return EXIT_SUCCESS;
 }
