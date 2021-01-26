@@ -130,7 +130,8 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = error.lo socket.lo wangyonglin.lo \
 	dictionary.lo iniparser.lo conf.lo pid.lo log.lo daemon.lo \
-	hmacsha1.lo message.lo pipe.lo time.lo epoll.lo client.lo
+	hmacsha1.lo message.lo pipe.lo time.lo epoll.lo client.lo \
+	signal.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -157,8 +158,8 @@ am__depfiles_remade = ./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
 	./$(DEPDIR)/hmacsha1.Plo ./$(DEPDIR)/iniparser.Plo \
 	./$(DEPDIR)/log.Plo ./$(DEPDIR)/message.Plo \
 	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/pipe.Plo \
-	./$(DEPDIR)/socket.Plo ./$(DEPDIR)/time.Plo \
-	./$(DEPDIR)/wangyonglin.Plo
+	./$(DEPDIR)/signal.Plo ./$(DEPDIR)/socket.Plo \
+	./$(DEPDIR)/time.Plo ./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -338,9 +339,10 @@ libcore_la_SOURCES = \
     pipe.c  \
     time.c \
     epoll.c \
-    client.c
+    client.c    \
+    signal.c
 
-AM_CPPFLAGS = -I ../../include/
+AM_CPPFLAGS = -I $(top_srcdir)/include/
 all: all-am
 
 .SUFFIXES:
@@ -431,6 +433,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/message.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pid.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipe.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signal.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/socket.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/time.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wangyonglin.Plo@am__quote@ # am--include-marker
@@ -608,6 +611,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/pipe.Plo
+	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
@@ -668,6 +672,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/pipe.Plo
+	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo

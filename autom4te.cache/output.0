@@ -595,7 +595,7 @@ PACKAGE_STRING='wangyonglin 1.0.0'
 PACKAGE_BUGREPORT='admin@wangyonglin.com'
 PACKAGE_URL=''
 
-ac_unique_file="app/main.c"
+ac_unique_file="src/user/main.c"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -12152,7 +12152,7 @@ fi
 
 
 # Checks for library functions.
-ac_config_files="$ac_config_files Makefile app/Makefile src/ccl/Makefile src/core/Makefile src/cjson/Makefile src/https/Makefile src/aliyun/Makefile src/server/Makefile"
+ac_config_files="$ac_config_files Makefile src/user/Makefile src/core/Makefile src/cjson/Makefile src/mosquitto/Makefile src/https/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -13166,13 +13166,11 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "app/Makefile") CONFIG_FILES="$CONFIG_FILES app/Makefile" ;;
-    "src/ccl/Makefile") CONFIG_FILES="$CONFIG_FILES src/ccl/Makefile" ;;
+    "src/user/Makefile") CONFIG_FILES="$CONFIG_FILES src/user/Makefile" ;;
     "src/core/Makefile") CONFIG_FILES="$CONFIG_FILES src/core/Makefile" ;;
     "src/cjson/Makefile") CONFIG_FILES="$CONFIG_FILES src/cjson/Makefile" ;;
+    "src/mosquitto/Makefile") CONFIG_FILES="$CONFIG_FILES src/mosquitto/Makefile" ;;
     "src/https/Makefile") CONFIG_FILES="$CONFIG_FILES src/https/Makefile" ;;
-    "src/aliyun/Makefile") CONFIG_FILES="$CONFIG_FILES src/aliyun/Makefile" ;;
-    "src/server/Makefile") CONFIG_FILES="$CONFIG_FILES src/server/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

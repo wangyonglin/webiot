@@ -18,4 +18,7 @@
 #include <wangyonglin/message.h>
 
 #include <wangyonglin/time.h>
+#include <wangyonglin/signal.h>
+
+
 #endif 

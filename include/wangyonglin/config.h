@@ -25,3 +25,4 @@
 #include <sys/msg.h>
 
 #endif /**_WANGYONGLIN_CONFIG_H_INCLUDE_**/
+

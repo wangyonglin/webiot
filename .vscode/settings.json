@@ -4,5 +4,6 @@
         "typeinfo": "c",
         "limits": "c",
         "type_traits": "c"
-    }
+    },
+    "editor.accessibilityPageSize": 16
 }

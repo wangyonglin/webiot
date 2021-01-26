@@ -97,7 +97,7 @@ conf.lo: conf.c /usr/include/stdc-predef.h \
  /usr/include/openssl/bnerr.h /usr/include/openssl/objectserr.h \
  /usr/include/openssl/hmac.h /usr/include/openssl/buffer.h \
  /usr/include/openssl/buffererr.h ../../include/wangyonglin/message.h \
- ../../include/wangyonglin/time.h
+ ../../include/wangyonglin/time.h ../../include/wangyonglin/signal.h
 
 /usr/include/stdc-predef.h:
 
@@ -476,3 +476,5 @@ conf.lo: conf.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/message.h:
 
 ../../include/wangyonglin/time.h:
+
+../../include/wangyonglin/signal.h:

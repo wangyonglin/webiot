@@ -1,5 +1,6 @@
 #WANGYONGLIN HTTP SERVER
-
+### 安装环境
+    yum install openssl openssl-devel curl libcurl-devel
 ##安装Tengine 编译参数
 ```shell
 ./configure --prefix=/usr/local/wangyonglin

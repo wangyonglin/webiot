@@ -42,7 +42,7 @@ int https_restful_start(https_restful_t *restful)
             return -1;
         }
 
-        evhttp_set_cb(pinfo->httpd, "/testing", https_restful_get, restful);
+        evhttp_set_cb(pinfo->httpd, "/mosquitto", https_restful_get, restful);
 
         evhttp_set_gencb(pinfo->httpd, https_restful_notfound, 0);
         ret = pthread_create(&ths[i], NULL, https_restful_dispatch, pinfo);
@@ -140,8 +140,8 @@ void https_restful_get(struct evhttp_request *req, void *arg)
     }
 
     char *sign = NULL;
-    char *id = NULL;
-    char *data = NULL;
+    char *topic = NULL;
+    char *payload = NULL;
 
     sign = https_restful_params(&response, "sign"); //获取get请求uri中的sign参数
     if (sign == NULL)
@@ -151,26 +151,26 @@ void https_restful_get(struct evhttp_request *req, void *arg)
         https_response_send(&response);
         return;
     }
-    id = https_restful_params(&response, "id"); //获取get请求uri中的sign参数
-    if (id == NULL)
+    topic = https_restful_params(&response, "topic"); //获取get请求uri中的sign参数
+    if (topic == NULL)
     {
 
         https_response_failure(&response, HTTP_BADREQUEST, "request uri no param id.");
         https_response_send(&response);
         return;
     }
-    data = https_restful_params(&response, "data"); //获取get请求uri中的data参数
-    if (data == NULL)
+    payload = https_restful_params(&response, "payload"); //获取get请求uri中的data参数
+    if (payload == NULL)
     {
         https_response_failure(&response, HTTP_BADREQUEST, "request uri no param data.");
         https_response_send(&response);
         return;
     }
     cJSON *root = cJSON_CreateObject();
-    cJSON_AddStringToObject(root, "id", id);
-    cJSON_AddStringToObject(root, "data", data);
+    cJSON_AddStringToObject(root, "topic", topic);
+    cJSON_AddStringToObject(root, "payload", payload);
     char *json = cJSON_Print(root);
     https_response_success(&response, root);
-    wangyonglin_pipe_write(&restful->pipe, json, strlen(json));
+    wangyonglin_signal_queue(restful->signal_t, 100, payload);
     https_response_send(&response);
 }

@@ -15,5 +15,6 @@ libcore_la_SOURCES=             \
     pipe.c  \
     time.c \
     epoll.c \
-    client.c
-AM_CPPFLAGS=-I ../../include/
+    client.c    \
+    signal.c
+AM_CPPFLAGS=-I $(top_srcdir)/include/

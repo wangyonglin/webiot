@@ -1,12 +1,10 @@
 AUTOMAKE_OPTIONS=foreign
 SUBDIRS = \
-    src/ccl  \
     src/cjson \
     src/core \
-     src/aliyun \
-    src/server \
     src/https \
-    app
+    src/mosquitto \
+    src/user
 bindir =    $(prefix)/bin
 libdir =    $(prefix)/lib
 

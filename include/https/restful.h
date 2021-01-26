@@ -14,6 +14,7 @@ typedef struct https_info
 struct https_restful_s
 {
     wangyonglin_socket_t socket_t;
+    wangyonglin_signal_t *signal_t;
     wangyonglin_pipe_t pipe;
 };
 

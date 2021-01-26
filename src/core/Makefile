@@ -130,7 +130,8 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = error.lo socket.lo wangyonglin.lo \
 	dictionary.lo iniparser.lo conf.lo pid.lo log.lo daemon.lo \
-	hmacsha1.lo message.lo pipe.lo time.lo epoll.lo client.lo
+	hmacsha1.lo message.lo pipe.lo time.lo epoll.lo client.lo \
+	signal.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -157,8 +158,8 @@ am__depfiles_remade = ./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
 	./$(DEPDIR)/hmacsha1.Plo ./$(DEPDIR)/iniparser.Plo \
 	./$(DEPDIR)/log.Plo ./$(DEPDIR)/message.Plo \
 	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/pipe.Plo \
-	./$(DEPDIR)/socket.Plo ./$(DEPDIR)/time.Plo \
-	./$(DEPDIR)/wangyonglin.Plo
+	./$(DEPDIR)/signal.Plo ./$(DEPDIR)/socket.Plo \
+	./$(DEPDIR)/time.Plo ./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -206,13 +207,13 @@ ETAGS = etags
 CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/wangyonglin/github/wangyonglin/missing aclocal-1.16
+ACLOCAL = ${SHELL} /var/wangyonglin/missing aclocal-1.16
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AR = ar
-AUTOCONF = ${SHELL} /home/wangyonglin/github/wangyonglin/missing autoconf
-AUTOHEADER = ${SHELL} /home/wangyonglin/github/wangyonglin/missing autoheader
-AUTOMAKE = ${SHELL} /home/wangyonglin/github/wangyonglin/missing automake-1.16
+AUTOCONF = ${SHELL} /var/wangyonglin/missing autoconf
+AUTOHEADER = ${SHELL} /var/wangyonglin/missing autoheader
+AUTOMAKE = ${SHELL} /var/wangyonglin/missing automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -246,7 +247,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 LT_SYS_LIBRARY_PATH = 
-MAKEINFO = ${SHELL} /home/wangyonglin/github/wangyonglin/missing makeinfo
+MAKEINFO = ${SHELL} /var/wangyonglin/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /usr/bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -269,10 +270,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = strip
 VERSION = 1.0.0
-abs_builddir = /home/wangyonglin/github/wangyonglin/src/core
-abs_srcdir = /home/wangyonglin/github/wangyonglin/src/core
-abs_top_builddir = /home/wangyonglin/github/wangyonglin
-abs_top_srcdir = /home/wangyonglin/github/wangyonglin
+abs_builddir = /var/wangyonglin/src/core
+abs_srcdir = /var/wangyonglin/src/core
+abs_top_builddir = /var/wangyonglin
+abs_top_srcdir = /var/wangyonglin
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -301,7 +302,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/wangyonglin/github/wangyonglin/install-sh
+install_sh = ${SHELL} /var/wangyonglin/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -338,9 +339,10 @@ libcore_la_SOURCES = \
     pipe.c  \
     time.c \
     epoll.c \
-    client.c
+    client.c    \
+    signal.c
 
-AM_CPPFLAGS = -I ../../include/
+AM_CPPFLAGS = -I $(top_srcdir)/include/
 all: all-am
 
 .SUFFIXES:
@@ -431,6 +433,7 @@ include ./$(DEPDIR)/log.Plo # am--include-marker
 include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/pipe.Plo # am--include-marker
+include ./$(DEPDIR)/signal.Plo # am--include-marker
 include ./$(DEPDIR)/socket.Plo # am--include-marker
 include ./$(DEPDIR)/time.Plo # am--include-marker
 include ./$(DEPDIR)/wangyonglin.Plo # am--include-marker
@@ -608,6 +611,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/pipe.Plo
+	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
@@ -668,6 +672,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/pipe.Plo
+	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo

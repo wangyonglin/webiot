@@ -97,9 +97,10 @@ response.lo: response.c /usr/include/stdc-predef.h \
  /usr/include/openssl/bnerr.h /usr/include/openssl/objectserr.h \
  /usr/include/openssl/hmac.h /usr/include/openssl/buffer.h \
  /usr/include/openssl/buffererr.h ../../include/wangyonglin/message.h \
- ../../include/wangyonglin/time.h ../../include/https/https.h \
- ../../include/https/restful.h ../../include/https/response.h \
- ../../include/cjson/json.h /usr/include/evhttp.h /usr/include/event.h \
+ ../../include/wangyonglin/time.h ../../include/wangyonglin/signal.h \
+ ../../include/https/https.h ../../include/https/restful.h \
+ ../../include/https/response.h ../../include/cjson/json.h \
+ /usr/include/evhttp.h /usr/include/event.h \
  /usr/include/event2/event-config.h /usr/include/event2/event-config-64.h \
  /usr/include/evutil.h /usr/include/event2/util.h \
  /usr/include/event2/visibility.h /usr/include/event2/event_struct.h \
@@ -489,6 +490,8 @@ response.lo: response.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/message.h:
 
 ../../include/wangyonglin/time.h:
+
+../../include/wangyonglin/signal.h:
 
 ../../include/https/https.h:
 

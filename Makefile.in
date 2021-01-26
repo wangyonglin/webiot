@@ -348,13 +348,11 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = \
-    src/ccl  \
     src/cjson \
     src/core \
-     src/aliyun \
-    src/server \
     src/https \
-    app
+    src/mosquitto \
+    src/user
 
 logsdir = $(prefix)/logs
 logs_DATA = \
