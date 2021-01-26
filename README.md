@@ -1,4 +1,6 @@
 #WANGYONGLIN HTTP SERVER
+### https 测试成功
+    http://mqtt.wangyonglin.com/mosquitto?sign=wangyonglin&topic=wangyonglin&payload=4543rtnj43t4gf
 ### 安装环境
     yum install openssl openssl-devel curl libcurl-devel
 ##安装Tengine 编译参数
