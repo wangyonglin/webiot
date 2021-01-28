@@ -1,9 +1,11 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 #include <https/https.h>
+#include <mosquitto/service.h>
 void https_restful_notfound(struct evhttp_request *request, void *args);
 void *https_restful_dispatch(void *args);
 void https_restful_get(struct evhttp_request *req, void *arg);
+wangyonglin_mosquitto_publish_t publish_t;
 void https_restful_conf(https_restful_t *restful)
 {
     wangyonglin_socket_t *socket_t = &restful->socket_t;
@@ -170,8 +172,11 @@ void https_restful_get(struct evhttp_request *req, void *arg)
     cJSON_AddStringToObject(root, "topic", topic);
     cJSON_AddStringToObject(root, "payload", payload);
     char *json = cJSON_Print(root);
-    printf("\tjson:%s\r\n", json);
+  
+
+    publish_t.topic = topic;
+    publish_t.payload = payload;
     https_response_success(&response, root);
-    wangyonglin_signal_queue(restful->signal_t, SIGUSR1, 100, json);
+    wangyonglin_signal_queue(restful->signal_t, SIGUSR1, 100, &publish_t);
     https_response_send(&response);
 }

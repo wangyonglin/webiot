@@ -1,6 +1,7 @@
 AUTOMAKE_OPTIONS=foreign
 lib_LTLIBRARIES=libcore.la
 libcore_la_SOURCES=             \
+    string.c \
     error.c \
     socket.c    \
     wangyonglin.c   \

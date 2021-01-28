@@ -128,7 +128,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
-am_libcore_la_OBJECTS = error.lo socket.lo wangyonglin.lo \
+am_libcore_la_OBJECTS = string.lo error.lo socket.lo wangyonglin.lo \
 	dictionary.lo iniparser.lo conf.lo pid.lo log.lo daemon.lo \
 	hmacsha1.lo message.lo pipe.lo time.lo epoll.lo client.lo \
 	signal.lo
@@ -159,7 +159,8 @@ am__depfiles_remade = ./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
 	./$(DEPDIR)/log.Plo ./$(DEPDIR)/message.Plo \
 	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/pipe.Plo \
 	./$(DEPDIR)/signal.Plo ./$(DEPDIR)/socket.Plo \
-	./$(DEPDIR)/time.Plo ./$(DEPDIR)/wangyonglin.Plo
+	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo \
+	./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -325,6 +326,7 @@ top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libcore.la
 libcore_la_SOURCES = \
+    string.c \
     error.c \
     socket.c    \
     wangyonglin.c   \
@@ -435,6 +437,7 @@ include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/pipe.Plo # am--include-marker
 include ./$(DEPDIR)/signal.Plo # am--include-marker
 include ./$(DEPDIR)/socket.Plo # am--include-marker
+include ./$(DEPDIR)/string.Plo # am--include-marker
 include ./$(DEPDIR)/time.Plo # am--include-marker
 include ./$(DEPDIR)/wangyonglin.Plo # am--include-marker
 
@@ -613,6 +616,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/pipe.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
+	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
 	-rm -f Makefile
@@ -674,6 +678,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/pipe.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
+	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
 	-rm -f Makefile

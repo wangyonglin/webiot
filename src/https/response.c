@@ -32,7 +32,7 @@ int https_response_success(https_response_t *response, cJSON *text)
 {
     struct https_result_s *result = &response->result;
     result->code = 200;
-    result->reason = "ok";
+    result->reason = "好的";
     result->result = text;
     wangyonglin_localtime_timestamp(result->timestamp);
 

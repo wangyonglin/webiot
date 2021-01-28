@@ -1,4 +1,4 @@
-signal.lo: signal.c /usr/include/stdc-predef.h \
+string.lo: string.c /usr/include/stdc-predef.h \
  ../../include/wangyonglin/config.h /usr/include/sys/select.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \

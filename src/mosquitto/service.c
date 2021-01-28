@@ -16,7 +16,7 @@ void wangyonglin_disconnect_callback(struct mosquitto *mosq, void *obj, int rc)
 
 void wangyonglin_publish_callback(struct mosquitto *mosq, void *obj, int mid)
 {
-    printf("Call the function: my_publish_callback\n");
+    //  printf("Call the function: my_publish_callback\n");
 }
 void *callback_mosquitto_task(void *arg)
 {
@@ -47,7 +47,7 @@ void *callback_mosquitto_task(void *arg)
     mosquitto_connect_callback_set(mosquitto_t->mosq, wangyonglin_connect_callback);
     mosquitto_disconnect_callback_set(mosquitto_t->mosq, wangyonglin_disconnect_callback);
     mosquitto_publish_callback_set(mosquitto_t->mosq, wangyonglin_publish_callback);
-    printf("New pub_test error %s !\n", conf->host);
+
     // 连接至服务器
     // 参数：句柄、ip（host）、端口、心跳
     ret = mosquitto_connect(mosquitto_t->mosq, conf->host, conf->port, conf->keep_alive);
@@ -59,22 +59,22 @@ void *callback_mosquitto_task(void *arg)
         pthread_exit(NULL);
     }
 
-    printf("Start!\n");
     int loop = mosquitto_loop_start(mosquitto_t->mosq);
     if (loop != MOSQ_ERR_SUCCESS)
     {
         printf("mosquitto loop error\n");
         pthread_exit(NULL);
     }
-    for (;;);
+    for (;;)
+        ;
 }
 
 void wangyonglin_mosquitto_create(wangyonglin_mosquitto_t *mosquitto_t)
 {
     pthread_create(&mosquitto_t->pid, NULL, callback_mosquitto_task, mosquitto_t);
     //pthread_join(pid, NULL);
-   // mosquitto_destroy(mosquitto_t->mosq);
-   // mosquitto_lib_cleanup();
+    // mosquitto_destroy(mosquitto_t->mosq);
+    // mosquitto_lib_cleanup();
     printf("End!\n");
 }
 void wangyonglin_mosquitto_init(wangyonglin_mosquitto_t *mosquitto_t, wangyonglin_signal_t *signal_t)

@@ -6,13 +6,19 @@
 #include <mosquitto/conf.h>
 typedef struct wangyonglin_mosquitto_s wangyonglin_mosquitto_t;
 typedef struct wangyonglin_mosquitto_conf_s wangyonglin_mosquitto_conf_t;
-
+typedef struct wangyonglin_mosquitto_publish_s wangyonglin_mosquitto_publish_t;
 struct wangyonglin_mosquitto_s
 {
     pthread_t pid;
     wangyonglin_mosquitto_conf_t *conf;
-    wangyonglin_signal_t * signal_t;
+    wangyonglin_signal_t *signal_t;
     struct mosquitto *mosq;
+};
+struct wangyonglin_mosquitto_publish_s
+{
+    char *topic;
+    char *payload;
+    int payloadlen;
 };
 void wangyonglin_mosquitto_create(wangyonglin_mosquitto_t *mosquitto_t);
 void wangyonglin_mosquitto_init(wangyonglin_mosquitto_t *mosquitto_t, wangyonglin_signal_t *signal_t);

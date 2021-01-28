@@ -19,6 +19,7 @@
 
 #include <wangyonglin/time.h>
 #include <wangyonglin/signal.h>
+#include <wangyonglin/string.h>
 
 
 #endif 

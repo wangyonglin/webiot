@@ -23,6 +23,6 @@
 //到消息队列 ipc msg
 #include <sys/ipc.h>
 #include <sys/msg.h>
-
+#include <ctype.h>
 #endif /**_WANGYONGLIN_CONFIG_H_INCLUDE_**/
 

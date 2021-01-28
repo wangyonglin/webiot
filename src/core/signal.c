@@ -17,7 +17,7 @@ void wangyonglin_signal_action(wangyonglin_signal_t *signal_t,int signo,wangyong
         printf("install sigal error\n");
     }
 }
-void wangyonglin_signal_queue(wangyonglin_signal_t *signal_t,int signo,int sival_int, char *sival_ptr)
+void wangyonglin_signal_queue(wangyonglin_signal_t *signal_t,int signo,int sival_int, void *sival_ptr)
 {
     signal_t->act.sa_flags = SA_SIGINFO;
     signal_t->sval.sival_int=sival_int;
