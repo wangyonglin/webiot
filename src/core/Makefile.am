@@ -9,13 +9,18 @@ libcore_la_SOURCES=             \
     iniparser.c     \
     conf.c          \
     pid.c            \
-    log.c               \
     daemon.c    \
     hmacsha1.c  \
     message.c   \
-    pipe.c  \
     time.c \
     epoll.c \
     client.c    \
-    signal.c
+    signal.c \
+    logger.c \
+    bst.c \
+    ccl_get.c \
+    ccl_iterate.c \
+    ccl_parse.c \
+    ccl_release.c \
+    ccl_reset.c 
 AM_CPPFLAGS=-I $(top_srcdir)/include/

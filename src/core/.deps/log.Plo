@@ -71,15 +71,16 @@ log.lo: log.c /usr/include/stdc-predef.h \
  /usr/include/err.h /usr/include/sys/ipc.h /usr/include/bits/ipctypes.h \
  /usr/include/bits/ipc.h /usr/include/sys/msg.h /usr/include/bits/msq.h \
  /usr/include/ctype.h ../../include/wangyonglin/core.h \
- ../../include/wangyonglin/epoll.h ../../include/wangyonglin/pipe.h \
+ ../../include/wangyonglin/string.h ../../include/wangyonglin/epoll.h \
  ../../include/wangyonglin/client.h ../../include/wangyonglin/lib.h \
  ../../include/wangyonglin/error.h ../../include/wangyonglin/socket.h \
  ../../include/wangyonglin/wangyonglin.h \
  ../../include/wangyonglin/iniparser.h \
  ../../include/wangyonglin/dictionary.h ../../include/wangyonglin/pid.h \
  ../../include/wangyonglin/conf.h ../../include/wangyonglin/log.h \
- ../../include/wangyonglin/daemon.h ../../include/wangyonglin/hmacsha1.h \
- /usr/include/openssl/evp.h /usr/include/openssl/opensslconf.h \
+ ../../include/wangyonglin/logger.h ../../include/wangyonglin/daemon.h \
+ ../../include/wangyonglin/hmacsha1.h /usr/include/openssl/evp.h \
+ /usr/include/openssl/opensslconf.h \
  /usr/include/openssl/opensslconf-x86_64.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/ossl_typ.h \
  /usr/lib/gcc/x86_64-redhat-linux/8/include/limits.h \
@@ -97,8 +98,7 @@ log.lo: log.c /usr/include/stdc-predef.h \
  /usr/include/openssl/bnerr.h /usr/include/openssl/objectserr.h \
  /usr/include/openssl/hmac.h /usr/include/openssl/buffer.h \
  /usr/include/openssl/buffererr.h ../../include/wangyonglin/message.h \
- ../../include/wangyonglin/time.h ../../include/wangyonglin/signal.h \
- ../../include/wangyonglin/string.h
+ ../../include/wangyonglin/time.h ../../include/wangyonglin/signal.h
 
 /usr/include/stdc-predef.h:
 
@@ -384,9 +384,9 @@ log.lo: log.c /usr/include/stdc-predef.h \
 
 ../../include/wangyonglin/core.h:
 
-../../include/wangyonglin/epoll.h:
+../../include/wangyonglin/string.h:
 
-../../include/wangyonglin/pipe.h:
+../../include/wangyonglin/epoll.h:
 
 ../../include/wangyonglin/client.h:
 
@@ -407,6 +407,8 @@ log.lo: log.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/conf.h:
 
 ../../include/wangyonglin/log.h:
+
+../../include/wangyonglin/logger.h:
 
 ../../include/wangyonglin/daemon.h:
 
@@ -481,5 +483,3 @@ log.lo: log.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/time.h:
 
 ../../include/wangyonglin/signal.h:
-
-../../include/wangyonglin/string.h:

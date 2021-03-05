@@ -15,7 +15,6 @@ struct wangyonglin_client_s
     wangyonglin_sockfd_t sockfd_t[1024];
     pthread_mutex_t mutex_t;
     wangyonglin_epoll_t epoll_t;
-    wangyonglin_pipe_t pipe_t;
 };
 void wangyonglin_sockfd_add(wangyonglin_sockfd_t *sockfd_t, int sockfd);
 void wangyonglin_sockfd_del(wangyonglin_sockfd_t *sockfd_t, int sockfd);

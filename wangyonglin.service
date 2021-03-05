@@ -1,0 +1,11 @@
+[Unit]
+Description=wangyonglin
+After=network.target
+[Service]
+Type=forking
+ExecStart=/usr/local/wangyonglin/bin/wangyonglin
+ExecReload=/usr/local/wangyonglin/bin/wangyonglin reload
+ExecStop=/usr/local/wangyonglin/bin/wangyonglin quit
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

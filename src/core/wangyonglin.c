@@ -1,18 +1,20 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
-wangyonglin_core_t *wangyonglin(int argc, char *argv[])
+int wangyonglin_system_init(const char *filename, int daemon)
 {
-    wangyonglin_pid_t pid;
-    wangyonglin_log_t log;
-    wangyonglin_conf_init("/usr/local/wangyonglin/conf/wangyonglin.conf");
-    wangyonglin_pid_conf(&pid);
-    wangyonglin_pid_init(&pid);
-    wangyonglin_log_conf(&log);
-    wangyonglin_log_init(&log);
-   // wangyonglin_daemon();
-    wangyonglin_core_t core;
-    return &core;
+    if (wangyonglin_conf_setting(filename) != 0)
+        return -1;
+
+    if (wangyonglin_pid_init("pid") != 0)
+        return -2;
+    if (wangyonglin_logger_init("access_log", "error_log") != 0)
+        return -3;
+    if (daemon == 1)
+    {
+        wangyonglin_daemon();
+    }
+    return 0;
 }
 struct tm *wangyonglin_core_localtime()
 {

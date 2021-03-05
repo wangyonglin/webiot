@@ -1,5 +1,5 @@
 AUTOMAKE_OPTIONS=foreign
 lib_LTLIBRARIES=libmqtt.la
 libmqtt_la_SOURCES=             \
-    conf.c callback.c service.c 
+     callback.c mosquitto.c 
 AM_CPPFLAGS=-I ../../include/

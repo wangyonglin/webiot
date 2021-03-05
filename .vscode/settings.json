@@ -3,7 +3,19 @@
         "cmath": "c",
         "typeinfo": "c",
         "limits": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "core.h": "c",
+        "conf.h": "c",
+        "string.h": "c",
+        "lib.h": "c",
+        "mosquitto.h": "c",
+        "https.h": "c",
+        "restful.h": "c",
+        "pipe.h": "c",
+        "epoll.h": "c",
+        "config.h": "c",
+        "ccl.h": "c",
+        "socket.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }

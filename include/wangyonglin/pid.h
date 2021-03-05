@@ -4,8 +4,7 @@
 #include <wangyonglin/core.h>
 typedef struct wangyonglin_pid_s
 {
-    char name[1024];
 } wangyonglin_pid_t;
-int wangyonglin_pid_init(wangyonglin_pid_t *pid);
-void wangyonglin_pid_conf(wangyonglin_pid_t *pid);
+int wangyonglin_pid_init(const char *section);
+
 #endif /**_WANGYONGLIN_PID_H_INCLUDE_**/

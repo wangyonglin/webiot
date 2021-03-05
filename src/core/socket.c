@@ -1,7 +1,7 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
-int wangyonglin_socket_master(wangyonglin_socket_t *socket_t)
+int wangyonglin_socket_build(wangyonglin_socket_t *socket_t)
 {
 
     if ((socket_t->sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) /*建立一个流式套接字*/
@@ -44,7 +44,7 @@ int wangyonglin_socket_master(wangyonglin_socket_t *socket_t)
 ssize_t wangyonglin_socket_send(int sockfd, uint8_t *data, size_t len)
 {
     ssize_t rc;
-    rc = send(sockfd, data, len, NULL);
+    rc = send(sockfd, data, len, 0);
 
     return rc;
 }

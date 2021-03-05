@@ -21,7 +21,7 @@ struct wangyonglin_socket_s
     int backlog;
     wangyonglin_client_t client_t;
 };
-int wangyonglin_socket_master(wangyonglin_socket_t *socket_t);
+int wangyonglin_socket_build(wangyonglin_socket_t *socket_t);
 ssize_t wangyonglin_socket_send(int sockfd, uint8_t *data, size_t len);
 void wangyonglin_socket_setnonblocking(int sockfd);
 #endif

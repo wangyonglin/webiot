@@ -128,7 +128,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmqtt_la_LIBADD =
-am_libmqtt_la_OBJECTS = conf.lo callback.lo service.lo
+am_libmqtt_la_OBJECTS = callback.lo mosquitto.lo
 libmqtt_la_OBJECTS = $(am_libmqtt_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -149,8 +149,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/callback.Plo ./$(DEPDIR)/conf.Plo \
-	./$(DEPDIR)/service.Plo
+am__depfiles_remade = ./$(DEPDIR)/callback.Plo \
+	./$(DEPDIR)/mosquitto.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -316,7 +316,7 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libmqtt.la
 libmqtt_la_SOURCES = \
-    conf.c callback.c service.c 
+     callback.c mosquitto.c 
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -398,8 +398,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/callback.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conf.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/service.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mosquitto.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -563,8 +562,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/callback.Plo
-	-rm -f ./$(DEPDIR)/conf.Plo
-	-rm -f ./$(DEPDIR)/service.Plo
+	-rm -f ./$(DEPDIR)/mosquitto.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -611,8 +609,7 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/callback.Plo
-	-rm -f ./$(DEPDIR)/conf.Plo
-	-rm -f ./$(DEPDIR)/service.Plo
+	-rm -f ./$(DEPDIR)/mosquitto.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

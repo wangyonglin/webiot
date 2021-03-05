@@ -128,7 +128,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmqtt_la_LIBADD =
-am_libmqtt_la_OBJECTS = conf.lo callback.lo service.lo
+am_libmqtt_la_OBJECTS = callback.lo mosquitto.lo
 libmqtt_la_OBJECTS = $(am_libmqtt_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -149,8 +149,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/callback.Plo ./$(DEPDIR)/conf.Plo \
-	./$(DEPDIR)/service.Plo
+am__depfiles_remade = ./$(DEPDIR)/callback.Plo \
+	./$(DEPDIR)/mosquitto.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -198,13 +198,13 @@ ETAGS = etags
 CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /var/wangyonglin/missing aclocal-1.16
+ACLOCAL = ${SHELL} /home/wangyonglin/Github/wangyonglin/missing aclocal-1.16
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AR = ar
-AUTOCONF = ${SHELL} /var/wangyonglin/missing autoconf
-AUTOHEADER = ${SHELL} /var/wangyonglin/missing autoheader
-AUTOMAKE = ${SHELL} /var/wangyonglin/missing automake-1.16
+AUTOCONF = ${SHELL} /home/wangyonglin/Github/wangyonglin/missing autoconf
+AUTOHEADER = ${SHELL} /home/wangyonglin/Github/wangyonglin/missing autoheader
+AUTOMAKE = ${SHELL} /home/wangyonglin/Github/wangyonglin/missing automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -238,7 +238,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 LT_SYS_LIBRARY_PATH = 
-MAKEINFO = ${SHELL} /var/wangyonglin/missing makeinfo
+MAKEINFO = ${SHELL} /home/wangyonglin/Github/wangyonglin/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /usr/bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -261,10 +261,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = strip
 VERSION = 1.0.0
-abs_builddir = /var/wangyonglin/src/mosquitto
-abs_srcdir = /var/wangyonglin/src/mosquitto
-abs_top_builddir = /var/wangyonglin
-abs_top_srcdir = /var/wangyonglin
+abs_builddir = /home/wangyonglin/Github/wangyonglin/src/mosquitto
+abs_srcdir = /home/wangyonglin/Github/wangyonglin/src/mosquitto
+abs_top_builddir = /home/wangyonglin/Github/wangyonglin
+abs_top_srcdir = /home/wangyonglin/Github/wangyonglin
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -293,7 +293,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /var/wangyonglin/install-sh
+install_sh = ${SHELL} /home/wangyonglin/Github/wangyonglin/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -316,7 +316,7 @@ top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libmqtt.la
 libmqtt_la_SOURCES = \
-    conf.c callback.c service.c 
+     callback.c mosquitto.c 
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -398,8 +398,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/callback.Plo # am--include-marker
-include ./$(DEPDIR)/conf.Plo # am--include-marker
-include ./$(DEPDIR)/service.Plo # am--include-marker
+include ./$(DEPDIR)/mosquitto.Plo # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -563,8 +562,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/callback.Plo
-	-rm -f ./$(DEPDIR)/conf.Plo
-	-rm -f ./$(DEPDIR)/service.Plo
+	-rm -f ./$(DEPDIR)/mosquitto.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -611,8 +609,7 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/callback.Plo
-	-rm -f ./$(DEPDIR)/conf.Plo
-	-rm -f ./$(DEPDIR)/service.Plo
+	-rm -f ./$(DEPDIR)/mosquitto.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

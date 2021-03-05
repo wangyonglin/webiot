@@ -17,7 +17,7 @@ int https_response_send(https_response_t *response)
     response->evbuf = evbuffer_new();
     if (!response->evbuf)
     {
-        printf("create evbuffer failed!\n");
+        wangyonglin_logger_failure("create evbuffer failed!");
         return -1;
     }
 
@@ -32,7 +32,7 @@ int https_response_success(https_response_t *response, cJSON *text)
 {
     struct https_result_s *result = &response->result;
     result->code = 200;
-    result->reason = "好的";
+    result->reason = "success";
     result->result = text;
     wangyonglin_localtime_timestamp(result->timestamp);
 

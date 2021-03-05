@@ -1,17 +1,17 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
-void wangyonglin_pid_conf(wangyonglin_pid_t * pid)
+
+int wangyonglin_pid_init(const char *section)
 {
-  wangyonglin_conf_string(pid->name,"pid:pid");
-}
-int wangyonglin_pid_init(wangyonglin_pid_t *pid)
-{
+    wangyonglin_string_t string_t = wangyonglin_null_string;
+    string_t = wangyonglin_conf_string(section);
+
     int pid_fd;
-    if (pid->name != NULL)
+    if (string_t.data != NULL)
     {
         char str[256];
-        pid_fd = open(pid->name, O_RDWR | O_CREAT, 0640);
+        pid_fd = open(string_t.data, O_RDWR | O_CREAT, 0640);
         if (pid_fd < 0)
         {
             fprintf(stderr, "Fail to open file!\n");
@@ -29,5 +29,5 @@ int wangyonglin_pid_init(wangyonglin_pid_t *pid)
         if (ret < 0)
             exit(EXIT_FAILURE);
     }
-    return pid_fd;
+    return 0;
 }

@@ -1,48 +1,48 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
-
-const char *__ininame;
-wangyonglin_rc_t rc;
-int wangyonglin_conf_init(const char *ininame)
+struct ccl_t config;
+const struct ccl_pair_t *iter = NULL;
+const char *conffile;
+int wangyonglin_conf_setting(const char *filename)
 {
-  if (access(ininame, F_OK) != 0)
+  if (access(filename, F_OK) != 0)
   {
-    fprintf(stderr, "\t%s %s\n", ininame, strerror(errno));
-    rc = error;
+    fprintf(stderr, "\t%s %s\n", filename, strerror(errno));
     return -1;
   }
-  __ininame = ininame;
+  config.comment_char = '#';
+  config.sep_char = '=';
+  config.str_char = '"';
+  conffile = filename;
   return 0;
 }
 
-char *wangyonglin_conf_string(char * dest,const char *key)
+wangyonglin_string_t wangyonglin_conf_string(const char *lc_key)
 {
-  dictionary *dict;
-
-  dict = iniparser_load(__ininame);
-  if (dict == NULL)
+  wangyonglin_string_t string_t = wangyonglin_null_string;
+  ccl_parse(&config, conffile);
+  const char *sval;
+  if ((iter = ccl_iterate(&config)) != 0)
   {
-    fprintf(stderr, "cannot parse file: %s\n", __ininame);
-    return NULL;
+    sval = ccl_get(&config, lc_key);
+ 
+    wangyonglin_string_setting(&string_t, sval);
+    return string_t;
   }
-
-  strcpy(dest, iniparser_getstring(dict, key, ""));
-  iniparser_freedict(dict);
-  return dest;
+  ccl_release(&config);
+  return string_t;
 }
-int wangyonglin_conf_number(const char *key)
+
+int wangyonglin_conf_int(const char *lc_key, int notfound)
 {
-  int rc;
-  dictionary *dict;
-  dict = iniparser_load(__ininame);
-  if (dict == NULL)
+  ccl_parse(&config, conffile);
+  const char *sval=NULL;
+  if ((iter = ccl_iterate(&config)) != 0)
   {
-    fprintf(stderr, "cannot parse file: %s\n", __ininame);
-    return -1;
+    sval = ccl_get(&config, lc_key);
+    if(!sval)return notfound;
+    return strtol(sval, NULL, 0);
   }
-
-  rc = iniparser_getint(dict, key, 41);
-
-  iniparser_freedict(dict);
-  return rc;
+  ccl_release(&config);
+  return notfound;
 }
