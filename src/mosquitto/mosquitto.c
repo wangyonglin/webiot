@@ -124,7 +124,7 @@ int wangyonglin_mosquitto_appcation(wangyonglin_signal_t *signal_t)
     pthread_create(&pid, NULL, callback_mosquitto_task, &mosquitto_t);
 
     printf("End!\n");
-    return NULL;
+    return 0;
 }
 void wangyonglin_mosquitto_publist(const char *topic, char *payload, int payloadlen)
 {
@@ -135,13 +135,13 @@ void wangyonglin_mosquitto_publist(const char *topic, char *payload, int payload
         switch (ret)
         {
         case MOSQ_ERR_SUCCESS:
-            wangyonglin_logger_success("\t topic:%s    payload:%s\r\n", topic,payload);
+            wangyonglin_logger_success("\t topic:%s    payload:%s\r\n", topic, payload);
             break;
         case MOSQ_ERR_INVAL:
-            wangyonglin_logger_failure("mosquitto_publish() topic %s ->  if the input parameters were invalid.",topic);
+            wangyonglin_logger_failure("mosquitto_publish() topic %s ->  if the input parameters were invalid.", topic);
             break;
         default:
-              wangyonglin_logger_failure("mosquitto_publish() topic %s ->  其它错误",topic);
+            wangyonglin_logger_failure("mosquitto_publish() topic %s ->  其它错误", topic);
             break;
         }
     }

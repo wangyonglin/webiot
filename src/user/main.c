@@ -2,7 +2,6 @@
 #include <wangyonglin/core.h>
 #include <mosquitto/mosquitto.h>
 #include <https/https.h>
-#include "main.h"
 wangyonglin_signal_t signal_t;
 uint8_t  tmp[1024];
 void wangyonglin_signal_callback(int signum, siginfo_t *s_t, void *p)

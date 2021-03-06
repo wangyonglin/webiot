@@ -356,13 +356,12 @@ SUBDIRS = \
 
 logsdir = $(prefix)/logs
 logs_DATA = \
-    $(top_srcdir)/logs/error.log  \
-    $(top_srcdir)/logs/access.log 
+        $(top_srcdir)/logs/error.log  \
+        $(top_srcdir)/logs/access.log 
 
 confdir = $(prefix)/conf
-conf_DATA = \
-    $(top_srcdir)/conf/wangyonglin.conf
-
+conf_DATA = $(top_srcdir)/conf/wangyonglin.conf
+EXTRA_DIST = $(top_srcdir)/include     $(top_srcdir)/logs  $(top_srcdir)/conf
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
