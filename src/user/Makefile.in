@@ -209,7 +209,7 @@ LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@ -Wall -pedantic -lmosquitto -lm -levent -lssl -lcrypto \
-	-lpthread
+	-lpthread -levent_openssl
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@

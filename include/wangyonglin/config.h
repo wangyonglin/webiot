@@ -32,5 +32,9 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <ctype.h>
+//OPENSSL　证书
+#include <openssl/err.h>
+#include <openssl/ssl.h>
+
 #endif /**_WANGYONGLIN_CONFIG_H_INCLUDE_**/
 

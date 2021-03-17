@@ -2,6 +2,7 @@
 #include <wangyonglin/core.h>
 #include <mosquitto/mosquitto.h>
 #include <https/https.h>
+#include <https/openssl.h>
 wangyonglin_signal_t signal_t;
 uint8_t  tmp[1024];
 void wangyonglin_signal_callback(int signum, siginfo_t *s_t, void *p)
@@ -31,10 +32,10 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "System load config err %d", ret);
 		exit(EXIT_FAILURE);
 	}
-
+	wangyonglin_openssl_init();
 	wangyonglin_signal_action(&signal_t, SIGUSR1, &wangyonglin_signal_callback);
 	wangyonglin_mosquitto_appcation(&signal_t);
-	https_restful_appcation(&signal_t);
-
+	wangyonglin_https_application(&signal_t);
+	wangyonglin_openssl_cleanup();
 	return EXIT_SUCCESS;
 }

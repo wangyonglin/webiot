@@ -8,4 +8,4 @@ wangyonglin_LDADD= \
     $(top_srcdir)/src/https/libhttps.la \
     $(top_srcdir)/src/mosquitto/libmqtt.la \
     $(FLIBS)
-LIBS += -Wall -pedantic -lmosquitto  -lm -levent -lssl -lcrypto -lpthread
+LIBS += -Wall -pedantic -lmosquitto  -lm -levent -lssl -lcrypto -lpthread -levent_openssl

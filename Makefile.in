@@ -155,8 +155,9 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(confdir)" "$(DESTDIR)$(logsdir)"
-DATA = $(conf_DATA) $(logs_DATA)
+am__installdirs = "$(DESTDIR)$(certdir)" "$(DESTDIR)$(confdir)" \
+	"$(DESTDIR)$(logsdir)"
+DATA = $(cert_DATA) $(conf_DATA) $(logs_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 am__recursive_targets = \
@@ -355,13 +356,16 @@ SUBDIRS = \
     src/user
 
 logsdir = $(prefix)/logs
-logs_DATA = \
-        $(top_srcdir)/logs/error.log  \
-        $(top_srcdir)/logs/access.log 
+logs_DATA = $(top_srcdir)/logs/error.log  \
+            $(top_srcdir)/logs/access.log 
 
 confdir = $(prefix)/conf
 conf_DATA = $(top_srcdir)/conf/wangyonglin.conf
-EXTRA_DIST = $(top_srcdir)/include     $(top_srcdir)/logs  $(top_srcdir)/conf
+certdir = $(prefix)/cert
+cert_DATA = $(top_srcdir)/cert/server.key  \
+            $(top_srcdir)/cert/server.pem
+
+EXTRA_DIST = $(top_srcdir)/include     $(top_srcdir)/logs  $(top_srcdir)/conf  $(top_srcdir)/cert 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -423,6 +427,27 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool config.lt
+install-certDATA: $(cert_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(cert_DATA)'; test -n "$(certdir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(certdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(certdir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(certdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(certdir)" || exit $$?; \
+	done
+
+uninstall-certDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(cert_DATA)'; test -n "$(certdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(certdir)'; $(am__uninstall_files_from_dir)
 install-confDATA: $(conf_DATA)
 	@$(NORMAL_INSTALL)
 	@list='$(conf_DATA)'; test -n "$(confdir)" || list=; \
@@ -768,7 +793,7 @@ check: check-recursive
 all-am: Makefile $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(confdir)" "$(DESTDIR)$(logsdir)"; do \
+	for dir in "$(DESTDIR)$(certdir)" "$(DESTDIR)$(confdir)" "$(DESTDIR)$(logsdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -823,7 +848,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-confDATA install-logsDATA
+install-data-am: install-certDATA install-confDATA install-logsDATA
 
 install-dvi: install-dvi-recursive
 
@@ -869,7 +894,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-confDATA uninstall-logsDATA
+uninstall-am: uninstall-certDATA uninstall-confDATA uninstall-logsDATA
 
 .MAKE: $(am__recursive_targets) all install-am install-strip
 
@@ -880,16 +905,16 @@ uninstall-am: uninstall-confDATA uninstall-logsDATA
 	dist-xz dist-zip distcheck distclean distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags distcleancheck \
 	distdir distuninstallcheck dvi dvi-am html html-am info \
-	info-am install install-am install-confDATA install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-logsDATA install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs installdirs-am \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am uninstall-confDATA \
-	uninstall-logsDATA
+	info-am install install-am install-certDATA install-confDATA \
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-logsDATA install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
+	ps ps-am tags tags-am uninstall uninstall-am \
+	uninstall-certDATA uninstall-confDATA uninstall-logsDATA
 
 .PRECIOUS: Makefile
 

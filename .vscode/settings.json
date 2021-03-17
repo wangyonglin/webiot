@@ -15,7 +15,9 @@
         "epoll.h": "c",
         "config.h": "c",
         "ccl.h": "c",
-        "socket.h": "c"
+        "socket.h": "c",
+        "err.h": "c",
+        "retsult.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }

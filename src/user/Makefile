@@ -209,7 +209,7 @@ LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
 LIBS = -lpthread  -Wall -pedantic -lmosquitto -lm -levent -lssl -lcrypto \
-	-lpthread
+	-lpthread -levent_openssl
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
