@@ -129,10 +129,8 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = string.lo error.lo socket.lo wangyonglin.lo \
-	dictionary.lo iniparser.lo conf.lo pid.lo daemon.lo \
-	hmacsha1.lo message.lo time.lo epoll.lo client.lo signal.lo \
-	logger.lo bst.lo ccl_get.lo ccl_iterate.lo ccl_parse.lo \
-	ccl_release.lo ccl_reset.lo
+	conf.lo pid.lo daemon.lo hmacsha1.lo message.lo time.lo \
+	epoll.lo client.lo signal.lo logger.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -153,13 +151,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/bst.Plo ./$(DEPDIR)/ccl_get.Plo \
-	./$(DEPDIR)/ccl_iterate.Plo ./$(DEPDIR)/ccl_parse.Plo \
-	./$(DEPDIR)/ccl_release.Plo ./$(DEPDIR)/ccl_reset.Plo \
-	./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
-	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/dictionary.Plo \
-	./$(DEPDIR)/epoll.Plo ./$(DEPDIR)/error.Plo \
-	./$(DEPDIR)/hmacsha1.Plo ./$(DEPDIR)/iniparser.Plo \
+am__depfiles_remade = ./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
+	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/epoll.Plo \
+	./$(DEPDIR)/error.Plo ./$(DEPDIR)/hmacsha1.Plo \
 	./$(DEPDIR)/logger.Plo ./$(DEPDIR)/message.Plo \
 	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/signal.Plo \
 	./$(DEPDIR)/socket.Plo ./$(DEPDIR)/string.Plo \
@@ -333,8 +327,6 @@ libcore_la_SOURCES = \
     error.c \
     socket.c    \
     wangyonglin.c   \
-    dictionary.c    \
-    iniparser.c     \
     conf.c          \
     pid.c            \
     daemon.c    \
@@ -344,13 +336,7 @@ libcore_la_SOURCES = \
     epoll.c \
     client.c    \
     signal.c \
-    logger.c \
-    bst.c \
-    ccl_get.c \
-    ccl_iterate.c \
-    ccl_parse.c \
-    ccl_release.c \
-    ccl_reset.c 
+    logger.c 
 
 AM_CPPFLAGS = -I $(top_srcdir)/include/
 all: all-am
@@ -431,20 +417,12 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/bst.Plo # am--include-marker
-include ./$(DEPDIR)/ccl_get.Plo # am--include-marker
-include ./$(DEPDIR)/ccl_iterate.Plo # am--include-marker
-include ./$(DEPDIR)/ccl_parse.Plo # am--include-marker
-include ./$(DEPDIR)/ccl_release.Plo # am--include-marker
-include ./$(DEPDIR)/ccl_reset.Plo # am--include-marker
 include ./$(DEPDIR)/client.Plo # am--include-marker
 include ./$(DEPDIR)/conf.Plo # am--include-marker
 include ./$(DEPDIR)/daemon.Plo # am--include-marker
-include ./$(DEPDIR)/dictionary.Plo # am--include-marker
 include ./$(DEPDIR)/epoll.Plo # am--include-marker
 include ./$(DEPDIR)/error.Plo # am--include-marker
 include ./$(DEPDIR)/hmacsha1.Plo # am--include-marker
-include ./$(DEPDIR)/iniparser.Plo # am--include-marker
 include ./$(DEPDIR)/logger.Plo # am--include-marker
 include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
@@ -615,20 +593,12 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/bst.Plo
-	-rm -f ./$(DEPDIR)/ccl_get.Plo
-	-rm -f ./$(DEPDIR)/ccl_iterate.Plo
-	-rm -f ./$(DEPDIR)/ccl_parse.Plo
-	-rm -f ./$(DEPDIR)/ccl_release.Plo
-	-rm -f ./$(DEPDIR)/ccl_reset.Plo
-	-rm -f ./$(DEPDIR)/client.Plo
+		-rm -f ./$(DEPDIR)/client.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
-	-rm -f ./$(DEPDIR)/dictionary.Plo
 	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
-	-rm -f ./$(DEPDIR)/iniparser.Plo
 	-rm -f ./$(DEPDIR)/logger.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
@@ -682,20 +652,12 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/bst.Plo
-	-rm -f ./$(DEPDIR)/ccl_get.Plo
-	-rm -f ./$(DEPDIR)/ccl_iterate.Plo
-	-rm -f ./$(DEPDIR)/ccl_parse.Plo
-	-rm -f ./$(DEPDIR)/ccl_release.Plo
-	-rm -f ./$(DEPDIR)/ccl_reset.Plo
-	-rm -f ./$(DEPDIR)/client.Plo
+		-rm -f ./$(DEPDIR)/client.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
-	-rm -f ./$(DEPDIR)/dictionary.Plo
 	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
-	-rm -f ./$(DEPDIR)/iniparser.Plo
 	-rm -f ./$(DEPDIR)/logger.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo

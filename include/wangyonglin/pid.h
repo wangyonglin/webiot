@@ -5,6 +5,6 @@
 typedef struct wangyonglin_pid_s
 {
 } wangyonglin_pid_t;
-int wangyonglin_pid_init(const char *section);
+int wangyonglin_pid_init(wangyonglin_conf_table_t *conf);
 
 #endif /**_WANGYONGLIN_PID_H_INCLUDE_**/

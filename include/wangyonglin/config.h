@@ -35,6 +35,7 @@
 //OPENSSL　证书
 #include <openssl/err.h>
 #include <openssl/ssl.h>
-
+// TOML 配置文件
+#include <stdbool.h>
 #endif /**_WANGYONGLIN_CONFIG_H_INCLUDE_**/
 

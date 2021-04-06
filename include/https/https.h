@@ -25,5 +25,5 @@ typedef struct wangyonglin_https_info
     struct evhttp_bound_socket *handle;
 } wangyonglin_https_info;
 
-int wangyonglin_https_application(wangyonglin_signal_t *signal_t);
+int wangyonglin_https_application(wangyonglin_conf_table_t * conf,wangyonglin_signal_t *signal_t);
 #endif

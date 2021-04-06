@@ -1,17 +1,27 @@
 #include <wangyonglin/config.h>
 #include <wangyonglin/core.h>
 
-
-int wangyonglin_pid_init(const char *section)
+int wangyonglin_pid_init(wangyonglin_conf_table_t *conf)
 {
-    wangyonglin_string_t string_t = wangyonglin_null_string;
-    string_t = wangyonglin_conf_string(section);
-
     int pid_fd;
-    if (string_t.data != NULL)
+    //读取系统配置文件的内容
+    wangyonglin_conf_table_t *system = wangyonglin_conf_table_in(conf, "SYSTEM");
+    if (!system)
+    {
+        fprintf(stderr, "missing [SYSTEM]\n");
+        exit(EXIT_FAILURE);
+    }
+    wangyonglin_conf_datum_t pid = wangyonglin_conf_string_in(system, "pid");
+    if (!pid.ok)
+    {
+        fprintf(stderr, "cannot read SYSTEM.pid", "");
+        exit(EXIT_FAILURE);
+    }
+  
+    if (pid.u.s != NULL)
     {
         char str[256];
-        pid_fd = open(string_t.data, O_RDWR | O_CREAT, 0640);
+        pid_fd = open(pid.u.s, O_RDWR | O_CREAT, 0640);
         if (pid_fd < 0)
         {
             fprintf(stderr, "Fail to open file!\n");
@@ -29,5 +39,6 @@ int wangyonglin_pid_init(const char *section)
         if (ret < 0)
             exit(EXIT_FAILURE);
     }
+    free(pid.u.s);
     return 0;
 }

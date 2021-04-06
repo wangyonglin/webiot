@@ -10,60 +10,118 @@ void *wangyonglin_https_dispatch(void *args);
 static struct bufferevent *wangyonglin_https_bufferevent_cb(struct event_base *base, void *arg);
 int wangyonglin_https_socket(wangyonglin_https_t *https_t);
 static void login_cb(struct evhttp_request *req, void *arg);
-int wangyonglin_https_application(wangyonglin_signal_t *signal_t)
+static wangyonglin_https_t *wangyonglin_config_initialization(wangyonglin_conf_table_t *conf);
+wangyonglin_https_t *wangyonglin_config_initialization(wangyonglin_conf_table_t *conf)
 {
     //配置 HTTPS 需要的参数
-    wangyonglin_https_t https_t;
-    https_t.port = wangyonglin_conf_int("https_port", 443);
-    https_t.backlog = wangyonglin_conf_int("https_backlog", 100);
-    https_t.threads = wangyonglin_conf_int("https_threads", 10);
-    https_t.certificate_chain = wangyonglin_conf_string("https_certificate_chain");
-    https_t.private_key = wangyonglin_conf_string("https_private_key");
+    wangyonglin_https_t *https_t = (wangyonglin_https_t *)calloc(1, sizeof(wangyonglin_https_t));
+    // 2. Traverse to a table.
+    wangyonglin_conf_table_t *https = wangyonglin_conf_table_in(conf, "HTTPS");
+    if (!https)
+    {
+        wangyonglin_logger_failure("missing [https]", "");
+        return NULL;
+    }
+
+    // 3. Extract values
+    wangyonglin_conf_datum_t port = wangyonglin_conf_int_in(https, "port");
+    if (!port.ok)
+    {
+        wangyonglin_logger_failure("cannot read https.host", "");
+        return NULL;
+    }
+
+    // 3. Extract values
+    wangyonglin_conf_datum_t backlog = wangyonglin_conf_int_in(https, "backlog");
+    if (!backlog.ok)
+    {
+        wangyonglin_logger_failure("cannot read https.backlog", "");
+        return NULL;
+    }
+
+    // 3. Extract values
+    wangyonglin_conf_datum_t threads = wangyonglin_conf_int_in(https, "threads");
+    if (!threads.ok)
+    {
+        wangyonglin_logger_failure("cannot read https.threads", "");
+        return NULL;
+    }
+
+    // 3. Extract values
+    wangyonglin_conf_datum_t certificate_chain = wangyonglin_conf_string_in(https, "certificate_chain");
+    if (!certificate_chain.ok)
+    {
+        wangyonglin_logger_failure("cannot read https.certificate_chain", "");
+        return NULL;
+    }
+
+    // 3. Extract values
+    wangyonglin_conf_datum_t private_key = wangyonglin_conf_string_in(https, "private_key");
+    if (!private_key.ok)
+    {
+        wangyonglin_logger_failure("cannot read https.private_key", "");
+        return NULL;
+    }
+    wangyonglin_string_setting(&https_t->private_key, private_key.u.s);
+    wangyonglin_string_setting(&https_t->certificate_chain, certificate_chain.u.s);
+    https_t->threads = threads.u.i;
+    https_t->backlog = backlog.u.i;
+    https_t->port = port.u.i;
+    return https_t;
+}
+int wangyonglin_https_application(wangyonglin_conf_table_t *conf, wangyonglin_signal_t *signal_t)
+{
+    //配置 HTTPS 需要的参数
+    wangyonglin_https_t *https_t = wangyonglin_config_initialization(conf);
+    if (https_t == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
     /* 选择服务器证书 和 服务器私钥. 1/2 创建SSL上下文环境 ，可以理解为 SSL句柄 */
-    https_t.ctx = wangyonglin_openssl_context_create();
+    https_t->ctx = wangyonglin_openssl_context_create();
     /* 选择服务器证书 和 服务器私钥. 2/2  设置服务器证书 和 服务器私钥 到 OPENSSL ctx上下文句柄中 */
-    wangyonglin_openssl_context_configure(https_t.ctx, https_t.certificate_chain.data, https_t.private_key.data);
+    wangyonglin_openssl_context_configure(https_t->ctx, https_t->certificate_chain.data, https_t->private_key.data);
     /* 配置 SOCKET */
-    if (wangyonglin_https_socket(&https_t) != 0)
+    if (wangyonglin_https_socket(https_t) != 0)
     {
         wangyonglin_logger_failure("Couldn't create an socket: exiting");
-        return -1;
+        return -7;
     }
-    pthread_t ths[https_t.threads];
-    wangyonglin_https_info info_arr[https_t.threads], *pinfo;
+    pthread_t ths[https_t->threads];
+    wangyonglin_https_info info_arr[https_t->threads], *pinfo;
     int i, ret, opt = 1;
-    for (i = 0; i < https_t.threads; i++)
+    for (i = 0; i < https_t->threads; i++)
     {
         pinfo = &info_arr[i];
         pinfo->base = event_base_new();
         if (pinfo->base == NULL)
         {
             wangyonglin_logger_failure("Couldn't create an event_base: exiting");
-            return -2;
+            return -8;
         }
         pinfo->httpd = evhttp_new(pinfo->base);
         if (pinfo->httpd == NULL)
         {
             wangyonglin_logger_failure("couldn't create evhttp. exiting.");
-            return -2;
+            return -9;
         }
         /* 
         使我们创建好的evhttp句柄 支持 SSL加密
         实际上，加密的动作和解密的动作都已经帮
         我们自动完成，我们拿到的数据就已经解密之后的
             */
-        evhttp_set_bevcb(pinfo->httpd, wangyonglin_https_bufferevent_cb, https_t.ctx);
+        evhttp_set_bevcb(pinfo->httpd, wangyonglin_https_bufferevent_cb, https_t->ctx);
         evhttp_set_cb(pinfo->httpd, "/mosquitto", wangyonglin_https_callback_mosquitto, signal_t);
-         evhttp_set_gencb(pinfo->httpd, wangyonglin_https_callback_notfound, 0);
+        evhttp_set_gencb(pinfo->httpd, wangyonglin_https_callback_notfound, 0);
         /* 设置监听IP和端口 */
-        if (evhttp_accept_socket(pinfo->httpd, https_t.sockfd) != 0)
+        if (evhttp_accept_socket(pinfo->httpd, https_t->sockfd) != 0)
         {
-            wangyonglin_logger_failure("evhttp_accept_socket failed! port:%d\n", https_t.port);
-            return -3;
+            wangyonglin_logger_failure("evhttp_accept_socket failed! port:%d\n", https_t->port);
+            return -10;
         }
         ret = pthread_create(&ths[i], NULL, wangyonglin_https_dispatch, pinfo);
     }
-    for (i = 0; i < https_t.threads; i++)
+    for (i = 0; i < https_t->threads; i++)
     {
         pthread_join(ths[i], NULL);
     }
@@ -112,7 +170,7 @@ login_cb(struct evhttp_request *req, void *arg)
             return;
         //  evbuffer_add_printf(buf, "Requested: %s\n", uri);
         // evhttp_send_reply(req, HTTP_OK, "OK", buf);
-        wangyonglin_https_retsult_success(req,NULL,NULL);
+        wangyonglin_https_retsult_success(req, NULL, NULL);
         return;
     }
 
@@ -194,7 +252,7 @@ int wangyonglin_https_socket(wangyonglin_https_t *https_t)
 {
     if ((https_t->sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) /*建立一个流式套接字*/
     {
-        wangyonglin_error_perror("create socket error: %s(errno: %d)\n", strerror(errno), errno);
+        wangyonglin_logger_failure("create socket error: %s(errno: %d)\n", strerror(errno), errno);
         return -1;
     }
 
@@ -212,14 +270,14 @@ int wangyonglin_https_socket(wangyonglin_https_t *https_t)
     if (bind(https_t->sockfd, (struct sockaddr *)&sockaddr, socklen) == -1)
     {
 
-        wangyonglin_error_perror("bind socket error: %s(errno: %d)\n", strerror(errno), errno);
+        wangyonglin_logger_failure("bind socket error: %s(errno: %d) sin_port %d \n", strerror(errno), errno,https_t->port);
         return -1;
     }
 
     /*设置监听队列，这里设置为1，表示只能同时处理一个客户端的连接*/
     if (listen(https_t->sockfd, https_t->backlog) == -1)
     {
-        wangyonglin_error_perror("listen socket error: %s(errno: %d)\n", strerror(errno), errno);
+        wangyonglin_logger_failure("listen socket error: %s(errno: %d)\n", strerror(errno), errno);
 
         return -1;
     }

@@ -5,8 +5,6 @@ libcore_la_SOURCES=             \
     error.c \
     socket.c    \
     wangyonglin.c   \
-    dictionary.c    \
-    iniparser.c     \
     conf.c          \
     pid.c            \
     daemon.c    \
@@ -16,11 +14,5 @@ libcore_la_SOURCES=             \
     epoll.c \
     client.c    \
     signal.c \
-    logger.c \
-    bst.c \
-    ccl_get.c \
-    ccl_iterate.c \
-    ccl_parse.c \
-    ccl_release.c \
-    ccl_reset.c 
+    logger.c 
 AM_CPPFLAGS=-I $(top_srcdir)/include/

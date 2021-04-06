@@ -10,6 +10,7 @@
 ```
 gcc -o Master Server.c
 gcc -o Slave Client.c
+handle SIGUSR1 noprint nostop
 ## 配置wangyonglin开机启动，切换到/lib/systemd/system目录,创建 wangyonglin.service文件：
 ```shell
 [Unit]

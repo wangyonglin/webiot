@@ -17,7 +17,8 @@
         "ccl.h": "c",
         "socket.h": "c",
         "err.h": "c",
-        "retsult.h": "c"
+        "retsult.h": "c",
+        "wangyonglin.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }

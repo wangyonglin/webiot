@@ -105,18 +105,18 @@ ccl_parse.lo: ccl_parse.c /usr/include/stdc-predef.h \
  /usr/include/openssl/sslerr.h /usr/include/openssl/ssl2.h \
  /usr/include/openssl/ssl3.h /usr/include/openssl/tls1.h \
  /usr/include/openssl/dtls1.h /usr/include/openssl/srtp.h \
- ../../include/wangyonglin/core.h ../../include/wangyonglin/string.h \
- ../../include/wangyonglin/bst.h ../../include/wangyonglin/ccl.h \
- ../../include/wangyonglin/epoll.h ../../include/wangyonglin/client.h \
- ../../include/wangyonglin/lib.h ../../include/wangyonglin/error.h \
- ../../include/wangyonglin/socket.h \
+ /usr/lib/gcc/x86_64-redhat-linux/8/include/stdbool.h \
+ ../../include/wangyonglin/core.h ../../include/wangyonglin/conf.h \
+ ../../include/wangyonglin/string.h ../../include/wangyonglin/bst.h \
+ ../../include/wangyonglin/ccl.h ../../include/wangyonglin/epoll.h \
+ ../../include/wangyonglin/client.h ../../include/wangyonglin/lib.h \
+ ../../include/wangyonglin/error.h ../../include/wangyonglin/socket.h \
  ../../include/wangyonglin/wangyonglin.h \
  ../../include/wangyonglin/iniparser.h \
  ../../include/wangyonglin/dictionary.h ../../include/wangyonglin/pid.h \
- ../../include/wangyonglin/conf.h ../../include/wangyonglin/logger.h \
- ../../include/wangyonglin/daemon.h ../../include/wangyonglin/hmacsha1.h \
- ../../include/wangyonglin/message.h ../../include/wangyonglin/time.h \
- ../../include/wangyonglin/signal.h
+ ../../include/wangyonglin/logger.h ../../include/wangyonglin/daemon.h \
+ ../../include/wangyonglin/hmacsha1.h ../../include/wangyonglin/message.h \
+ ../../include/wangyonglin/time.h ../../include/wangyonglin/signal.h
 
 /usr/include/stdc-predef.h:
 
@@ -530,7 +530,11 @@ ccl_parse.lo: ccl_parse.c /usr/include/stdc-predef.h \
 
 /usr/include/openssl/srtp.h:
 
+/usr/lib/gcc/x86_64-redhat-linux/8/include/stdbool.h:
+
 ../../include/wangyonglin/core.h:
+
+../../include/wangyonglin/conf.h:
 
 ../../include/wangyonglin/string.h:
 
@@ -555,8 +559,6 @@ ccl_parse.lo: ccl_parse.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/dictionary.h:
 
 ../../include/wangyonglin/pid.h:
-
-../../include/wangyonglin/conf.h:
 
 ../../include/wangyonglin/logger.h:
 

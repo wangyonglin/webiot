@@ -1,6 +1,6 @@
 #! /bin/sh
 # Generated automatically by config.status (wangyonglin) 1.0.0
-# Libtool was configured on host 192.168.1.2:
+# Libtool was configured on host localhost.localdomain:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.

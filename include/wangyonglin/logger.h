@@ -10,7 +10,7 @@ struct wangyonglin_logger_s
     wangyonglin_string_t alog;
     wangyonglin_string_t elog;
 };
-int wangyonglin_logger_init(const char *alog, const char *elog);
+int wangyonglin_logger_init(wangyonglin_conf_table_t *conf);
 
 void wangyonglin_logger_success(const char *format, ...);
 void wangyonglin_logger_failure(const char *format, ...);
