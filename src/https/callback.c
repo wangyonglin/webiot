@@ -1,5 +1,5 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 #include <https/https.h>
 #include <https/retsult.h>
 #include <mosquitto/mosquitto.h>
@@ -15,64 +15,69 @@ wangyonglin_mosquitto_publish_t publish_t;
     memcpy(request_data_buf, payload, post_data_len);
     printf("[post_data][%d]=\n %s\n", post_data_len, payload);
     */
-char *wangyonglin_https_callback_params(struct evhttp_request *request, const char *query_char);
+char *https__callback_params(https__request_t *request_t, struct evhttp_request *request, const char *query_char);
 
-void wangyonglin_https_callback_mosquitto(struct evhttp_request *request, void *arg){
-    wangyonglin_signal_t *signal_t = (wangyonglin_signal_t *)arg;
-    wangyonglin_logger_success("### IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
+void https__callback_mosquitto(struct evhttp_request *request, void *arg)
+{
+   
+    https__request_t *request_t = (https__request_t*)arg;
+    request_t->request = request;
+    wangyonglin_signal_t *signal_t = request_t->signal_t;
+    log__printf( request_t->config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
-        wangyonglin_https_retsult_failure(request,HTTP_BADREQUEST, "input params is null.");
+        https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
         return;
     }
     char *sign = NULL;
     char *topic = NULL;
     char *payload = NULL;
-    sign = wangyonglin_https_callback_params(request, "sign"); //获取get请求uri中的sign参数
+    sign = https__callback_params(request_t, request, "sign"); //获取get请求uri中的sign参数
     if (sign == NULL)
     {
-        wangyonglin_https_retsult_failure(request, HTTP_BADREQUEST, "request uri no param sign.");
+        https__failure(request_t, HTTP_BADREQUEST, "request uri no param sign.");
         return;
     }
-    topic = wangyonglin_https_callback_params(request, "topic"); //获取get请求uri中的sign参数
+    topic = https__callback_params(request_t, request, "topic"); //获取get请求uri中的sign参数
     if (topic == NULL)
     {
-        wangyonglin_https_retsult_failure(request, HTTP_BADREQUEST, "request uri no param topic.");
+        https__failure(request_t, HTTP_BADREQUEST, "request uri no param topic.");
         return;
     }
-    payload = wangyonglin_https_callback_params(request, "payload"); //获取get请求uri中的data参数
+    payload = https__callback_params(request_t, request, "payload"); //获取get请求uri中的data参数
     if (payload == NULL)
     {
-        wangyonglin_https_retsult_failure(request, HTTP_BADREQUEST, "request uri no param payload.");
+        https__failure(request_t, HTTP_BADREQUEST, "request uri no param payload.");
 
         return;
     }
-    cJSON *root = cJSON_CreateObject();
-    cJSON_AddStringToObject(root, "sign", sign);
-    cJSON_AddStringToObject(root, "topic", topic);
-    cJSON_AddStringToObject(root, "payload", payload);
-    char *json = cJSON_Print(root);
+
+    wangyonglin_string_t string_sign_t = wangyonglin_null_string;
     wangyonglin_string_t string_topic_t = wangyonglin_null_string;
     wangyonglin_string_t string_payload_t = wangyonglin_null_string;
+    wangyonglin_string_setting(&string_sign_t, sign);
     wangyonglin_string_setting(&string_topic_t, topic);
     wangyonglin_string_setting(&string_payload_t, payload);
-    publish_t.topic = string_topic_t;
-    publish_t.payload = string_payload_t;
-    wangyonglin_signal_queue(signal_t, SIGUSR1, 100, &publish_t);
-    wangyonglin_https_retsult_success(request,root,"Show me the money");
+    request_t->sign = string_sign_t;
+    request_t->topic = string_topic_t;
+    request_t->payload = string_payload_t;
+    wangyonglin_signal_queue(signal_t, SIGUSR1, 100, request_t);
 }
-void wangyonglin_https_callback_notfound(struct evhttp_request *request, void *arg){
-    wangyonglin_https_retsult_failure(request,404,"not Found");
+void https__callback_notfound(struct evhttp_request *request, void *arg)
+{
+    https__request_t request_t;
+    request_t.request = request;
+    request_t.config = (struct wangyonglin__config*)arg;
+    https__failure(&request_t, 404, "not Found");
 }
-
 
 //解析http头，主要用于get请求时解析uri和请求参数
-char *wangyonglin_https_callback_params(struct evhttp_request *request, const char *query_char)
+char *https__callback_params( https__request_t *request_t, struct evhttp_request *request, const char *query_char)
 {
     struct evkeyvalq params = {0};
     if (request == NULL || &params == NULL || query_char == NULL)
     {
-        wangyonglin_https_retsult_failure(request,HTTP_BADREQUEST,"input params is null.");
+        https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
         return NULL;
     }
     struct evhttp_uri *decoded = NULL;
@@ -82,7 +87,7 @@ char *wangyonglin_https_callback_params(struct evhttp_request *request, const ch
     const char *uri = evhttp_request_get_uri(request); //获取请求uri
     if (uri == NULL)
     {
-        wangyonglin_logger_failure("====line:%d,evhttp_request_get_uri return null\n", __LINE__);
+        log__printf(request_t->config, LOG_INFO, "====line:%d,evhttp_request_get_uri return null\n", __LINE__);
 
         return NULL;
     }
@@ -90,7 +95,7 @@ char *wangyonglin_https_callback_params(struct evhttp_request *request, const ch
     decoded = evhttp_uri_parse(uri);
     if (!decoded)
     {
-        wangyonglin_logger_failure("====line:%d,It's not a good URI. Sending BADREQUEST\n", __LINE__);
+        log__printf(request_t->config, LOG_INFO, "====line:%d,It's not a good URI. Sending BADREQUEST\n", __LINE__);
         evhttp_send_error(request, HTTP_BADREQUEST, 0);
         return NULL;
     }
@@ -104,7 +109,7 @@ char *wangyonglin_https_callback_params(struct evhttp_request *request, const ch
     query = (char *)evhttp_uri_get_query(decoded);
     if (query == NULL)
     {
-        wangyonglin_logger_failure("====line:%d,evhttp_uri_get_query return null\n", __LINE__);
+        log__printf(request_t->config, LOG_INFO, "====line:%d,evhttp_uri_get_query return null\n", __LINE__);
         return NULL;
     }
     //查询指定参数的值

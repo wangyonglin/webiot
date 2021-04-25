@@ -1,7 +1,7 @@
 #ifndef _WANGYONGLIN_MESSAGE_H_INCLUDE_
 #define _WANGYONGLIN_MESSAGE_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 #define MTEXTSIZE 1024
 typedef struct wangyonglin_message_s wangyonglin_message_t;
 #define wangyonglin_message_id_t int

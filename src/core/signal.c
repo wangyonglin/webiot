@@ -1,12 +1,13 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 #include <wangyonglin/signal.h>
 void wangyonglin_signal_action(wangyonglin_signal_t *signal_t,int signo,wangyonglin_signal_callback_t * call)
+
 {
     signal_t->pid=getpid();
     sigemptyset(&signal_t->act.sa_mask);
 
-    signal_t->act.sa_sigaction = call;
+    signal_t->act.sa_sigaction =call;
 
     signal_t->act.sa_flags = SA_SIGINFO;
 

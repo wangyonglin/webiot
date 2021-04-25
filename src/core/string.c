@@ -1,5 +1,5 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
 
 /**

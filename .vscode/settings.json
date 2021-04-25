@@ -18,7 +18,15 @@
         "socket.h": "c",
         "err.h": "c",
         "retsult.h": "c",
-        "wangyonglin.h": "c"
+        "wangyonglin.h": "c",
+        "stdarg.h": "c",
+        "signal.h": "c",
+        "memory.h": "c",
+        "linux_config.h": "c",
+        "inttypes.h": "c",
+        "stdbool.h": "c",
+        "time.h": "c",
+        "openssl.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }

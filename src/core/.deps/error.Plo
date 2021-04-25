@@ -1,5 +1,5 @@
 error.lo: error.c /usr/include/stdc-predef.h \
- ../../include/wangyonglin/config.h /usr/include/stdio.h \
+ ../../include/wangyonglin/linux_config.h /usr/include/stdio.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
  /usr/include/bits/long-double.h /usr/include/gnu/stubs.h \
@@ -106,18 +106,19 @@ error.lo: error.c /usr/include/stdc-predef.h \
  /usr/include/openssl/ssl3.h /usr/include/openssl/tls1.h \
  /usr/include/openssl/dtls1.h /usr/include/openssl/srtp.h \
  /usr/lib/gcc/x86_64-redhat-linux/8/include/stdbool.h \
- ../../include/wangyonglin/core.h ../../include/wangyonglin/conf.h \
+ ../../include/wangyonglin/wangyonglin.h ../../include/wangyonglin/conf.h \
+ ../../include/wangyonglin/config.h ../../include/wangyonglin/signal.h \
+ ../../include/wangyonglin/memory.h ../../include/wangyonglin/core.h \
+ ../../include/wangyonglin/db.h ../../include/wangyonglin/logging.h \
  ../../include/wangyonglin/string.h ../../include/wangyonglin/epoll.h \
  ../../include/wangyonglin/client.h ../../include/wangyonglin/error.h \
- ../../include/wangyonglin/socket.h \
- ../../include/wangyonglin/wangyonglin.h ../../include/wangyonglin/pid.h \
- ../../include/wangyonglin/logger.h ../../include/wangyonglin/daemon.h \
- ../../include/wangyonglin/hmacsha1.h ../../include/wangyonglin/message.h \
- ../../include/wangyonglin/time.h ../../include/wangyonglin/signal.h
+ ../../include/wangyonglin/socket.h ../../include/wangyonglin/pid.h \
+ ../../include/wangyonglin/daemon.h ../../include/wangyonglin/hmacsha1.h \
+ ../../include/wangyonglin/message.h ../../include/wangyonglin/time.h
 
 /usr/include/stdc-predef.h:
 
-../../include/wangyonglin/config.h:
+../../include/wangyonglin/linux_config.h:
 
 /usr/include/stdio.h:
 
@@ -529,9 +530,21 @@ error.lo: error.c /usr/include/stdc-predef.h \
 
 /usr/lib/gcc/x86_64-redhat-linux/8/include/stdbool.h:
 
-../../include/wangyonglin/core.h:
+../../include/wangyonglin/wangyonglin.h:
 
 ../../include/wangyonglin/conf.h:
+
+../../include/wangyonglin/config.h:
+
+../../include/wangyonglin/signal.h:
+
+../../include/wangyonglin/memory.h:
+
+../../include/wangyonglin/core.h:
+
+../../include/wangyonglin/db.h:
+
+../../include/wangyonglin/logging.h:
 
 ../../include/wangyonglin/string.h:
 
@@ -543,11 +556,7 @@ error.lo: error.c /usr/include/stdc-predef.h \
 
 ../../include/wangyonglin/socket.h:
 
-../../include/wangyonglin/wangyonglin.h:
-
 ../../include/wangyonglin/pid.h:
-
-../../include/wangyonglin/logger.h:
 
 ../../include/wangyonglin/daemon.h:
 
@@ -556,5 +565,3 @@ error.lo: error.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/message.h:
 
 ../../include/wangyonglin/time.h:
-
-../../include/wangyonglin/signal.h:

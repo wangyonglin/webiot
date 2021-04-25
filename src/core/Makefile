@@ -128,9 +128,9 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
-am_libcore_la_OBJECTS = string.lo error.lo socket.lo wangyonglin.lo \
-	conf.lo pid.lo daemon.lo hmacsha1.lo message.lo time.lo \
-	epoll.lo client.lo signal.lo logger.lo
+am_libcore_la_OBJECTS = memory.lo config.lo core.lo string.lo error.lo \
+	socket.lo wangyonglin.lo conf.lo pid.lo daemon.lo hmacsha1.lo \
+	message.lo time.lo epoll.lo client.lo signal.lo logging.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -152,12 +152,14 @@ DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
+	./$(DEPDIR)/config.Plo ./$(DEPDIR)/core.Plo \
 	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/epoll.Plo \
 	./$(DEPDIR)/error.Plo ./$(DEPDIR)/hmacsha1.Plo \
-	./$(DEPDIR)/logger.Plo ./$(DEPDIR)/message.Plo \
-	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/signal.Plo \
-	./$(DEPDIR)/socket.Plo ./$(DEPDIR)/string.Plo \
-	./$(DEPDIR)/time.Plo ./$(DEPDIR)/wangyonglin.Plo
+	./$(DEPDIR)/logging.Plo ./$(DEPDIR)/memory.Plo \
+	./$(DEPDIR)/message.Plo ./$(DEPDIR)/pid.Plo \
+	./$(DEPDIR)/signal.Plo ./$(DEPDIR)/socket.Plo \
+	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo \
+	./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -323,6 +325,9 @@ top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libcore.la
 libcore_la_SOURCES = \
+    memory.c \
+    config.c \
+    core.c  \
     string.c \
     error.c \
     socket.c    \
@@ -336,7 +341,7 @@ libcore_la_SOURCES = \
     epoll.c \
     client.c    \
     signal.c \
-    logger.c 
+    logging.c
 
 AM_CPPFLAGS = -I $(top_srcdir)/include/
 all: all-am
@@ -419,11 +424,14 @@ distclean-compile:
 
 include ./$(DEPDIR)/client.Plo # am--include-marker
 include ./$(DEPDIR)/conf.Plo # am--include-marker
+include ./$(DEPDIR)/config.Plo # am--include-marker
+include ./$(DEPDIR)/core.Plo # am--include-marker
 include ./$(DEPDIR)/daemon.Plo # am--include-marker
 include ./$(DEPDIR)/epoll.Plo # am--include-marker
 include ./$(DEPDIR)/error.Plo # am--include-marker
 include ./$(DEPDIR)/hmacsha1.Plo # am--include-marker
-include ./$(DEPDIR)/logger.Plo # am--include-marker
+include ./$(DEPDIR)/logging.Plo # am--include-marker
+include ./$(DEPDIR)/memory.Plo # am--include-marker
 include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/signal.Plo # am--include-marker
@@ -595,11 +603,14 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/client.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
+	-rm -f ./$(DEPDIR)/config.Plo
+	-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
-	-rm -f ./$(DEPDIR)/logger.Plo
+	-rm -f ./$(DEPDIR)/logging.Plo
+	-rm -f ./$(DEPDIR)/memory.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo
@@ -654,11 +665,14 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/client.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
+	-rm -f ./$(DEPDIR)/config.Plo
+	-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/hmacsha1.Plo
-	-rm -f ./$(DEPDIR)/logger.Plo
+	-rm -f ./$(DEPDIR)/logging.Plo
+	-rm -f ./$(DEPDIR)/memory.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo

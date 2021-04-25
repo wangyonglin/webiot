@@ -25,8 +25,8 @@
 
 #ifndef _WANGYONGLIN_CONF_H_INCLUDE_
 #define _WANGYONGLIN_CONF_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
 #ifdef __cplusplus
 #define WANGYONGLIN_EXTERN extern "C"

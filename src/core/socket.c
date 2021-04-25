@@ -1,5 +1,5 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
 int wangyonglin_socket_build(wangyonglin_socket_t *socket_t)
 {

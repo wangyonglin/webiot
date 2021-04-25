@@ -1,6 +1,9 @@
 AUTOMAKE_OPTIONS=foreign
 lib_LTLIBRARIES=libcore.la
 libcore_la_SOURCES=             \
+    memory.c \
+    config.c \
+    core.c  \
     string.c \
     error.c \
     socket.c    \
@@ -14,5 +17,5 @@ libcore_la_SOURCES=             \
     epoll.c \
     client.c    \
     signal.c \
-    logger.c 
+    logging.c
 AM_CPPFLAGS=-I $(top_srcdir)/include/

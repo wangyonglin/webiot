@@ -1,11 +1,14 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
-pid_t wangyonglin_daemon(){
-    pid_t pid;int fd;
-    switch (fork()) {
+pid_t wangyonglin__daemonise(struct wangyonglin__config *config)
+{
+    pid_t pid;
+    int fd;
+    switch (fork())
+    {
     case -1:
-       fprintf(stderr,"\t\tfork() failed\n");
+        log__printf(config, LOG_ERR, "fork() failed");
         exit(EXIT_FAILURE);
 
     case 0:
@@ -16,45 +19,44 @@ pid_t wangyonglin_daemon(){
     }
 
     pid = getpid();
-    if ((chdir("/")) < 0) {
-       fprintf(stderr, "could change to root dir!\n");
+    if ((chdir("/")) < 0)
+    {
+        log__printf(config, LOG_ERR, "could change to root dir");
         exit(EXIT_FAILURE);
     }
-    if (setsid() == -1) {
-       fprintf(stderr,"\t\tsetsid() failed\n");
+    if (setsid() == -1)
+    {
+        log__printf(config, LOG_ERR, "\t\tsetsid() failed");
         exit(EXIT_FAILURE);
     }
-     umask(0);
+    umask(0);
 
     fd = open("/dev/null", O_RDWR);
-    if (fd == -1) {
-       fprintf(stderr,"\t\topen(\"/dev/null\") failed\n");
-       exit(EXIT_FAILURE);
-    }
-
-    if (dup2(fd, STDIN_FILENO) == -1) {
-       fprintf(stderr,"\tdup2(STDIN) failed\n");
-       exit(EXIT_FAILURE);
-    }
-
-    if (dup2(fd, STDOUT_FILENO) == -1) {
-       fprintf(stderr,"\tdup2(STDOUT) failed\n");
+    if (fd == -1)
+    {
+        log__printf(config, LOG_ERR, "open(\"/dev/null\") failed");
         exit(EXIT_FAILURE);
     }
 
-#if 0
-    if (dup2(fd, STDERR_FILENO) == -1) {
-        ngx_log_error(NGX_LOG_EMERG, log, ngx_errno, "dup2(STDERR) failed\n");
-        return NGX_ERROR;
+    if (dup2(fd, STDIN_FILENO) == -1)
+    {
+        log__printf(config, LOG_ERR, "dup2(STDIN) failed");
+        exit(EXIT_FAILURE);
     }
-#endif
 
-    if (fd > STDERR_FILENO) {
-        if (close(fd) == -1) {
-           fprintf(stderr,"\tclose() failed\n");
-           exit(EXIT_FAILURE);
+    if (dup2(fd, STDOUT_FILENO) == -1)
+    {
+        log__printf(config, LOG_ERR, "dup2(STDOUT) failed");
+        exit(EXIT_FAILURE);
+    }
+    if (fd > STDERR_FILENO)
+    {
+        if (close(fd) == -1)
+        {
+            log__printf(config, LOG_ERR, "close() failed");
+            exit(EXIT_FAILURE);
         }
     }
 
     return pid;
-}   
+}

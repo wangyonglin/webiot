@@ -1,13 +1,17 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
-
-void wangyonglin_localtime_timestamp(char *buf)
+time_t wangyonglin__time(void)
 {
 
-    time_t time_seconds = time(0);
-    struct tm *t = localtime(&time_seconds);
-    t->tm_year += 1900;
-    t->tm_mon += 1;
-    sprintf(buf, "%04d-%02d-%02dT%02d:%02d:%02dZ", t->tm_year, t->tm_mon, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+    return time(NULL);
+}
+int time__timestamp(struct wangyonglin__config *config, char *strout,int sizeout)
+{
+    char log_line[1000];
+    time_t rawtime;
+    struct tm *info;
+    time(&rawtime);
+    info = localtime(&rawtime);
+    return strftime(strout, sizeout, config->log_timestamp_format, info);
 }

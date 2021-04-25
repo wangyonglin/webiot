@@ -1,7 +1,7 @@
 #ifndef _WANGYONGLIN_CLIENT_H_INCLUDE_
 #define _WANGYONGLIN_CLIENT_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
 typedef struct wangyonglin_client_s wangyonglin_client_t;
 typedef struct wangyonglin_sockfd_s

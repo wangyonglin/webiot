@@ -1,7 +1,7 @@
 #ifndef _WANGYONGLIN_STRING_H_INCLUDE_
 #define _WANGYONGLIN_STRING_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 typedef struct wangyonglin_string_s wangyonglin_string_t;
 struct wangyonglin_string_s
 {

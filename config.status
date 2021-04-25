@@ -393,7 +393,7 @@ on `(hostname || uname -n) 2>/dev/null | sed 1q`
 "
 
 # Files that config.status was made for.
-config_files=" Makefile src/user/Makefile src/core/Makefile src/cjson/Makefile src/mosquitto/Makefile src/https/Makefile"
+config_files=" Makefile src/app/Makefile src/core/Makefile src/cjson/Makefile src/mosquitto/Makefile src/https/Makefile"
 config_headers=" config.h"
 config_commands=" depfiles libtool"
 
@@ -750,7 +750,7 @@ do
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "src/user/Makefile") CONFIG_FILES="$CONFIG_FILES src/user/Makefile" ;;
+    "src/app/Makefile") CONFIG_FILES="$CONFIG_FILES src/app/Makefile" ;;
     "src/core/Makefile") CONFIG_FILES="$CONFIG_FILES src/core/Makefile" ;;
     "src/cjson/Makefile") CONFIG_FILES="$CONFIG_FILES src/cjson/Makefile" ;;
     "src/mosquitto/Makefile") CONFIG_FILES="$CONFIG_FILES src/mosquitto/Makefile" ;;

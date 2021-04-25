@@ -1,7 +1,8 @@
 #ifndef _WANGYONGLIN_TIME_H_INCLUDE_
 #define _WANGYONGLIN_TIME_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
-void wangyonglin_localtime_timestamp(char *buf);
+time_t wangyonglin__time(void);
+int time__timestamp(struct wangyonglin__config *config, char *strout,int sizeout);
 #endif 

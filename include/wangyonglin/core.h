@@ -1,22 +1,15 @@
 #ifndef _WANGYONGLIN_CORE_H_INCLUDE_
 #define _WANGYONGLIN_CORE_H_INCLUDE_
-#include <wangyonglin/conf.h>
-
-#include <wangyonglin/string.h>
-
-#include <wangyonglin/epoll.h>
-#include <wangyonglin/client.h>
-
-#include <wangyonglin/error.h>
-#include <wangyonglin/socket.h>
+#include <wangyonglin/linux_config.h>
 #include <wangyonglin/wangyonglin.h>
-
-#include <wangyonglin/pid.h>
-#include <wangyonglin/logger.h>
-#include <wangyonglin/daemon.h>
-#include <wangyonglin/hmacsha1.h>
-#include <wangyonglin/message.h>
-#include <wangyonglin/time.h>
-#include <wangyonglin/signal.h>
-
+int application(struct wangyonglin__config *config);
+#ifndef WANGYONGLIN__CALL
+#define WANGYONGLIN__CALL
+typedef struct wangyonglin__call wangyonglin__call_t;
+struct wangyonglin__call
+{
+    void *(*app)(struct wangyonglin__config *config, void *args);
+    //struct wangyonglin__config *config;
+};
+#endif
 #endif

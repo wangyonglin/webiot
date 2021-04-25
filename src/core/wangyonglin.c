@@ -1,36 +1,31 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
-wangyonglin_conf_table_t* wangyonglin_application_initialization(const char *file, int daemon)
+int main(int argc, char *argv[])
 {
-    FILE *fp;
-    char errbuf[200];
+	int rc;
+	struct wangyonglin__config config;
 
-    // 1. Read and parse conf file
-    fp = fopen(file, "r");
-    if (!fp)
-    {
-        fprintf(stderr, "cannot open wangyonglin.conf - ", strerror(errno));
-        exit(EXIT_FAILURE);
-    }
-    wangyonglin_conf_table_t *conf = wangyonglin_conf_parse_file(fp, errbuf, sizeof(errbuf));
-    fclose(fp);
+	config__init(&config);
+	rc = config__load(&config, argc, argv);
+	if (rc != ERR_SUCCESS)
+		return rc;
+	/**开启日志功能**/
+	log__init(&config);
+	/**开启守护进程**/
+	if (config.daemon)
+	{
+		wangyonglin__daemonise(&config);
+	}
 
-    if (wangyonglin_pid_init(conf) != 0)
-        return NULL;
-    if (wangyonglin_logger_init(conf) != 0)
-        return NULL;
-    if (daemon == 1)
-    {
-        wangyonglin_daemon();
-    }
-    return conf;
-}
-struct tm *wangyonglin_core_localtime()
-{
-    time_t time_seconds = time(0);
-    struct tm *now_time = localtime(&time_seconds);
-    now_time->tm_year += 1900;
-    now_time->tm_mon += 1;
-    return now_time;
+	/**写入pid文件**/
+	rc = wangyonglin__pid_write(&config);
+	if (rc != ERR_SUCCESS)
+		return rc;
+
+	application(&config);
+	/**关闭日志功能**/
+	log__close(&config);
+	config__cleanup(&config);
+	return rc;
 }

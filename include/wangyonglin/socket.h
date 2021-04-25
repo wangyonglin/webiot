@@ -1,7 +1,7 @@
 #ifndef _WANGYONGLIN_SOCKET_H_INCLUDE_
 #define _WANGYONGLIN_SOCKET_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 typedef struct wangyonglin_socket_s wangyonglin_socket_t;
 typedef struct wangyonglin_socket_client_s wangyonglin_socket_client_t;
 struct wangyonglin_socket_client_s

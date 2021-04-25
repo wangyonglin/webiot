@@ -1,5 +1,5 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
 size_t wangyonglin_hmacsha1_encode(const void *key, unsigned char *data, unsigned char *dest)
 {

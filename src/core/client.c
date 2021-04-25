@@ -1,4 +1,4 @@
-#include <wangyonglin/config.h>
+#include <wangyonglin/linux_config.h>
 #include <wangyonglin/core.h>
 
 void wangyonglin_sockfd_add(wangyonglin_sockfd_t *sockfd_t, int sockfd)

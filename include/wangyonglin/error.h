@@ -1,7 +1,7 @@
 #ifndef _WANGYONGLIN_ERROR_H_INCLUDE_
 #define _WANGYONGLIN_ERROR_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
 
 void wangyonglin_error_perror(const char *__format, ...);

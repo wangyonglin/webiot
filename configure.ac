@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT(wangyonglin,1.0.0,admin@wangyonglin.com)
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([src/user/main.c])
+AC_CONFIG_SRCDIR([src/app/app.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -24,7 +24,7 @@ AC_TYPE_SIZE_T
 
 # Checks for library functions.
 AC_CONFIG_FILES([Makefile
-                src/user/Makefile
+                src/app/Makefile
                 src/core/Makefile
                 src/cjson/Makefile
                 src/mosquitto/Makefile

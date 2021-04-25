@@ -4,15 +4,14 @@ SUBDIRS = \
     src/core \
     src/https \
     src/mosquitto \
-    src/user
+    src/app
 
 includedir= $(prefix)/include
 bindir =    $(prefix)/bin
 libdir =    $(prefix)/lib
 
 logsdir =   $(prefix)/logs
-logs_DATA = $(top_srcdir)/logs/error.log  \
-            $(top_srcdir)/logs/access.log 
+logs_DATA = $(top_srcdir)/logs/wangyonglin.log
 
 confdir =   $(prefix)/conf
 conf_DATA = $(top_srcdir)/conf/wangyonglin.conf

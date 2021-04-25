@@ -1,7 +1,7 @@
 #ifndef _WANGYONGLIN_PIPE_H_INCLUDE_
 #define _WANGYONGLIN_PIPE_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
 typedef struct wangyonglin_pipe_s wangyonglin_pipe_t;
 typedef int wangyonglin_pipe_fd_t;

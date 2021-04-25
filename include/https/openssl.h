@@ -1,7 +1,7 @@
 #ifndef _WANGYONGLIN_HTTPS_SSL_INCLUDE_
 #define _WANGYONGLIN_HTTPS_SSL_INCLUDE_
 #include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/wangyonglin.h>
 
 
 void wangyonglin_openssl_init();

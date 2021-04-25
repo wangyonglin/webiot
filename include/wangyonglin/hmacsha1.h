@@ -1,8 +1,8 @@
 #ifndef _WANGYONGLIN_HMACSHA1_H_INCLUDE_
 #define _WANGYONGLIN_HMACSHA1_H_INCLUDE_
 
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 #include <openssl/evp.h>
 #include <openssl/hmac.h>
 #include <openssl/bio.h>

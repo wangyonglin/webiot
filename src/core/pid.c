@@ -1,44 +1,32 @@
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
 
-int wangyonglin_pid_init(wangyonglin_conf_table_t *conf)
+int wangyonglin__pid_write(struct wangyonglin__config *config)
 {
     int pid_fd;
-    //读取系统配置文件的内容
-    wangyonglin_conf_table_t *system = wangyonglin_conf_table_in(conf, "SYSTEM");
-    if (!system)
+    if (config->pid_file != NULL)
     {
-        fprintf(stderr, "missing [SYSTEM]\n");
-        exit(EXIT_FAILURE);
-    }
-    wangyonglin_conf_datum_t pid = wangyonglin_conf_string_in(system, "pid");
-    if (!pid.ok)
-    {
-        fprintf(stderr, "cannot read SYSTEM.pid", "");
-        exit(EXIT_FAILURE);
-    }
-  
-    if (pid.u.s != NULL)
-    {
+
         char str[256];
-        pid_fd = open(pid.u.s, O_RDWR | O_CREAT, 0640);
+        pid_fd = open(config->pid_file, O_RDWR | O_CREAT, 0640);
         if (pid_fd < 0)
         {
-            fprintf(stderr, "Fail to open file!\n");
-            exit(EXIT_FAILURE);
+            log__printf(config, LOG_ERR, "Fail to open file");
+            return ERR_UNKNOWN;
         }
         if (lockf(pid_fd, F_TLOCK, 0) < 0)
         {
-            fprintf(stderr, "Fail to lockf file!\n");
-            exit(EXIT_FAILURE);
+            log__printf(config, LOG_ERR, "Fail to lockf file");
+            return ERR_UNKNOWN;
         }
         // get pid & save in str
         sprintf(str, "%d\n", getpid());
         // write to pid file
         ssize_t ret = write(pid_fd, str, strlen(str));
         if (ret < 0)
-            exit(EXIT_FAILURE);
+            return ERR_UNKNOWN;
+        close(pid_fd);
     }
-    free(pid.u.s);
-    return 0;
+
+    return ERR_SUCCESS;
 }

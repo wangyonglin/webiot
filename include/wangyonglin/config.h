@@ -1,41 +1,25 @@
-#ifndef _WANGYONGLIN_CONFIG_H_INCLUDE_
-#define _WANGYONGLIN_CONFIG_H_INCLUDE_
-#include <stdio.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/select.h>
-#include <sys/ioctl.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <stddef.h>
-#include <assert.h>
-#include <stdlib.h> 	/* malloc, free */
-#include <stdio.h>	/* fopen, fread, fclose */
-#include <string.h>	/* strcmp, strdup */
-#include <ctype.h>	/* isspace */
-#include <errno.h>	/* ENOMEM, EINVAL, ENOENT */
-#include <unistd.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdint.h>
-#include <poll.h>
-#include <sys/epoll.h>
-#include <sys/time.h>
-#include <pthread.h>
-#include <err.h>
-//到消息队列 ipc msg
-#include <sys/ipc.h>
-#include <sys/msg.h>
-#include <ctype.h>
-//OPENSSL　证书
-#include <openssl/err.h>
-#include <openssl/ssl.h>
-// TOML 配置文件
-#include <stdbool.h>
-#endif /**_WANGYONGLIN_CONFIG_H_INCLUDE_**/
+#ifndef _CONFIG_H_INCLUDE_
+#define _CONFIG_H_INCLUDE_
+#include <wangyonglin/linux_config.h>
+#include <wangyonglin/wangyonglin.h>
+typedef struct wangyonglin__config wangyonglin__config_t;
 
+struct wangyonglin__config
+{
+    bool daemon;
+    char *pid_file;
+    unsigned int log_dest;
+    int log_facility;
+    unsigned int log_type;
+    bool log_timestamp;
+    char *log_timestamp_format;
+    char *log_file;
+    FILE *log_fptr;
+    char *user;
+    wangyonglin_conf_table_t *conf;
+};
+
+void config__init(struct wangyonglin__config *config);
+void config__cleanup(struct wangyonglin__config *config);
+int config__load(struct wangyonglin__config *config, int argc, char *argv[]);
+#endif
