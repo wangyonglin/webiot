@@ -1,4 +1,4 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 #include <wangyonglin/signal.h>
 void wangyonglin_signal_action(wangyonglin_signal_t *signal_t,int signo,wangyonglin_signal_callback_t * call)

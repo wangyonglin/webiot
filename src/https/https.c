@@ -1,4 +1,4 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 #include <https/https.h>
 #include <https/retsult.h>
@@ -81,9 +81,9 @@ int https__application(struct wangyonglin__config *config, wangyonglin_signal_t 
         exit(EXIT_FAILURE);
     }
     /* 选择服务器证书 和 服务器私钥. 1/2 创建SSL上下文环境 ，可以理解为 SSL句柄 */
-    https_t->ctx = wangyonglin_openssl_context_create();
+    https_t->ctx = wangyonglin_openssl_context_create(config);
     /* 选择服务器证书 和 服务器私钥. 2/2  设置服务器证书 和 服务器私钥 到 OPENSSL ctx上下文句柄中 */
-    wangyonglin_openssl_context_configure(https_t->ctx, https_t->certificate_chain.data, https_t->private_key.data);
+    wangyonglin_openssl_context_configure(config,https_t->ctx, https_t->certificate_chain.data, https_t->private_key.data);
     /* 配置 SOCKET */
     if (wangyonglin_https_socket(config, https_t) != 0)
     {

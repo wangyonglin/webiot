@@ -1,4 +1,4 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 #include <https/retsult.h>
 

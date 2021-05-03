@@ -28,5 +28,6 @@ AC_CONFIG_FILES([Makefile
                 src/core/Makefile
                 src/cjson/Makefile
                 src/mosquitto/Makefile
+                src/public/Makefile
                 src/https/Makefile])
 AC_OUTPUT

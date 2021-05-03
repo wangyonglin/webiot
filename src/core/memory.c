@@ -1,4 +1,4 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
 void *wangyonglin__calloc(size_t nmemb, size_t size)

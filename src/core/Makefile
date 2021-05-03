@@ -129,8 +129,8 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
 am_libcore_la_OBJECTS = memory.lo config.lo core.lo string.lo error.lo \
-	socket.lo wangyonglin.lo conf.lo pid.lo daemon.lo hmacsha1.lo \
-	message.lo time.lo epoll.lo client.lo signal.lo logging.lo
+	wangyonglin.lo conf.lo pid.lo daemon.lo time.lo signal.lo \
+	logging.lo buffer.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -151,13 +151,11 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/client.Plo ./$(DEPDIR)/conf.Plo \
+am__depfiles_remade = ./$(DEPDIR)/buffer.Plo ./$(DEPDIR)/conf.Plo \
 	./$(DEPDIR)/config.Plo ./$(DEPDIR)/core.Plo \
-	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/epoll.Plo \
-	./$(DEPDIR)/error.Plo ./$(DEPDIR)/hmacsha1.Plo \
+	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/error.Plo \
 	./$(DEPDIR)/logging.Plo ./$(DEPDIR)/memory.Plo \
-	./$(DEPDIR)/message.Plo ./$(DEPDIR)/pid.Plo \
-	./$(DEPDIR)/signal.Plo ./$(DEPDIR)/socket.Plo \
+	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/signal.Plo \
 	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo \
 	./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
@@ -330,18 +328,14 @@ libcore_la_SOURCES = \
     core.c  \
     string.c \
     error.c \
-    socket.c    \
     wangyonglin.c   \
     conf.c          \
     pid.c            \
     daemon.c    \
-    hmacsha1.c  \
-    message.c   \
     time.c \
-    epoll.c \
-    client.c    \
     signal.c \
-    logging.c
+    logging.c \
+    buffer.c
 
 AM_CPPFLAGS = -I $(top_srcdir)/include/
 all: all-am
@@ -422,20 +416,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/client.Plo # am--include-marker
+include ./$(DEPDIR)/buffer.Plo # am--include-marker
 include ./$(DEPDIR)/conf.Plo # am--include-marker
 include ./$(DEPDIR)/config.Plo # am--include-marker
 include ./$(DEPDIR)/core.Plo # am--include-marker
 include ./$(DEPDIR)/daemon.Plo # am--include-marker
-include ./$(DEPDIR)/epoll.Plo # am--include-marker
 include ./$(DEPDIR)/error.Plo # am--include-marker
-include ./$(DEPDIR)/hmacsha1.Plo # am--include-marker
 include ./$(DEPDIR)/logging.Plo # am--include-marker
 include ./$(DEPDIR)/memory.Plo # am--include-marker
-include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/signal.Plo # am--include-marker
-include ./$(DEPDIR)/socket.Plo # am--include-marker
 include ./$(DEPDIR)/string.Plo # am--include-marker
 include ./$(DEPDIR)/time.Plo # am--include-marker
 include ./$(DEPDIR)/wangyonglin.Plo # am--include-marker
@@ -601,20 +591,16 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/client.Plo
+		-rm -f ./$(DEPDIR)/buffer.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
-	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
-	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/logging.Plo
 	-rm -f ./$(DEPDIR)/memory.Plo
-	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo
-	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo
@@ -663,20 +649,16 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/client.Plo
+		-rm -f ./$(DEPDIR)/buffer.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/core.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
-	-rm -f ./$(DEPDIR)/epoll.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
-	-rm -f ./$(DEPDIR)/hmacsha1.Plo
 	-rm -f ./$(DEPDIR)/logging.Plo
 	-rm -f ./$(DEPDIR)/memory.Plo
-	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo
-	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
 	-rm -f ./$(DEPDIR)/wangyonglin.Plo

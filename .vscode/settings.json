@@ -26,7 +26,9 @@
         "inttypes.h": "c",
         "stdbool.h": "c",
         "time.h": "c",
-        "openssl.h": "c"
+        "openssl.h": "c",
+        "hexstring.h": "c",
+        "linux.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }

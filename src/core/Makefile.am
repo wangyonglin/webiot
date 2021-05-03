@@ -6,16 +6,12 @@ libcore_la_SOURCES=             \
     core.c  \
     string.c \
     error.c \
-    socket.c    \
     wangyonglin.c   \
     conf.c          \
     pid.c            \
     daemon.c    \
-    hmacsha1.c  \
-    message.c   \
     time.c \
-    epoll.c \
-    client.c    \
     signal.c \
-    logging.c
+    logging.c \
+    buffer.c
 AM_CPPFLAGS=-I $(top_srcdir)/include/

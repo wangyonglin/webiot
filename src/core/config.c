@@ -1,4 +1,4 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
 void config__init(struct wangyonglin__config *config)
@@ -18,6 +18,7 @@ void config__init(struct wangyonglin__config *config)
 }
 void config__cleanup(struct wangyonglin__config *config)
 {
+ 
     if (config != NULL)
     {
         memset(config, 0, sizeof(struct wangyonglin__config));
@@ -64,6 +65,27 @@ int config__load(struct wangyonglin__config *config, int argc, char *argv[])
     else
     {
         config->log_file = log.u.s;
+    }
+    wangyonglin_conf_datum_t user = wangyonglin_conf_string_in(system, "user");
+    if (!user.ok)
+    {
+        fprintf(stderr, "cannot read wangyonglin.log", "");
+        return ERR_UNKNOWN;
+    }
+    else
+    {
+        config->user = user.u.s;
+    }
+
+    wangyonglin_conf_datum_t group = wangyonglin_conf_string_in(system, "group");
+    if (!group.ok)
+    {
+        fprintf(stderr, "cannot read wangyonglin.log", "");
+        return ERR_UNKNOWN;
+    }
+    else
+    {
+        config->group = group.u.s;
     }
 
     if (fd)

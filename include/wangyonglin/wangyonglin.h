@@ -1,26 +1,17 @@
-#ifndef _WANGYONGLIN_WANGYONGLIN_H_INCLUDE_
-#define _WANGYONGLIN_WANGYONGLIN_H_INCLUDE_
+#ifndef INCLUDE_WANGYONGLIN_WANGYONGLIN_H
+#define INCLUDE_WANGYONGLIN_WANGYONGLIN_H
+#include <wangyonglin/buffer.h>
 #include <wangyonglin/conf.h>
 #include <wangyonglin/config.h>
 #include <wangyonglin/signal.h>
 #include <wangyonglin/memory.h>
 #include <wangyonglin/core.h>
-#include <wangyonglin/db.h>
 #include <wangyonglin/logging.h>
 #include <wangyonglin/string.h>
-
-#include <wangyonglin/epoll.h>
-#include <wangyonglin/client.h>
-
 #include <wangyonglin/error.h>
-#include <wangyonglin/socket.h>
 #include <wangyonglin/pid.h>
-
 #include <wangyonglin/daemon.h>
-#include <wangyonglin/hmacsha1.h>
-#include <wangyonglin/message.h>
 #include <wangyonglin/time.h>
-#include <wangyonglin/core.h>
 /* Log types */
 #define LOG_NONE 0
 #define LOG_INFO (1 << 0)
@@ -73,7 +64,8 @@ enum err_t
 	ERR_TOPIC_ALIAS_INVALID = 29,
 	ERR_ADMINISTRATIVE_ACTION = 30,
 	ERR_ALREADY_EXISTS = 31,
+	ERR_DAEMON = 32,
+	ERR_PID = 33,
 };
 
-
-#endif /**_WANGYONGLIN_WANGYONGLIN_H_INCLUDE_**/
+#endif

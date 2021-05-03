@@ -1,6 +1,6 @@
 #ifndef _WANGYONGLIN_HTTPS_RETSULT_H_INCLUDE_
 #define _WANGYONGLIN_HTTPS_RETSULT_H_INCLUDE_
-#include <wangyonglin/config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 #include <cjson/json.h>
 #include <evhttp.h>

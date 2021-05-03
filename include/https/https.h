@@ -1,6 +1,6 @@
 #ifndef _HTTPS_HTTPS_H_INCLUDE_
 #define _HTTPS_HTTPS_H_INCLUDE_
-#include <wangyonglin/config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
 #include <evhttp.h>

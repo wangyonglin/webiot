@@ -1,11 +1,13 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 #include <mosquitto/mosquitto.h>
 #include <mosquitto.h>
 #include <https/https.h>
 #include <https/openssl.h>
+#include <public/hexstring.h>
 wangyonglin_signal_t signal_t;
 uint8_t tmp[1024];
+struct wangyonglin__buffer payload_data_t;
 /*
 void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
 {
@@ -36,9 +38,9 @@ void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
 		{
 			if (request_t->topic.data != NULL)
 			{
-				memset(&tmp, 0, 1024);
-				wangyonglin_string_hex(request_t->payload.data, tmp);
-				rc = mosquitto__publist(config, request_t->topic.data, tmp, strlen(tmp));
+				buffer__null(&payload_data_t);
+				public__hexstring(request_t->payload.data,&payload_data_t);
+				rc = mosquitto__publist(config, request_t->topic.data, payload_data_t.val, strlen(payload_data_t.val));
 				switch (rc)
 				{
 				case MOSQ_ERR_SUCCESS:
@@ -80,17 +82,18 @@ void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
 					https__failure(request_t, 444, "other errors.");
 					break;
 				}
-			}
+						}
 		}
 	}
 }
 int application(struct wangyonglin__config *config)
 {
-	log__printf(config, LOG_INFO, "application ok");
+	buffer(&payload_data_t, 1024);
 	wangyonglin_openssl_init();
 	wangyonglin_signal_action(&signal_t, SIGUSR1, &applicatio_signal_callback);
 	mosquitto__appcation(config, &signal_t);
 	https__application(config, &signal_t);
 	wangyonglin_openssl_cleanup();
+	buffer__cleanup(&payload_data_t);
 	return ERR_SUCCESS;
 }

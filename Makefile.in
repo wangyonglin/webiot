@@ -353,6 +353,7 @@ SUBDIRS = \
     src/core \
     src/https \
     src/mosquitto \
+    src/public \
     src/app
 
 logsdir = $(prefix)/logs

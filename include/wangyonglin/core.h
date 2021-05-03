@@ -1,6 +1,6 @@
-#ifndef _WANGYONGLIN_CORE_H_INCLUDE_
-#define _WANGYONGLIN_CORE_H_INCLUDE_
-#include <wangyonglin/linux_config.h>
+#ifndef INCLUDE_WANGYONGLIN_CORE_H
+#define INCLUDE_WANGYONGLIN_CORE_H
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 int application(struct wangyonglin__config *config);
 #ifndef WANGYONGLIN__CALL
@@ -12,4 +12,14 @@ struct wangyonglin__call
     //struct wangyonglin__config *config;
 };
 #endif
+
+typedef struct wangyonglin__executable wangyonglin__executable_t;
+struct wangyonglin__executable
+{
+    struct stat st;
+    DIR *dir;
+    struct dirent *dirent;
+    char *process;
+};
+size_t wangyonglin__executable(struct wangyonglin__config *config);
 #endif

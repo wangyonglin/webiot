@@ -1,7 +1,7 @@
-#ifndef _WANGYONGLIN_DAEMON_H_INCLUDE_
-#define _WANGYONGLIN_DAEMON_H_INCLUDE_
-#include <wangyonglin/linux_config.h>
+#ifndef INCLUDE_WANGYONGLIN_DAEMON_H
+#define INCLUDE_WANGYONGLIN_DAEMON_H
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-pid_t wangyonglin__daemonise(struct wangyonglin__config *config);
-#endif /**_WANGYONGLIN_DAEMON_H_INCLUDE_**/
+int wangyonglin__daemon(struct wangyonglin__config *config);
+#endif 

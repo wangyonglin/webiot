@@ -1,5 +1,5 @@
-#ifndef _WANGYONGLIN_LINUX_CONFIG_H_INCLUDE_
-#define _WANGYONGLIN_LINUX_CONFIG_H_INCLUDE_
+#ifndef INCLUDE_WANGYONGLIN_LINUX_H
+#define INCLUDE_WANGYONGLIN_LINUX_H
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
@@ -14,11 +14,11 @@
 #include <netdb.h>
 #include <stddef.h>
 #include <assert.h>
-#include <stdlib.h> 	/* malloc, free */
-#include <stdio.h>	/* fopen, fread, fclose */
-#include <string.h>	/* strcmp, strdup */
-#include <ctype.h>	/* isspace */
-#include <errno.h>	/* ENOMEM, EINVAL, ENOENT */
+#include <stdlib.h> /* malloc, free */
+#include <stdio.h>  /* fopen, fread, fclose */
+#include <string.h> /* strcmp, strdup */
+#include <ctype.h>  /* isspace */
+#include <errno.h>  /* ENOMEM, EINVAL, ENOENT */
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -28,6 +28,7 @@
 #include <sys/time.h>
 #include <pthread.h>
 #include <err.h>
+#include <dirent.h>
 //到消息队列 ipc msg
 #include <sys/ipc.h>
 #include <sys/msg.h>

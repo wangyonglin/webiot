@@ -106,7 +106,8 @@ wangyonglin_OBJECTS = $(am_wangyonglin_OBJECTS)
 wangyonglin_DEPENDENCIES = $(top_srcdir)/src/cjson/libjson.la \
 	$(top_srcdir)/src/core/libcore.la \
 	$(top_srcdir)/src/https/libhttps.la \
-	$(top_srcdir)/src/mosquitto/libmqtt.la
+	$(top_srcdir)/src/mosquitto/libmqtt.la \
+	$(top_srcdir)/src/public/libpublic.la
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
@@ -298,6 +299,7 @@ wangyonglin_LDADD = \
     $(top_srcdir)/src/core/libcore.la \
     $(top_srcdir)/src/https/libhttps.la \
     $(top_srcdir)/src/mosquitto/libmqtt.la \
+    $(top_srcdir)/src/public/libpublic.la \
     $(FLIBS)
 
 all: all-am

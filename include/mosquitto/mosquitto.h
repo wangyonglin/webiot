@@ -1,7 +1,7 @@
-#ifndef _MOSQUITTO_MOSQUITTO_H_INCLUDE_
-#define _MOSQUITTO_MOSQUITTO_H_INCLUDE_
-#include <wangyonglin/config.h>
-#include <wangyonglin/core.h>
+#ifndef INCLUDE_MOSQUITTO_MOSQUITTO_H
+#define INCLUDE_MOSQUITTO_MOSQUITTO_H
+#include <wangyonglin/linux.h>
+#include <wangyonglin/wangyonglin.h>
 
 typedef struct wangyonglin_mosquitto_s wangyonglin_mosquitto_t;
 typedef struct wangyonglin_mosquitto_conf_s wangyonglin_mosquitto_conf_t;

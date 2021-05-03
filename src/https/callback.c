@@ -1,4 +1,4 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 #include <https/https.h>
 #include <https/retsult.h>
@@ -19,11 +19,11 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
 
 void https__callback_mosquitto(struct evhttp_request *request, void *arg)
 {
-   
-    https__request_t *request_t = (https__request_t*)arg;
+
+    https__request_t *request_t = (https__request_t *)arg;
     request_t->request = request;
     wangyonglin_signal_t *signal_t = request_t->signal_t;
-    log__printf( request_t->config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
+    log__printf(request_t->config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
         https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
@@ -33,22 +33,30 @@ void https__callback_mosquitto(struct evhttp_request *request, void *arg)
     char *topic = NULL;
     char *payload = NULL;
     sign = https__callback_params(request_t, request, "sign"); //获取get请求uri中的sign参数
-    if (sign == NULL)
+    if (sign == NULL || strlen(sign) > 20)
     {
-        https__failure(request_t, HTTP_BADREQUEST, "request uri no param sign.");
+        if (sign == NULL)
+            https__failure(request_t, HTTP_BADREQUEST, "request uri no param sign.");
+        else
+            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 sign.");
         return;
     }
     topic = https__callback_params(request_t, request, "topic"); //获取get请求uri中的sign参数
-    if (topic == NULL)
+    if (topic == NULL || strlen(topic) > 20)
     {
-        https__failure(request_t, HTTP_BADREQUEST, "request uri no param topic.");
+        if (topic == NULL)
+            https__failure(request_t, HTTP_BADREQUEST, "request uri no param topic.");
+        else
+            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 topic.");
         return;
     }
     payload = https__callback_params(request_t, request, "payload"); //获取get请求uri中的data参数
-    if (payload == NULL)
+    if (payload == NULL || strlen(payload) > 20)
     {
-        https__failure(request_t, HTTP_BADREQUEST, "request uri no param payload.");
-
+        if (payload == NULL)
+            https__failure(request_t, HTTP_BADREQUEST, "request uri no param payload.");
+        else
+            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 payload.");
         return;
     }
 
@@ -67,12 +75,12 @@ void https__callback_notfound(struct evhttp_request *request, void *arg)
 {
     https__request_t request_t;
     request_t.request = request;
-    request_t.config = (struct wangyonglin__config*)arg;
+    request_t.config = (struct wangyonglin__config *)arg;
     https__failure(&request_t, 404, "not Found");
 }
 
 //解析http头，主要用于get请求时解析uri和请求参数
-char *https__callback_params( https__request_t *request_t, struct evhttp_request *request, const char *query_char)
+char *https__callback_params(https__request_t *request_t, struct evhttp_request *request, const char *query_char)
 {
     struct evkeyvalq params = {0};
     if (request == NULL || &params == NULL || query_char == NULL)

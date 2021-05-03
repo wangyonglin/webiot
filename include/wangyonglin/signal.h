@@ -1,7 +1,7 @@
 
-#ifndef _WANGYONGLIN_SIGNAL_H_INCLUDE_
-#define _WANGYONGLIN_SIGNAL_H_INCLUDE_
-#include <wangyonglin/linux_config.h>
+#ifndef INCLUDE_WANGYONGLIN_SIGNAL_H
+#define INCLUDE_WANGYONGLIN_SIGNAL_H
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
 typedef struct wangyonglin_signal_s wangyonglin_signal_t;

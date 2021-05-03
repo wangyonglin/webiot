@@ -23,9 +23,9 @@
   SOFTWARE.
 */
 
-#ifndef _WANGYONGLIN_CONF_H_INCLUDE_
-#define _WANGYONGLIN_CONF_H_INCLUDE_
-#include <wangyonglin/linux_config.h>
+#ifndef INCLUDE_WANGYONGLIN_CONF_H
+#define INCLUDE_WANGYONGLIN_CONF_H
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
 #ifdef __cplusplus
@@ -171,4 +171,4 @@ WANGYONGLIN_EXTERN int wangyonglin_conf_rtots(wangyonglin_conf_raw_t s, wangyong
 
 
 
-#endif /**_WANGYONGLIN_CONF_H_INCLUDE_**/
+#endif /**INCLUDE_WANGYONGLIN_CONF_H**/

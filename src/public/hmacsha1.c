@@ -1,9 +1,8 @@
-#include <wangyonglin/linux_config.h>
+#include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-size_t wangyonglin_hmacsha1_encode(const void *key, unsigned char *data, unsigned char *dest)
-{
-    if (data == NULL || dest == NULL)
+size_t public__hmacsha1_encode(struct wangyonglin__config * config,const void *key, unsigned char *data, unsigned char *dest){
+     if (data == NULL || dest == NULL)
         return -1;
     unsigned char *result;
     unsigned int len = 50;
