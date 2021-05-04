@@ -6,10 +6,18 @@
  @param buffer 句柄
  @param len 申请内存大小
  */
-void buffer(struct wangyonglin__buffer *buffer, size_t len)
+void buffer(struct wangyonglin__buffer *buffer, size_t length)
 {
-    buffer->val = (uint8_t *)malloc(sizeof(char) * len);
-    memset(buffer->val, 0, sizeof(buffer->val));
+    buffer->data = (uint8_t *)malloc(sizeof(char) * length);
+    memset(buffer->data, 0, sizeof(buffer->data));
+    buffer->length = 0;
+    buffer->max = length;
+}
+
+void buffer__set(struct wangyonglin__buffer *buffer, const char *string,size_t length)
+{
+    strncpy(buffer->data,string,length);
+    buffer->length = strlen(buffer->data);
 }
 /**
  清空句柄内的val值
@@ -17,9 +25,10 @@ void buffer(struct wangyonglin__buffer *buffer, size_t len)
  */
 void buffer__null(struct wangyonglin__buffer *buffer)
 {
-    if (buffer->val)
+    if (buffer->data)
     {
-        memset(buffer->val, 0, strlen(buffer->val));
+        memset(buffer->data, 0, sizeof(buffer->data));
+        buffer->length=0;
     }
 }
 /**
@@ -28,9 +37,14 @@ void buffer__null(struct wangyonglin__buffer *buffer)
  */
 void buffer__cleanup(struct wangyonglin__buffer *buffer)
 {
-    if (buffer->val != NULL)
+    if (buffer->data != NULL)
     {
-        free(buffer->val);
-        buffer->val = NULL;
+        free(buffer->data);
+        buffer->data = NULL;
+    }
+    if (buffer!=NULL)
+    {
+        //free(buffer);
+        buffer = NULL;
     }
 }

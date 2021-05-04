@@ -4,9 +4,9 @@
 /**
  十六进制字符串转字节流
  @param hexString 待转换的十六进制字符串
- @param byteString 保存转换后的字节流
+ @param buffer 保存转换后的字节流
  */
-void public__hexstring(const char *hexString, struct wangyonglin__buffer * byteString)
+void public__hexstring(const char *hexString, struct wangyonglin__buffer *buffer)
 {
     int hexStrLen = strlen(hexString);
     unsigned char highByte, lowByte;
@@ -34,7 +34,8 @@ void public__hexstring(const char *hexString, struct wangyonglin__buffer * byteS
             lowByte -= 0x30;
         }
         //高4位和低4位合并成一个字节
-        byteString->val[i / 2] = (highByte << 4) | lowByte;
+        buffer->data[i / 2] = (highByte << 4) | lowByte;
     }
+    buffer->length = strlen(buffer->data);
     return;
 }
