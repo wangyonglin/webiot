@@ -1,6 +1,6 @@
-#WANGYONGLIN HTTP SERVER
+#WANGYONGLIN Mqtt for HTTPS
 ### https 测试成功
-    http://mqtt.wangyonglin.com/mosquitto?sign=wangyonglin&topic=wangyonglin&payload=4543rtnj43t4gf
+    https://broker.wangyonglin.com/mosquitto?sign=wangyonglin&topic=wangyonglin&payload=4543rtnj43t4gf
 ### 安装其他依赖包
     yum install make gcc openssl-devel mosquitto-devel mosquitto libevent-devel
 #### 如果 mosquitto-devel mosquitto 没法安装 就运行 sudo yum install epel-release
