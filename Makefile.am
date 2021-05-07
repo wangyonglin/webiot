@@ -18,8 +18,8 @@ confdir =   $(prefix)/conf
 conf_DATA = $(top_srcdir)/conf/wangyonglin.conf
 
 certdir =   $(prefix)/cert
-cert_DATA = $(top_srcdir)/cert/server.key  \
-            $(top_srcdir)/cert/server.pem
+cert_DATA = $(top_srcdir)/cert/broker.wangyonglin.com.key  \
+            $(top_srcdir)/cert/broker.wangyonglin.com.pem
 
 datadir=    $(prefix)/share
 sysconfdir= $(prefix)/etc

@@ -104,7 +104,7 @@ void *callback_mosquitto_task(void *arg)
         ;
 }
 
-int mosquitto__appcation(struct wangyonglin__config *config, wangyonglin_signal_t *signal_t)
+int mosquitto__appcation(struct wangyonglin__config *config)
 {
 
     wangyonglin_mosquitto_t *mosquitto_t = wangyonglin_config_initialization(config);
@@ -113,7 +113,6 @@ int mosquitto__appcation(struct wangyonglin__config *config, wangyonglin_signal_
         log__printf(config, LOG_ERR, "wangyonglin_config_initialization return NULL");
         return 0;
     }
-    mosquitto_t->signal_t = signal_t;
     pthread_t pid;
     pthread_create(&pid, NULL, callback_mosquitto_task, mosquitto_t);
 

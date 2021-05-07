@@ -22,8 +22,8 @@ void https__callback_mosquitto(struct evhttp_request *request, void *arg)
 
     https__request_t *request_t = (https__request_t *)arg;
     request_t->request = request;
-    wangyonglin_signal_t *signal_t = request_t->signal_t;
-    log__printf(request_t->config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
+    struct wangyonglin__config * config = request_t->config;
+    log__printf(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
         https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
@@ -69,7 +69,8 @@ void https__callback_mosquitto(struct evhttp_request *request, void *arg)
     request_t->sign = string_sign_t;
     request_t->topic = string_topic_t;
     request_t->payload = string_payload_t;
-    wangyonglin_signal_queue(signal_t, SIGUSR1, 100, request_t);
+    //wangyonglin_signal_queue(signal_t, SIGUSR1, 100, request_t);
+    message__send(config,SIGUSR1,100, request_t);
 }
 void https__callback_notfound(struct evhttp_request *request, void *arg)
 {

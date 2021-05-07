@@ -128,9 +128,9 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
-am_libcore_la_OBJECTS = memory.lo config.lo core.lo string.lo error.lo \
-	wangyonglin.lo conf.lo pid.lo daemon.lo time.lo signal.lo \
-	logging.lo buffer.lo
+am_libcore_la_OBJECTS = message.lo memory.lo config.lo core.lo \
+	string.lo error.lo wangyonglin.lo conf.lo pid.lo daemon.lo \
+	time.lo signal.lo logging.lo buffer.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -155,9 +155,9 @@ am__depfiles_remade = ./$(DEPDIR)/buffer.Plo ./$(DEPDIR)/conf.Plo \
 	./$(DEPDIR)/config.Plo ./$(DEPDIR)/core.Plo \
 	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/error.Plo \
 	./$(DEPDIR)/logging.Plo ./$(DEPDIR)/memory.Plo \
-	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/signal.Plo \
-	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo \
-	./$(DEPDIR)/wangyonglin.Plo
+	./$(DEPDIR)/message.Plo ./$(DEPDIR)/pid.Plo \
+	./$(DEPDIR)/signal.Plo ./$(DEPDIR)/string.Plo \
+	./$(DEPDIR)/time.Plo ./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -323,6 +323,7 @@ top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libcore.la
 libcore_la_SOURCES = \
+    message.c \
     memory.c \
     config.c \
     core.c  \
@@ -424,6 +425,7 @@ include ./$(DEPDIR)/daemon.Plo # am--include-marker
 include ./$(DEPDIR)/error.Plo # am--include-marker
 include ./$(DEPDIR)/logging.Plo # am--include-marker
 include ./$(DEPDIR)/memory.Plo # am--include-marker
+include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/pid.Plo # am--include-marker
 include ./$(DEPDIR)/signal.Plo # am--include-marker
 include ./$(DEPDIR)/string.Plo # am--include-marker
@@ -599,6 +601,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/logging.Plo
 	-rm -f ./$(DEPDIR)/memory.Plo
+	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
@@ -657,6 +660,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/logging.Plo
 	-rm -f ./$(DEPDIR)/memory.Plo
+	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
 	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/string.Plo

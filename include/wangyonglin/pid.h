@@ -3,6 +3,7 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-int wangyonglin__pid(struct wangyonglin__config *config);
-
-#endif 
+int pid__create(struct wangyonglin__config *config);
+void pid__remove(struct wangyonglin__config *config);
+int pid__test(struct wangyonglin__config *config);
+#endif

@@ -1,40 +1,104 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
-
-int wangyonglin__pid(struct wangyonglin__config *config)
+/**
+ * \brief Write a pid file (used at the startup)
+ *        This commonly needed by the init scripts
+ *
+ * \param config to the name of the pid file to write (optarg)
+ *
+ * \retval ERR_SUCCESS if succes
+ * \retval ERR_PID on failure 
+ */
+int pid__create(struct wangyonglin__config *config)
 {
     int pid_fd;
-    if (config->pid_file != NULL)
+    char val[16];
+    int len = snprintf(val, sizeof(val), "%" PRIuMAX "\n", (uintmax_t)config->pid);
+    if (len <= 0)
     {
-
-        char str[256];
-        pid_fd = open(config->pid_file, O_RDWR | O_CREAT, 0640);
-        if (pid_fd < 0)
-        {
-            log__printf(config, LOG_ERR, "Fail to open file");
-            return ERR_PID;
-        }
-        if (lockf(pid_fd, F_TLOCK, 0) < 0)
-        {
-            log__printf(config, LOG_ERR, "Fail to lockf file");
-            return ERR_PID;
-        }
-        // get pid & save in str
-        if (config->pid == 0)
-        {
-            sprintf(str, "%d\n", getpid());
-        }
-        else
-        {
-            sprintf(str, "%d\n", config->pid);
-        }
-
-        // write to pid file
-        ssize_t ret = write(pid_fd, str, strlen(str));
-        if (ret < 0)
-            return ERR_PID;
-        close(pid_fd);
+        log__printf(config, LOG_ERR, "Pid error (%s)", strerror(errno));
+        return ERR_PID;
     }
 
+    char str[256];
+    pid_fd = open(config->pid_file, O_CREAT | O_TRUNC | O_NOFOLLOW | O_WRONLY, 0644);
+    if (pid_fd < 0)
+    {
+        log__printf(config, LOG_ERR, "unable to set pidfile '%s': %s", config->pid_file, strerror(errno));
+        return ERR_PID;
+    }
+    if (lockf(pid_fd, F_TLOCK, 0) < 0)
+    {
+        log__printf(config, LOG_ERR, "unable to lockf file: %s", strerror(errno));
+        return ERR_PID;
+    }
+    ssize_t ret = write(pid_fd, val, (unsigned int)len);
+    if (ret == -1)
+    {
+        log__printf(config, LOG_ERR, "unable to write pidfile: %s", strerror(errno));
+        close(pid_fd);
+        return ERR_PID;
+    }
+    else if ((size_t)ret != len)
+    {
+        log__printf(config, LOG_ERR, "unable to write pidfile: wrote"
+                                     " %" PRIdMAX " of %" PRIuMAX " bytes.",
+                    (intmax_t)ret, (uintmax_t)len);
+        close(pid_fd);
+        return ERR_PID;
+    }
+    close(pid_fd);
+
+    return ERR_SUCCESS;
+}
+/**
+ * \brief Remove the pid file (used at the startup)
+ *
+ * \param config to the name of the pid file to write (optarg)
+ */
+void pid__remove(struct wangyonglin__config *config)
+{
+    if (config->pid_file != NULL)
+    {
+        /* we ignore the result, the user may have removed the file already. */
+        (void)unlink(config->pid_file);
+    }
+}
+
+/**
+ * \brief Check a pid file (used at the startup)
+ *        This commonly needed by the init scripts
+ *
+ * \param config to the name of the pid file to write (optarg)
+ *
+ * \retval ERR_SUCCESS if succes
+ * \retval ERR_PID on failure
+ */
+int pid__test(struct wangyonglin__config *config)
+{
+    if (access(config->pid_file, F_OK) == 0)
+    {
+        /* Check if the existing process is still alive. */
+        pid_t pidv;
+        FILE *pf;
+
+        pf = fopen(config->pid_file, "r");
+        if (pf == NULL)
+        {
+            log__printf(config, LOG_ERR, "pid file '%s' exists and can not be read. Aborting!",
+                        config->pid_file);
+            return ERR_PID;
+        }
+
+        if (fscanf(pf, "%d", &pidv) == 1 && kill(pidv, 0) == 0)
+        {
+            fclose(pf);
+            log__printf(config, LOG_ERR, "pid file '%s' exists. Is program already running? Aborting!",
+                        config->pid_file);
+            return ERR_PID;
+        }
+
+        fclose(pf);
+    }
     return ERR_SUCCESS;
 }

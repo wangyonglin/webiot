@@ -69,11 +69,10 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     https_t->port = port.u.i;
     return https_t;
 }
-int https__application(struct wangyonglin__config *config, wangyonglin_signal_t *signal_t)
+int https__application(struct wangyonglin__config *config)
 {
     https__request_t request_t;
     request_t.config=config;
-    request_t.signal_t=signal_t;
     //配置 HTTPS 需要的参数
     wangyonglin_https_t *https_t = wangyonglin_config_initialization(config);
     if (https_t == NULL)

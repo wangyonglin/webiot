@@ -19,9 +19,10 @@ struct wangyonglin__config
     char *user;
     char *group;
     wangyonglin_conf_table_t *conf;
+    struct wangyonglin__signal *signal;
 };
 
-void config__init(struct wangyonglin__config *config);
+struct wangyonglin__config *config__new();
 void config__cleanup(struct wangyonglin__config *config);
 int config__load(struct wangyonglin__config *config, int argc, char *argv[]);
 #endif

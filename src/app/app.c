@@ -5,7 +5,6 @@
 #include <https/https.h>
 #include <https/openssl.h>
 #include <public/hexstring.h>
-wangyonglin_signal_t signal_t;
 struct wangyonglin__buffer payload_data_t;
 void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
 {
@@ -69,11 +68,10 @@ void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
 int application(struct wangyonglin__config *config)
 {
 	buffer(&payload_data_t, 1024);
-	log__printf(config,LOG_INFO,"payload_data_t -> length %d max %d",payload_data_t.length,payload_data_t.max);
 	wangyonglin_openssl_init();
-	wangyonglin_signal_action(&signal_t, SIGUSR1, &applicatio_signal_callback);
-	mosquitto__appcation(config, &signal_t);
-	https__application(config, &signal_t);
+	message__new(config,SIGUSR1,&applicatio_signal_callback);
+	mosquitto__appcation(config);
+	https__application(config);
 	wangyonglin_openssl_cleanup();
 	buffer__cleanup(&payload_data_t);
 	return ERR_SUCCESS;

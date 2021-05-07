@@ -26,7 +26,6 @@ struct wangyonglin_mosquitto_s
     wangyonglin_string_t clientid;
     wangyonglin_string_t username;
     wangyonglin_string_t password;
-    wangyonglin_signal_t *signal_t;
     struct mosquitto *mosq;
     struct wangyonglin__config *config;
 };
@@ -45,6 +44,6 @@ struct wangyonglin_mosquitto_user_s
 };
 
 void wangyonglin_mosquitto_create();
-int mosquitto__appcation(struct wangyonglin__config *config, wangyonglin_signal_t *signal_t);
+int mosquitto__appcation(struct wangyonglin__config *config);
 int mosquitto__publist(struct wangyonglin__config *config, const char *topic, char *payload, int payloadlen);
 #endif /**_MOSQUITTO_MOSQUITTO_H_INCLUDE_**/

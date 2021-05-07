@@ -17,8 +17,6 @@ int wangyonglin__daemon(struct wangyonglin__config *config)
     default:
         exit(0);
     }
-
-    config->pid = getpid();
     if ((chdir("/")) < 0)
     {
         log__printf(config, LOG_ERR, "could change to root dir");
@@ -57,6 +55,6 @@ int wangyonglin__daemon(struct wangyonglin__config *config)
              return ERR_DAEMON;
         }
     }
-
+    config->pid=getpid();
     return ERR_SUCCESS;
 }

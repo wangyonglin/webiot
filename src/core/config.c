@@ -1,9 +1,13 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-void config__init(struct wangyonglin__config *config)
+struct wangyonglin__config *config__new()
 {
-    memset(config, 0, sizeof(struct wangyonglin__config));
+
+    struct wangyonglin__config *config = (struct wangyonglin__config *)malloc(sizeof(struct wangyonglin__config));
+    memset(config, 0, sizeof(config));
+    config->signal = (struct wangyonglin__signal *)malloc(sizeof(struct wangyonglin__signal));
+    memset(config->signal, 0, sizeof(config->signal));
     config->daemon = true;
     if (config->log_fptr)
     {
@@ -15,15 +19,16 @@ void config__init(struct wangyonglin__config *config)
 
     config->log_timestamp_format = "%Y-%m-%d %H:%M:%S";
     config->log_timestamp = true;
+    config->pid=getpid();
+    return config;
 }
-void config__cleanup(struct wangyonglin__config *config)
+void config__cleanup(struct wangyonglin__config *config_t)
 {
- 
-    if (config != NULL)
-    {
-        memset(config, 0, sizeof(struct wangyonglin__config));
-        config = NULL;
-    }
+
+    wangyonglin__free(config_t->signal);
+    config_t->signal = NULL;
+    wangyonglin__free(config_t);
+    config_t = NULL;
 }
 int config__load(struct wangyonglin__config *config, int argc, char *argv[])
 {
@@ -34,23 +39,23 @@ int config__load(struct wangyonglin__config *config, int argc, char *argv[])
     if (fd == NULL)
     {
         fprintf(stderr, "this is log file not find");
-        return ERR_UNKNOWN;
+        return ERR_CONFIG;
     }
     config->conf = wangyonglin_conf_parse_file(fd, errbuf, sizeof(errbuf));
     if (config->conf == NULL)
-        return ERR_UNKNOWN;
+        return ERR_CONFIG;
     //读取系统配置文件的内容
     wangyonglin_conf_table_t *system = wangyonglin_conf_table_in(config->conf, "SYSTEM");
     if (!system)
     {
         fprintf(stderr, "missing [SYSTEM]\n");
-        return ERR_UNKNOWN;
+        return ERR_CONFIG;
     }
     wangyonglin_conf_datum_t pid = wangyonglin_conf_string_in(system, "pid");
     if (!pid.ok)
     {
         fprintf(stderr, "cannot read SYSTEM.pid", "");
-        return ERR_UNKNOWN;
+        return ERR_CONFIG;
     }
     else
     {
@@ -60,7 +65,7 @@ int config__load(struct wangyonglin__config *config, int argc, char *argv[])
     if (!log.ok)
     {
         fprintf(stderr, "cannot read wangyonglin.log", "");
-        return ERR_UNKNOWN;
+        return ERR_CONFIG;
     }
     else
     {
@@ -70,7 +75,7 @@ int config__load(struct wangyonglin__config *config, int argc, char *argv[])
     if (!user.ok)
     {
         fprintf(stderr, "cannot read wangyonglin.log", "");
-        return ERR_UNKNOWN;
+        return ERR_CONFIG;
     }
     else
     {
@@ -81,7 +86,7 @@ int config__load(struct wangyonglin__config *config, int argc, char *argv[])
     if (!group.ok)
     {
         fprintf(stderr, "cannot read wangyonglin.log", "");
-        return ERR_UNKNOWN;
+        return ERR_CONFIG;
     }
     else
     {

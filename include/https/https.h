@@ -28,19 +28,18 @@ typedef struct wangyonglin_https_info
 struct https__param
 {
     struct wangyonglin__config *config;
-    wangyonglin_signal_t *signal_t;
+    struct wangyonglin__signal *signal_t;
 };
 struct https__request
 {
     wangyonglin_string_t sign;
     wangyonglin_string_t topic;
     wangyonglin_string_t payload;
-    wangyonglin_signal_t *signal_t;
     struct wangyonglin__config *config;
     struct evhttp_request *request;
     const char *query_char;
 };
-int https__application(struct wangyonglin__config *config, wangyonglin_signal_t *signal_t);
+int https__application(struct wangyonglin__config *config);
 void https__success(https__request_t *request_t, const char *format, ...);
 void https__failure(https__request_t *request_t, int errcode, const char *format, ...);
 #endif
