@@ -1,7 +1,7 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-int log__init(struct wangyonglin__config *config)
+int wangyonglin__log_init(struct wangyonglin__config *config)
 {
 
     if (!config->log_file)
@@ -18,7 +18,7 @@ int log__init(struct wangyonglin__config *config)
 
     return 3;
 }
-int log__close(struct wangyonglin__config *config)
+int wangyonglin__log_close(struct wangyonglin__config *config)
 {
     if (config->log_fptr)
     {
@@ -26,16 +26,17 @@ int log__close(struct wangyonglin__config *config)
     }
 }
 
-int log__printf(struct wangyonglin__config *config, unsigned int priority, const char *fmt, ...)
+int wangyonglin__log_printf(struct wangyonglin__config *config, unsigned int priority, const char *fmt, ...)
 {
     va_list va;
     int rc;
     va_start(va, fmt);
-    rc = log__vprintf(config, priority, fmt, va);
+    rc = wangyonglin__log_vprintf(config, priority, fmt, va);
     va_end(va);
     return rc;
 }
-int log__vprintf(struct wangyonglin__config *config, unsigned int priority, const char *fmt, va_list va)
+
+int wangyonglin__log_vprintf(struct wangyonglin__config *config, unsigned int priority, const char *fmt, va_list va)
 {
     char log_line[1000];
     size_t log_line_pos;

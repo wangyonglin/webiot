@@ -23,7 +23,7 @@ void https__callback_mosquitto(struct evhttp_request *request, void *arg)
     https__request_t *request_t = (https__request_t *)arg;
     request_t->request = request;
     struct wangyonglin__config * config = request_t->config;
-    log__printf(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
+    wangyonglin__logger(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
         https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
@@ -70,7 +70,7 @@ void https__callback_mosquitto(struct evhttp_request *request, void *arg)
     request_t->topic = string_topic_t;
     request_t->payload = string_payload_t;
     //wangyonglin_signal_queue(signal_t, SIGUSR1, 100, request_t);
-    message__send(config,SIGUSR1,100, request_t);
+    wangyonglin__message_send(config,SIGUSR1,100, request_t);
 }
 void https__callback_notfound(struct evhttp_request *request, void *arg)
 {
@@ -96,7 +96,7 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     const char *uri = evhttp_request_get_uri(request); //获取请求uri
     if (uri == NULL)
     {
-        log__printf(request_t->config, LOG_INFO, "====line:%d,evhttp_request_get_uri return null\n", __LINE__);
+        wangyonglin__logger(request_t->config, LOG_INFO, "====line:%d,evhttp_request_get_uri return null\n", __LINE__);
 
         return NULL;
     }
@@ -104,7 +104,7 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     decoded = evhttp_uri_parse(uri);
     if (!decoded)
     {
-        log__printf(request_t->config, LOG_INFO, "====line:%d,It's not a good URI. Sending BADREQUEST\n", __LINE__);
+        wangyonglin__logger(request_t->config, LOG_INFO, "====line:%d,It's not a good URI. Sending BADREQUEST\n", __LINE__);
         evhttp_send_error(request, HTTP_BADREQUEST, 0);
         return NULL;
     }
@@ -118,7 +118,7 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     query = (char *)evhttp_uri_get_query(decoded);
     if (query == NULL)
     {
-        log__printf(request_t->config, LOG_INFO, "====line:%d,evhttp_uri_get_query return null\n", __LINE__);
+        wangyonglin__logger(request_t->config, LOG_INFO, "====line:%d,evhttp_uri_get_query return null\n", __LINE__);
         return NULL;
     }
     //查询指定参数的值

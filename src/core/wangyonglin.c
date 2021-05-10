@@ -4,30 +4,32 @@ struct wangyonglin__config *config = NULL;
 int main(int argc, char *argv[])
 {
 	int rc;
-	config = config__new();
-	rc = config__load(config, argc, argv);
+	config = wangyonglin__config_new();
+	rc = wangyonglin__config_load(config, argc, argv);
 	if (rc != ERR_SUCCESS)
 		return rc;
 	/**开启日志功能**/
-	log__init(config);
+	wangyonglin__log_init(config);
 	/**开启守护进程**/
 	rc = wangyonglin__daemon(config);
 	if (rc != ERR_SUCCESS)
 		return rc;
 	/**测试文件 pid **/
-	rc = pid__test(config);
+	rc = wangyonglin__pid_test(config);
 	if (rc != ERR_SUCCESS)
 		return rc;
 	/**写入文件 pid**/
-	rc = pid__create(config);
+	rc = wangyonglin__pid_create(config);
 	if (rc != ERR_SUCCESS)
 		return rc;
 
-	application(config);
+	rc = application(config);
+	if (rc != ERR_SUCCESS)
+		return rc;
 	/**删除文件	pid**/
-	pid__remove(config);
+	wangyonglin__pid_remove(config);
 	/**关闭日志功能**/
-	log__close(config);
-	config__cleanup(config);
+	wangyonglin__log_close(config);
+	wangyonglin__config_cleanup(config);
 	return rc;
 }

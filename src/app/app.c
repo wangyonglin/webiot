@@ -6,7 +6,7 @@
 #include <https/openssl.h>
 #include <public/hexstring.h>
 struct wangyonglin__buffer payload_data_t;
-void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
+void msg_callback(int signum, siginfo_t *s_t, void *p)
 {
 	int rc;
 	if (signum == SIGUSR1)
@@ -17,7 +17,7 @@ void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
 		{
 			if (request_t->topic.data != NULL)
 			{
-				buffer__null(&payload_data_t);
+				wangyonglin__buffer_null(&payload_data_t);
 				public__hexstring(request_t->payload.data, &payload_data_t);
 				rc = mosquitto__publist(config, request_t->topic.data, payload_data_t.data,payload_data_t.length);
 				switch (rc)
@@ -67,12 +67,12 @@ void applicatio_signal_callback(int signum, siginfo_t *s_t, void *p)
 }
 int application(struct wangyonglin__config *config)
 {
-	buffer(&payload_data_t, 1024);
-	wangyonglin_openssl_init();
-	message__new(config,SIGUSR1,&applicatio_signal_callback);
+	wangyonglin__buffer(&payload_data_t, 1024);
+	https__openssl_init();
+	wangyonglin__message_new(config,SIGUSR1,&msg_callback);
 	mosquitto__appcation(config);
 	https__application(config);
-	wangyonglin_openssl_cleanup();
-	buffer__cleanup(&payload_data_t);
+	https__openssl_cleanup();
+	wangyonglin__buffer_cleanup(&payload_data_t);
 	return ERR_SUCCESS;
 }

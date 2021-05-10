@@ -9,14 +9,14 @@
  * \retval ERR_SUCCESS if succes
  * \retval ERR_PID on failure 
  */
-int pid__create(struct wangyonglin__config *config)
+int wangyonglin__pid_create(struct wangyonglin__config *config)
 {
     int pid_fd;
     char val[16];
     int len = snprintf(val, sizeof(val), "%" PRIuMAX "\n", (uintmax_t)config->pid);
     if (len <= 0)
     {
-        log__printf(config, LOG_ERR, "Pid error (%s)", strerror(errno));
+        wangyonglin__logger(config, LOG_ERR, "Pid error (%s)", strerror(errno));
         return ERR_PID;
     }
 
@@ -24,24 +24,24 @@ int pid__create(struct wangyonglin__config *config)
     pid_fd = open(config->pid_file, O_CREAT | O_TRUNC | O_NOFOLLOW | O_WRONLY, 0644);
     if (pid_fd < 0)
     {
-        log__printf(config, LOG_ERR, "unable to set pidfile '%s': %s", config->pid_file, strerror(errno));
+        wangyonglin__logger(config, LOG_ERR, "unable to set pidfile '%s': %s", config->pid_file, strerror(errno));
         return ERR_PID;
     }
     if (lockf(pid_fd, F_TLOCK, 0) < 0)
     {
-        log__printf(config, LOG_ERR, "unable to lockf file: %s", strerror(errno));
+        wangyonglin__logger(config, LOG_ERR, "unable to lockf file: %s", strerror(errno));
         return ERR_PID;
     }
     ssize_t ret = write(pid_fd, val, (unsigned int)len);
     if (ret == -1)
     {
-        log__printf(config, LOG_ERR, "unable to write pidfile: %s", strerror(errno));
+        wangyonglin__logger(config, LOG_ERR, "unable to write pidfile: %s", strerror(errno));
         close(pid_fd);
         return ERR_PID;
     }
     else if ((size_t)ret != len)
     {
-        log__printf(config, LOG_ERR, "unable to write pidfile: wrote"
+        wangyonglin__logger(config, LOG_ERR, "unable to write pidfile: wrote"
                                      " %" PRIdMAX " of %" PRIuMAX " bytes.",
                     (intmax_t)ret, (uintmax_t)len);
         close(pid_fd);
@@ -56,7 +56,7 @@ int pid__create(struct wangyonglin__config *config)
  *
  * \param config to the name of the pid file to write (optarg)
  */
-void pid__remove(struct wangyonglin__config *config)
+void wangyonglin__pid_remove(struct wangyonglin__config *config)
 {
     if (config->pid_file != NULL)
     {
@@ -74,7 +74,7 @@ void pid__remove(struct wangyonglin__config *config)
  * \retval ERR_SUCCESS if succes
  * \retval ERR_PID on failure
  */
-int pid__test(struct wangyonglin__config *config)
+int wangyonglin__pid_test(struct wangyonglin__config *config)
 {
     if (access(config->pid_file, F_OK) == 0)
     {
@@ -85,7 +85,7 @@ int pid__test(struct wangyonglin__config *config)
         pf = fopen(config->pid_file, "r");
         if (pf == NULL)
         {
-            log__printf(config, LOG_ERR, "pid file '%s' exists and can not be read. Aborting!",
+            wangyonglin__logger(config, LOG_ERR, "pid file '%s' exists and can not be read. Aborting!",
                         config->pid_file);
             return ERR_PID;
         }
@@ -93,7 +93,7 @@ int pid__test(struct wangyonglin__config *config)
         if (fscanf(pf, "%d", &pidv) == 1 && kill(pidv, 0) == 0)
         {
             fclose(pf);
-            log__printf(config, LOG_ERR, "pid file '%s' exists. Is program already running? Aborting!",
+            wangyonglin__logger(config, LOG_ERR, "pid file '%s' exists. Is program already running? Aborting!",
                         config->pid_file);
             return ERR_PID;
         }

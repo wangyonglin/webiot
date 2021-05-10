@@ -1,7 +1,7 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-struct wangyonglin__config *config__new()
+struct wangyonglin__config *wangyonglin__config_new()
 {
 
     struct wangyonglin__config *config = (struct wangyonglin__config *)malloc(sizeof(struct wangyonglin__config));
@@ -22,7 +22,7 @@ struct wangyonglin__config *config__new()
     config->pid=getpid();
     return config;
 }
-void config__cleanup(struct wangyonglin__config *config_t)
+void wangyonglin__config_cleanup(struct wangyonglin__config *config_t)
 {
 
     wangyonglin__free(config_t->signal);
@@ -30,7 +30,7 @@ void config__cleanup(struct wangyonglin__config *config_t)
     wangyonglin__free(config_t);
     config_t = NULL;
 }
-int config__load(struct wangyonglin__config *config, int argc, char *argv[])
+int wangyonglin__config_load(struct wangyonglin__config *config, int argc, char *argv[])
 {
     char errbuf[200];
     FILE *fd;

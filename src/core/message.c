@@ -2,7 +2,7 @@
 #include <wangyonglin/wangyonglin.h>
 
 
-void message__new(struct wangyonglin__config *config, int signo, void (*callback_t)(int, siginfo_t *, void *))
+void wangyonglin__message_new(struct wangyonglin__config *config, int signo, void (*callback_t)(int, siginfo_t *, void *))
 {
     struct wangyonglin__signal *signal_t = config->signal;
     sigemptyset(&signal_t->act.sa_mask);
@@ -11,12 +11,12 @@ void message__new(struct wangyonglin__config *config, int signo, void (*callback
     if (sigaction(signo, &signal_t->act, NULL) < 0)
 
     {
-        log__printf(config, LOG_ERR, "sigal sigaction error");
+        wangyonglin__logger(config, LOG_ERR, "sigal sigaction error");
         return;
     }
     return;
 }
-void message__send(struct wangyonglin__config *config, int signo, int sival_int, void *sival_ptr)
+void wangyonglin__message_send(struct wangyonglin__config *config, int signo, int sival_int, void *sival_ptr)
 {
     struct wangyonglin__signal *signal_t = config->signal;
     signal_t->act.sa_flags = SA_SIGINFO;
@@ -25,7 +25,7 @@ void message__send(struct wangyonglin__config *config, int signo, int sival_int,
     //向本进程发送信号，并传递附加信息
     if (sigqueue(config->pid, signo, signal_t->sval) < 0)
     {
-        log__printf(config, LOG_ERR, "pid %d sigal sigqueue error",config->pid);
+        wangyonglin__logger(config, LOG_ERR, "pid %d sigal sigqueue error",config->pid);
         return;
     }
     return;

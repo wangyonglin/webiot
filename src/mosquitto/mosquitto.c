@@ -9,18 +9,18 @@ wangyonglin_mosquitto_t *wangyonglin_config_initialization(struct wangyonglin__c
 
 void wangyonglin_connect_callback(struct mosquitto *mosq, void *obj, int rc)
 {
-    // log__printf(config, LOG_INFO"mosquitto connect ok");
+    // wangyonglin__logger(config, LOG_INFO"mosquitto connect ok");
 }
 
 void wangyonglin_disconnect_callback(struct mosquitto *mosq, void *obj, int rc)
 {
 
-    //  log__printf(config, LOG_INFO"mosquitto disconnect ok");
+    //  wangyonglin__logger(config, LOG_INFO"mosquitto disconnect ok");
 }
 
 void wangyonglin_publish_callback(struct mosquitto *mosq, void *obj, int mid)
 {
-    //  log__printf(config, LOG_INFO"mosquitto publish ok");
+    //  wangyonglin__logger(config, LOG_INFO"mosquitto publish ok");
 }
 void *callback_mosquitto_task(void *arg)
 {
@@ -42,21 +42,21 @@ void *callback_mosquitto_task(void *arg)
     if (handler == NULL)
     {
 
-        log__printf(config, LOG_ERR, "mosquitto new: %s", strerror(errno));
+        wangyonglin__logger(config, LOG_ERR, "mosquitto new: %s", strerror(errno));
         mosquitto_lib_cleanup();
         pthread_exit(NULL);
     }
     ret = mosquitto_username_pw_set(handler, mosquitto_t->username.data, mosquitto_t->password.data);
     if (ret == MOSQ_ERR_INVAL)
     {
-        log__printf(config, LOG_ERR, "mosquitto username or password");
+        wangyonglin__logger(config, LOG_ERR, "mosquitto username or password");
         mosquitto_lib_cleanup();
         pthread_exit(NULL);
     }
 
     else if (ret == MOSQ_ERR_NOMEM)
     {
-        log__printf(config, LOG_ERR, "mosquitto username or password memory condition occurred");
+        wangyonglin__logger(config, LOG_ERR, "mosquitto username or password memory condition occurred");
         mosquitto_lib_cleanup();
         pthread_exit(NULL);
     }
@@ -72,14 +72,14 @@ void *callback_mosquitto_task(void *arg)
 
     if (ret == MOSQ_ERR_INVAL)
     {
-        log__printf(config, LOG_ERR, "mosquitto connect parameters invalid");
+        wangyonglin__logger(config, LOG_ERR, "mosquitto connect parameters invalid");
         mosquitto_destroy(handler);
         mosquitto_lib_cleanup();
         pthread_exit(NULL);
     }
     else if (ret == MOSQ_ERR_ERRNO)
     {
-        log__printf(config, LOG_ERR, "mosquitto connect parameters %s", strerror(errno));
+        wangyonglin__logger(config, LOG_ERR, "mosquitto connect parameters %s", strerror(errno));
         mosquitto_destroy(handler);
         mosquitto_lib_cleanup();
         pthread_exit(NULL);
@@ -90,11 +90,11 @@ void *callback_mosquitto_task(void *arg)
     {
         if (loop == MOSQ_ERR_INVAL)
         {
-            log__printf(config, LOG_ERR, "mosquitto loop start if the input parameters were invalid");
+            wangyonglin__logger(config, LOG_ERR, "mosquitto loop start if the input parameters were invalid");
         }
         else if (loop == MOSQ_ERR_NOT_SUPPORTED)
         {
-            log__printf(config, LOG_ERR, "mosquitto loop start if thread support is not available");
+            wangyonglin__logger(config, LOG_ERR, "mosquitto loop start if thread support is not available");
         }
 
         mosquitto_lib_cleanup();
@@ -110,7 +110,7 @@ int mosquitto__appcation(struct wangyonglin__config *config)
     wangyonglin_mosquitto_t *mosquitto_t = wangyonglin_config_initialization(config);
     if (mosquitto_t == NULL)
     {
-        log__printf(config, LOG_ERR, "wangyonglin_config_initialization return NULL");
+        wangyonglin__logger(config, LOG_ERR, "wangyonglin_config_initialization return NULL");
         return 0;
     }
     pthread_t pid;
@@ -127,37 +127,37 @@ int mosquitto__publist(struct wangyonglin__config *config, const char *topic, ch
         switch (rc)
         {
         case MOSQ_ERR_SUCCESS:
-            log__printf(config, LOG_INFO, "topic:%s on success", topic, payload);
+            wangyonglin__logger(config, LOG_INFO, "topic:%s on success", topic, payload);
             break;
         case MOSQ_ERR_INVAL:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the input parameters were invalid.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the input parameters were invalid.", topic);
             break;
         case MOSQ_ERR_NOMEM:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s -> if an out of memory condition occurred.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s -> if an out of memory condition occurred.", topic);
             break;
         case MOSQ_ERR_NO_CONN:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the client isn't connected to a broker.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the client isn't connected to a broker.", topic);
             break;
         case MOSQ_ERR_PROTOCOL:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  if there is a protocol error communicating with the broker.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  if there is a protocol error communicating with the broker.", topic);
             break;
         case MOSQ_ERR_PAYLOAD_SIZE:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  if payloadlen is too large.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  if payloadlen is too large.", topic);
             break;
         case MOSQ_ERR_MALFORMED_UTF8:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the topic is not valid UTF-8.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the topic is not valid UTF-8.", topic);
             break;
         case MOSQ_ERR_DUPLICATE_PROPERTY:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  if a property is duplicated where it is forbidden.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  if a property is duplicated where it is forbidden.", topic);
             break;
         case MOSQ_ERR_QOS_NOT_SUPPORTED:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the QoS is greater than that supported by the broker.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  if the QoS is greater than that supported by the broker.", topic);
             break;
         case MOSQ_ERR_OVERSIZE_PACKET:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s -> if the resulting packet would be larger than supported by the broker.", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s -> if the resulting packet would be larger than supported by the broker.", topic);
             break;
         default:
-            log__printf(config, LOG_INFO, "mosquitto_publish() topic %s ->  其它错误", topic);
+            wangyonglin__logger(config, LOG_INFO, "mosquitto_publish() topic %s ->  其它错误", topic);
             break;
         }
         return rc;
@@ -171,14 +171,14 @@ wangyonglin_mosquitto_t *wangyonglin_config_initialization(struct wangyonglin__c
     wangyonglin_conf_table_t *mosquitto = wangyonglin_conf_table_in(config->conf, "MOSQUITTO");
     if (!mosquitto)
     {
-        log__printf(config, LOG_ERR, "missing [mosquitto]", "");
+        wangyonglin__logger(config, LOG_ERR, "missing [mosquitto]", "");
         return NULL;
     }
     // 3. Extract values
     wangyonglin_conf_datum_t username = wangyonglin_conf_string_in(mosquitto, "username");
     if (!username.ok)
     {
-        log__printf(config, LOG_ERR, "cannot read mosquitto.username", "");
+        wangyonglin__logger(config, LOG_ERR, "cannot read mosquitto.username", "");
         return NULL;
     }
 
@@ -186,7 +186,7 @@ wangyonglin_mosquitto_t *wangyonglin_config_initialization(struct wangyonglin__c
     wangyonglin_conf_datum_t password = wangyonglin_conf_string_in(mosquitto, "password");
     if (!password.ok)
     {
-        log__printf(config, LOG_ERR, "cannot read mosquitto.password", "");
+        wangyonglin__logger(config, LOG_ERR, "cannot read mosquitto.password", "");
         return NULL;
     }
 
@@ -194,28 +194,28 @@ wangyonglin_mosquitto_t *wangyonglin_config_initialization(struct wangyonglin__c
     wangyonglin_conf_datum_t host = wangyonglin_conf_string_in(mosquitto, "host");
     if (!host.ok)
     {
-        log__printf(config, LOG_ERR, "cannot read mosquitto.host", "");
+        wangyonglin__logger(config, LOG_ERR, "cannot read mosquitto.host", "");
         return NULL;
     }
 
     wangyonglin_conf_datum_t port = wangyonglin_conf_int_in(mosquitto, "port");
     if (!port.ok)
     {
-        log__printf(config, LOG_ERR, "cannot read mosquitto.port", "");
+        wangyonglin__logger(config, LOG_ERR, "cannot read mosquitto.port", "");
         return NULL;
     }
 
     wangyonglin_conf_datum_t keep_alive = wangyonglin_conf_int_in(mosquitto, "keep_alive");
     if (!keep_alive.ok)
     {
-        log__printf(config, LOG_ERR, "cannot read mosquitto.keep_alive", "");
+        wangyonglin__logger(config, LOG_ERR, "cannot read mosquitto.keep_alive", "");
         return NULL;
     }
 
     wangyonglin_conf_datum_t msg_max_size = wangyonglin_conf_int_in(mosquitto, "msg_max_size");
     if (!msg_max_size.ok)
     {
-        log__printf(config, LOG_ERR, "cannot read mosquitto.msg_max_size", "");
+        wangyonglin__logger(config, LOG_ERR, "cannot read mosquitto.msg_max_size", "");
         return NULL;
     }
 

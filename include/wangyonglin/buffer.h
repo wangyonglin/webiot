@@ -10,8 +10,8 @@ struct wangyonglin__buffer
     size_t max; /* size of buffer */
     unsigned long flags;
 };
-void buffer(struct wangyonglin__buffer *buffer, size_t length);
-void buffer__set(struct wangyonglin__buffer *buffer, const char *string,size_t length);
-void buffer__null(struct wangyonglin__buffer *buffer);
-void buffer__cleanup(struct wangyonglin__buffer *buffer);
+void wangyonglin__buffer(struct wangyonglin__buffer *buffer, size_t length);
+void wangyonglin__buffer_set(struct wangyonglin__buffer *buffer, const char *string,size_t length);
+void wangyonglin__buffer_null(struct wangyonglin__buffer *buffer);
+void wangyonglin__buffer_cleanup(struct wangyonglin__buffer *buffer);
 #endif

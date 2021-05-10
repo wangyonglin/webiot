@@ -22,7 +22,7 @@ struct wangyonglin__config
     struct wangyonglin__signal *signal;
 };
 
-struct wangyonglin__config *config__new();
-void config__cleanup(struct wangyonglin__config *config);
-int config__load(struct wangyonglin__config *config, int argc, char *argv[]);
+struct wangyonglin__config *wangyonglin__config_new();
+void wangyonglin__config_cleanup(struct wangyonglin__config *config);
+int wangyonglin__config_load(struct wangyonglin__config *config, int argc, char *argv[]);
 #endif
