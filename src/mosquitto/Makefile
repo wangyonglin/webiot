@@ -128,7 +128,8 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libmqtt_la_LIBADD =
-am_libmqtt_la_OBJECTS = mosquitto.lo
+am_libmqtt_la_OBJECTS = mosquitto.lo message.lo connect.lo \
+	subscribe.lo disconnect.lo
 libmqtt_la_OBJECTS = $(am_libmqtt_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -149,7 +150,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/mosquitto.Plo
+am__depfiles_remade = ./$(DEPDIR)/connect.Plo \
+	./$(DEPDIR)/disconnect.Plo ./$(DEPDIR)/message.Plo \
+	./$(DEPDIR)/mosquitto.Plo ./$(DEPDIR)/subscribe.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -315,7 +318,11 @@ top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libmqtt.la
 libmqtt_la_SOURCES = \
-     mosquitto.c 
+     mosquitto.c \
+     message.c \
+     connect.c \
+     subscribe.c \
+     disconnect.c
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -396,7 +403,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/connect.Plo # am--include-marker
+include ./$(DEPDIR)/disconnect.Plo # am--include-marker
+include ./$(DEPDIR)/message.Plo # am--include-marker
 include ./$(DEPDIR)/mosquitto.Plo # am--include-marker
+include ./$(DEPDIR)/subscribe.Plo # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -559,7 +570,11 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/mosquitto.Plo
+		-rm -f ./$(DEPDIR)/connect.Plo
+	-rm -f ./$(DEPDIR)/disconnect.Plo
+	-rm -f ./$(DEPDIR)/message.Plo
+	-rm -f ./$(DEPDIR)/mosquitto.Plo
+	-rm -f ./$(DEPDIR)/subscribe.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -605,7 +620,11 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/mosquitto.Plo
+		-rm -f ./$(DEPDIR)/connect.Plo
+	-rm -f ./$(DEPDIR)/disconnect.Plo
+	-rm -f ./$(DEPDIR)/message.Plo
+	-rm -f ./$(DEPDIR)/mosquitto.Plo
+	-rm -f ./$(DEPDIR)/subscribe.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

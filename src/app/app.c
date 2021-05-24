@@ -23,55 +23,61 @@ void msg_callback(int signum, siginfo_t *s_t, void *p)
 				switch (rc)
 				{
 				case MOSQ_ERR_SUCCESS:
-					https__success(request_t, "on success");
+					https__success(request_t, "好的");
 					break;
 				case MOSQ_ERR_INVAL:
-					https__failure(request_t, MOSQ_ERR_INVAL, "if the input parameters were invalid.");
+					https__failure(request_t, MOSQ_ERR_INVAL, "无效参数");
 					break;
 				case MOSQ_ERR_NOMEM:
-					https__failure(request_t, MOSQ_ERR_NOMEM, "if an out of memory condition occurred.");
+					https__failure(request_t, MOSQ_ERR_NOMEM, "内存不足");
 					break;
 				case MOSQ_ERR_NO_CONN:
-					https__failure(request_t, MOSQ_ERR_NO_CONN, "if the client isn't connected to a broker.");
+					https__failure(request_t, MOSQ_ERR_NO_CONN, "客户端没有连接到代理");
 					break;
 				case MOSQ_ERR_PROTOCOL:
-					https__failure(request_t, MOSQ_ERR_PROTOCOL, "if there is a protocol error communicating with the broker.");
+					https__failure(request_t, MOSQ_ERR_PROTOCOL, "代理通信的协议错误");
 					break;
 				case MOSQ_ERR_PAYLOAD_SIZE:
-					https__failure(request_t, MOSQ_ERR_PAYLOAD_SIZE, "if payloadlen is too large.");
+					https__failure(request_t, MOSQ_ERR_PAYLOAD_SIZE, "有效载荷太大");
 
 					break;
 				case MOSQ_ERR_MALFORMED_UTF8:
-					https__failure(request_t, MOSQ_ERR_MALFORMED_UTF8, "if the topic is not valid UTF-8.");
+					https__failure(request_t, MOSQ_ERR_MALFORMED_UTF8, "主题不是有效的UTF-8");
 
 					break;
 				case MOSQ_ERR_DUPLICATE_PROPERTY:
-					https__failure(request_t, MOSQ_ERR_DUPLICATE_PROPERTY, "if a property is duplicated where it is forbidden.");
+					https__failure(request_t, MOSQ_ERR_DUPLICATE_PROPERTY, "属性在禁止的地方被复制");
 
 					break;
 				case MOSQ_ERR_QOS_NOT_SUPPORTED:
-					https__failure(request_t, MOSQ_ERR_QOS_NOT_SUPPORTED, "if the QoS is greater than that supported by the broker.");
+					https__failure(request_t, MOSQ_ERR_QOS_NOT_SUPPORTED, "QoS大于代理支持的QoS");
 
 					break;
 				case MOSQ_ERR_OVERSIZE_PACKET:
-					https__failure(request_t, MOSQ_ERR_OVERSIZE_PACKET, "if the resulting packet would be larger than supported by the broker.");
+					https__failure(request_t, MOSQ_ERR_OVERSIZE_PACKET, "得到的包大于代理支持的包");
 
 					break;
 				default:
-					https__failure(request_t, 444, "other errors.");
+					https__failure(request_t, 444, "其他错误");
 					break;
 				}
 			}
 		}
+	}else if(signum == SIGUSR2){
+		
 	}
 }
 int application(struct wangyonglin__config *config)
 {
-	wangyonglin__buffer(&payload_data_t, 1024);
+	int rc;
+	wangyonglin__buffer_register(&payload_data_t, 1024);
 	https__openssl_init();
-	wangyonglin__message_new(config,SIGUSR1,&msg_callback);
-	mosquitto__appcation(config);
-	https__application(config);
+	struct wangyonglin__message  message;
+	wangyonglin__message_new(&message,config);
+	wangyonglin__message_sigaction(&message,SIGUSR1,&msg_callback);
+	wangyonglin__message_sigaction(&message,SIGUSR2,&msg_callback);
+	mosquitto__appcation(config,&message);
+	https__application(config,&message);
 	https__openssl_cleanup();
 	wangyonglin__buffer_cleanup(&payload_data_t);
 	return ERR_SUCCESS;

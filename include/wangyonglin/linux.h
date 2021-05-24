@@ -36,6 +36,7 @@
 //OPENSSL　证书
 #include <openssl/err.h>
 #include <openssl/ssl.h>
+#include <openssl/bn.h>
 // TOML 配置文件
 #include <stdbool.h>
 #endif

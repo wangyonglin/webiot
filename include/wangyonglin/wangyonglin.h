@@ -1,11 +1,14 @@
 #ifndef INCLUDE_WANGYONGLIN_WANGYONGLIN_H
 #define INCLUDE_WANGYONGLIN_WANGYONGLIN_H
+#include <wangyonglin/memory.h>
 #include <wangyonglin/buffer.h>
+#include <wangyonglin/base64.h>
+
 #include <wangyonglin/conf.h>
 #include <wangyonglin/signal.h>
 #include <wangyonglin/config.h>
 #include <wangyonglin/message.h>
-#include <wangyonglin/memory.h>
+
 #include <wangyonglin/core.h>
 #include <wangyonglin/logging.h>
 #include <wangyonglin/string.h>

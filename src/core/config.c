@@ -6,8 +6,7 @@ struct wangyonglin__config *wangyonglin__config_new()
 
     struct wangyonglin__config *config = (struct wangyonglin__config *)malloc(sizeof(struct wangyonglin__config));
     memset(config, 0, sizeof(config));
-    config->signal = (struct wangyonglin__signal *)malloc(sizeof(struct wangyonglin__signal));
-    memset(config->signal, 0, sizeof(config->signal));
+
     config->daemon = true;
     if (config->log_fptr)
     {
@@ -16,17 +15,14 @@ struct wangyonglin__config *wangyonglin__config_new()
     }
     wangyonglin__free(config->log_file);
     config->log_file = NULL;
-
     config->log_timestamp_format = "%Y-%m-%d %H:%M:%S";
     config->log_timestamp = true;
-    config->pid=getpid();
+    config->pid = getpid();
+
     return config;
 }
 void wangyonglin__config_cleanup(struct wangyonglin__config *config_t)
 {
-
-    wangyonglin__free(config_t->signal);
-    config_t->signal = NULL;
     wangyonglin__free(config_t);
     config_t = NULL;
 }
@@ -100,3 +96,4 @@ int wangyonglin__config_load(struct wangyonglin__config *config, int argc, char 
 
     return ERR_SUCCESS;
 }
+

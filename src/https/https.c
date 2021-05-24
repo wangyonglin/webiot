@@ -69,16 +69,18 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     https_t->port = port.u.i;
     return https_t;
 }
-int https__application(struct wangyonglin__config *config)
+int https__application(struct wangyonglin__config *config,struct wangyonglin__message *message)
 {
     https__request_t request_t;
     request_t.config=config;
+    request_t.message=message;
     //配置 HTTPS 需要的参数
     wangyonglin_https_t *https_t = wangyonglin_config_initialization(config);
     if (https_t == NULL)
     {
         exit(EXIT_FAILURE);
     }
+    https_t->message=message;
     /* 选择服务器证书 和 服务器私钥. 1/2 创建SSL上下文环境 ，可以理解为 SSL句柄 */
     https_t->ctx = https__openssl_create(config);
     /* 选择服务器证书 和 服务器私钥. 2/2  设置服务器证书 和 服务器私钥 到 OPENSSL ctx上下文句柄中 */
@@ -114,6 +116,7 @@ int https__application(struct wangyonglin__config *config)
             */
         evhttp_set_bevcb(pinfo->httpd, https__bufferevent_cb, https_t->ctx);
         evhttp_set_cb(pinfo->httpd, "/mosquitto", https__callback_mosquitto, &request_t);
+        evhttp_set_cb(pinfo->httpd, "/mosquitto/get", https__callback_mosquitto, &request_t);
         evhttp_set_gencb(pinfo->httpd, https__callback_notfound, config);
         /* 设置监听IP和端口 */
         if (evhttp_accept_socket(pinfo->httpd, https_t->sockfd) != 0)

@@ -1,27 +1,18 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
-#include <mosquitto.h>
 
-#include <mosquitto/mosquitto.h>
-
+#include <mosquitto/connect.h>
+#include <mosquitto/message.h>
+#include <mosquitto/subscribe.h>
+#include <mosquitto/disconnect.h>
 struct mosquitto *handler;
+
 wangyonglin_mosquitto_t *wangyonglin_config_initialization(struct wangyonglin__config *config);
 
-void wangyonglin_connect_callback(struct mosquitto *mosq, void *obj, int rc)
-{
-    // wangyonglin__logger(config, LOG_INFO"mosquitto connect ok");
-}
 
-void wangyonglin_disconnect_callback(struct mosquitto *mosq, void *obj, int rc)
-{
 
-    //  wangyonglin__logger(config, LOG_INFO"mosquitto disconnect ok");
-}
 
-void wangyonglin_publish_callback(struct mosquitto *mosq, void *obj, int mid)
-{
-    //  wangyonglin__logger(config, LOG_INFO"mosquitto publish ok");
-}
+
 void *callback_mosquitto_task(void *arg)
 {
     wangyonglin_mosquitto_t *mosquitto_t = (wangyonglin_mosquitto_t *)arg;
@@ -38,7 +29,7 @@ void *callback_mosquitto_task(void *arg)
         printf("Init lib error!\n");
     }
     //创建一个发布端实例
-    handler = mosquitto_new("wangyonglin", true, NULL);
+    handler = mosquitto_new("wangyonglin", true, mosquitto_t);
     if (handler == NULL)
     {
 
@@ -62,9 +53,10 @@ void *callback_mosquitto_task(void *arg)
     }
 
     //设置回调函数
-    mosquitto_connect_callback_set(handler, wangyonglin_connect_callback);
-    mosquitto_disconnect_callback_set(handler, wangyonglin_disconnect_callback);
-    mosquitto_publish_callback_set(handler, wangyonglin_publish_callback);
+    mosquitto_connect_callback_set(handler, connect__callback);
+    mosquitto_disconnect_callback_set(handler, disconnect__callback);
+    mosquitto_subscribe_callback_set(handler, subscribe__callback);
+    mosquitto_message_callback_set(handler, message__callback);
 
     // 连接至服务器
     // 参数：句柄、ip（host）、端口、心跳
@@ -104,10 +96,12 @@ void *callback_mosquitto_task(void *arg)
         ;
 }
 
-int mosquitto__appcation(struct wangyonglin__config *config)
+int mosquitto__appcation(struct wangyonglin__config *config, struct wangyonglin__message *message)
 {
 
     wangyonglin_mosquitto_t *mosquitto_t = wangyonglin_config_initialization(config);
+    mosquitto_t->config=config;
+    mosquitto_t->message=message;
     if (mosquitto_t == NULL)
     {
         wangyonglin__logger(config, LOG_ERR, "wangyonglin_config_initialization return NULL");

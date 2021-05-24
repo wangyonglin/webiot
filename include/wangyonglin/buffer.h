@@ -7,11 +7,10 @@ struct wangyonglin__buffer
 {
     size_t length; /* current number of bytes */
     uint8_t *data;
-    size_t max; /* size of buffer */
-    unsigned long flags;
 };
-void wangyonglin__buffer(struct wangyonglin__buffer *buffer, size_t length);
-void wangyonglin__buffer_set(struct wangyonglin__buffer *buffer, const char *string,size_t length);
+void wangyonglin__buffer_register(struct wangyonglin__buffer *buffer, size_t length);
+void wangyonglin__buffer_setting(struct wangyonglin__buffer *buffer, const char *string, size_t length);
+int wangyonglin__buffer_format(struct wangyonglin__buffer *buffer, const char *fmt, ...);
 void wangyonglin__buffer_null(struct wangyonglin__buffer *buffer);
 void wangyonglin__buffer_cleanup(struct wangyonglin__buffer *buffer);
 #endif

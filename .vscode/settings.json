@@ -28,7 +28,17 @@
         "time.h": "c",
         "openssl.h": "c",
         "hexstring.h": "c",
-        "linux.h": "c"
+        "linux.h": "c",
+        "array": "c",
+        "functional": "c",
+        "istream": "c",
+        "ostream": "c",
+        "tuple": "c",
+        "utility": "c",
+        "bn.h": "c",
+        "buffer.h": "c",
+        "string_view": "c",
+        "base64.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }

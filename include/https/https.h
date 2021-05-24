@@ -4,6 +4,9 @@
 #include <wangyonglin/wangyonglin.h>
 
 #include <evhttp.h>
+
+#define HTTPS__SIGUSR_MESSAGE 10
+
 typedef struct https__request https__request_t;
 typedef struct wangyonglin_https_s wangyonglin_https_t;
 typedef struct https__param https__param_t;
@@ -18,6 +21,7 @@ struct wangyonglin_https_s
     wangyonglin_string_t certificate_chain;
     wangyonglin_string_t private_key;
     SSL_CTX *ctx;
+    struct wangyonglin__message *message;
 };
 typedef struct wangyonglin_https_info
 {
@@ -38,8 +42,9 @@ struct https__request
     struct wangyonglin__config *config;
     struct evhttp_request *request;
     const char *query_char;
+    struct wangyonglin__message *message;
 };
-int https__application(struct wangyonglin__config *config);
+int https__application(struct wangyonglin__config *config, struct wangyonglin__message *message);
 void https__success(https__request_t *request_t, const char *format, ...);
 void https__failure(https__request_t *request_t, int errcode, const char *format, ...);
 #endif

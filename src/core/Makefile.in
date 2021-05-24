@@ -128,9 +128,9 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcore_la_LIBADD =
-am_libcore_la_OBJECTS = message.lo memory.lo config.lo core.lo \
-	string.lo error.lo wangyonglin.lo conf.lo pid.lo daemon.lo \
-	time.lo signal.lo logging.lo buffer.lo
+am_libcore_la_OBJECTS = base64.lo message.lo memory.lo config.lo \
+	core.lo string.lo error.lo wangyonglin.lo conf.lo pid.lo \
+	daemon.lo time.lo signal.lo logging.lo buffer.lo
 libcore_la_OBJECTS = $(am_libcore_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -151,13 +151,14 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/buffer.Plo ./$(DEPDIR)/conf.Plo \
-	./$(DEPDIR)/config.Plo ./$(DEPDIR)/core.Plo \
-	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/error.Plo \
-	./$(DEPDIR)/logging.Plo ./$(DEPDIR)/memory.Plo \
-	./$(DEPDIR)/message.Plo ./$(DEPDIR)/pid.Plo \
-	./$(DEPDIR)/signal.Plo ./$(DEPDIR)/string.Plo \
-	./$(DEPDIR)/time.Plo ./$(DEPDIR)/wangyonglin.Plo
+am__depfiles_remade = ./$(DEPDIR)/base64.Plo ./$(DEPDIR)/buffer.Plo \
+	./$(DEPDIR)/conf.Plo ./$(DEPDIR)/config.Plo \
+	./$(DEPDIR)/core.Plo ./$(DEPDIR)/daemon.Plo \
+	./$(DEPDIR)/error.Plo ./$(DEPDIR)/logging.Plo \
+	./$(DEPDIR)/memory.Plo ./$(DEPDIR)/message.Plo \
+	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/signal.Plo \
+	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo \
+	./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -323,6 +324,7 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libcore.la
 libcore_la_SOURCES = \
+    base64.c    \
     message.c \
     memory.c \
     config.c \
@@ -417,6 +419,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/base64.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buffer.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conf.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config.Plo@am__quote@ # am--include-marker
@@ -593,7 +596,8 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/buffer.Plo
+		-rm -f ./$(DEPDIR)/base64.Plo
+	-rm -f ./$(DEPDIR)/buffer.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/core.Plo
@@ -652,7 +656,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/buffer.Plo
+		-rm -f ./$(DEPDIR)/base64.Plo
+	-rm -f ./$(DEPDIR)/buffer.Plo
 	-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/core.Plo

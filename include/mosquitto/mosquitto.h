@@ -28,6 +28,7 @@ struct wangyonglin_mosquitto_s
     wangyonglin_string_t password;
     struct mosquitto *mosq;
     struct wangyonglin__config *config;
+    struct wangyonglin__message *message;
 };
 struct wangyonglin_mosquitto_publish_s
 {
@@ -44,6 +45,6 @@ struct wangyonglin_mosquitto_user_s
 };
 
 void wangyonglin_mosquitto_create();
-int mosquitto__appcation(struct wangyonglin__config *config);
+int mosquitto__appcation(struct wangyonglin__config *config,struct wangyonglin__message *message);
 int mosquitto__publist(struct wangyonglin__config *config, const char *topic, char *payload, int payloadlen);
 #endif /**_MOSQUITTO_MOSQUITTO_H_INCLUDE_**/

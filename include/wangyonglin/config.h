@@ -19,7 +19,8 @@ struct wangyonglin__config
     char *user;
     char *group;
     wangyonglin_conf_table_t *conf;
-    struct wangyonglin__signal *signal;
+  //  struct wangyonglin__signal *signal;
+   
 };
 
 struct wangyonglin__config *wangyonglin__config_new();

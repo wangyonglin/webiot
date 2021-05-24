@@ -21,8 +21,10 @@ void https__callback_mosquitto(struct evhttp_request *request, void *arg)
 {
 
     https__request_t *request_t = (https__request_t *)arg;
+
     request_t->request = request;
-    struct wangyonglin__config * config = request_t->config;
+    struct wangyonglin__message *message = request_t->message;
+    struct wangyonglin__config *config = request_t->config;
     wangyonglin__logger(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
@@ -69,8 +71,7 @@ void https__callback_mosquitto(struct evhttp_request *request, void *arg)
     request_t->sign = string_sign_t;
     request_t->topic = string_topic_t;
     request_t->payload = string_payload_t;
-    //wangyonglin_signal_queue(signal_t, SIGUSR1, 100, request_t);
-    wangyonglin__message_send(config,SIGUSR1,100, request_t);
+    wangyonglin__message_sigqueue(message,SIGUSR1, 0, request_t);
 }
 void https__callback_notfound(struct evhttp_request *request, void *arg)
 {

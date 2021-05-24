@@ -109,13 +109,13 @@ core.lo: core.c /usr/include/stdc-predef.h \
  /usr/include/openssl/srtp.h \
  /usr/lib/gcc/x86_64-redhat-linux/8/include/stdbool.h \
  ../../include/wangyonglin/wangyonglin.h \
- ../../include/wangyonglin/buffer.h ../../include/wangyonglin/conf.h \
+ ../../include/wangyonglin/memory.h ../../include/wangyonglin/buffer.h \
+ ../../include/wangyonglin/base64.h ../../include/wangyonglin/conf.h \
  ../../include/wangyonglin/signal.h ../../include/wangyonglin/config.h \
- ../../include/wangyonglin/message.h ../../include/wangyonglin/memory.h \
- ../../include/wangyonglin/core.h ../../include/wangyonglin/logging.h \
- ../../include/wangyonglin/string.h ../../include/wangyonglin/error.h \
- ../../include/wangyonglin/pid.h ../../include/wangyonglin/daemon.h \
- ../../include/wangyonglin/time.h
+ ../../include/wangyonglin/message.h ../../include/wangyonglin/core.h \
+ ../../include/wangyonglin/logging.h ../../include/wangyonglin/string.h \
+ ../../include/wangyonglin/error.h ../../include/wangyonglin/pid.h \
+ ../../include/wangyonglin/daemon.h ../../include/wangyonglin/time.h
 
 /usr/include/stdc-predef.h:
 
@@ -537,7 +537,11 @@ core.lo: core.c /usr/include/stdc-predef.h \
 
 ../../include/wangyonglin/wangyonglin.h:
 
+../../include/wangyonglin/memory.h:
+
 ../../include/wangyonglin/buffer.h:
+
+../../include/wangyonglin/base64.h:
 
 ../../include/wangyonglin/conf.h:
 
@@ -546,8 +550,6 @@ core.lo: core.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/config.h:
 
 ../../include/wangyonglin/message.h:
-
-../../include/wangyonglin/memory.h:
 
 ../../include/wangyonglin/core.h:
 
