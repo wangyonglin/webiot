@@ -5,15 +5,15 @@ int main(int argc, char *argv[])
 {
 	int rc;
 	config = wangyonglin__config_new();
-	rc = wangyonglin__config_load(config,"/usr/local/wangyonglin/conf/wangyonglin.conf");
+	rc = wangyonglin__config_load(config, "/usr/local/wangyonglin/conf/wangyonglin.conf");
 	if (rc != ERR_SUCCESS)
 		return rc;
 	/**开启日志功能**/
 	wangyonglin__log_init(config);
 	/**开启守护进程**/
-	//rc = wangyonglin__daemon(config);
-	//if (rc != ERR_SUCCESS)
-	//	return rc;
+	rc = wangyonglin__daemon(config);
+	if (rc != ERR_SUCCESS)
+		return rc;
 	/**测试文件 pid **/
 	rc = wangyonglin__pid_test(config);
 	if (rc != ERR_SUCCESS)
