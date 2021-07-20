@@ -2,7 +2,7 @@
 #define _HTTPS_HTTPS_H_INCLUDE_
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
-
+#include <cjson/json.h>
 #include <evhttp.h>
 
 #define HTTPS__SIGUSR_MESSAGE 10
@@ -12,7 +12,7 @@ typedef struct wangyonglin_https_s wangyonglin_https_t;
 typedef struct https__param https__param_t;
 struct wangyonglin_https_s
 {
-    int sockfd;
+    //int sockfd;
     int port;
     int queue;
     int maxsize;
@@ -36,9 +36,9 @@ struct https__param
 };
 struct https__request
 {
-    wangyonglin_string_t sign;
     wangyonglin_string_t topic;
-    wangyonglin_string_t payload;
+    wangyonglin_string_t trun;
+    wangyonglin_string_t rf433;
     struct wangyonglin__config *config;
     struct evhttp_request *request;
     const char *query_char;
@@ -46,5 +46,7 @@ struct https__request
 };
 int https__application(struct wangyonglin__config *config, struct wangyonglin__message *message);
 void https__success(https__request_t *request_t, const char *format, ...);
+void https_successify(https__request_t *request_t, char *result,size_t datlen);
+void https_add_cjson(https__request_t *request_t, const char *topic,const char *data, char *out);
 void https__failure(https__request_t *request_t, int errcode, const char *format, ...);
 #endif

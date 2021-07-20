@@ -128,7 +128,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libpublic_la_LIBADD =
-am_libpublic_la_OBJECTS = hmacsha1.lo hexstring.lo
+am_libpublic_la_OBJECTS = hexstring.lo base64.lo password.lo
 libpublic_la_OBJECTS = $(am_libpublic_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -149,8 +149,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/hexstring.Plo \
-	./$(DEPDIR)/hmacsha1.Plo
+am__depfiles_remade = ./$(DEPDIR)/base64.Plo ./$(DEPDIR)/hexstring.Plo \
+	./$(DEPDIR)/password.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -316,8 +316,9 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libpublic.la
 libpublic_la_SOURCES = \
-    hmacsha1.c \
-    hexstring.c
+        hexstring.c \
+        base64.c \
+        password.c 
 
 AM_CPPFLAGS = -I ../../include/
 all: all-am
@@ -398,8 +399,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/base64.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hexstring.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hmacsha1.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/password.Plo@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -562,8 +564,9 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/hexstring.Plo
-	-rm -f ./$(DEPDIR)/hmacsha1.Plo
+		-rm -f ./$(DEPDIR)/base64.Plo
+	-rm -f ./$(DEPDIR)/hexstring.Plo
+	-rm -f ./$(DEPDIR)/password.Plo
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -609,8 +612,9 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/hexstring.Plo
-	-rm -f ./$(DEPDIR)/hmacsha1.Plo
+		-rm -f ./$(DEPDIR)/base64.Plo
+	-rm -f ./$(DEPDIR)/hexstring.Plo
+	-rm -f ./$(DEPDIR)/password.Plo
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

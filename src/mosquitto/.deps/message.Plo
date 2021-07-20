@@ -106,17 +106,20 @@ message.lo: message.c /usr/include/stdc-predef.h \
  /usr/include/openssl/cterr.h /usr/include/openssl/sslerr.h \
  /usr/include/openssl/ssl2.h /usr/include/openssl/ssl3.h \
  /usr/include/openssl/tls1.h /usr/include/openssl/dtls1.h \
- /usr/include/openssl/srtp.h \
+ /usr/include/openssl/srtp.h /usr/include/openssl/rand.h \
+ /usr/include/openssl/randerr.h \
  /usr/lib/gcc/x86_64-redhat-linux/8/include/stdbool.h \
- ../../include/wangyonglin/wangyonglin.h \
+ /usr/include/linux/unistd.h /usr/include/asm/unistd.h \
+ /usr/include/asm/unistd_64.h /usr/include/sys/syscall.h \
+ /usr/include/bits/syscall.h ../../include/wangyonglin/wangyonglin.h \
  ../../include/wangyonglin/memory.h ../../include/wangyonglin/buffer.h \
- ../../include/wangyonglin/base64.h ../../include/wangyonglin/conf.h \
- ../../include/wangyonglin/signal.h ../../include/wangyonglin/config.h \
- ../../include/wangyonglin/message.h ../../include/wangyonglin/core.h \
+ ../../include/wangyonglin/conf.h ../../include/wangyonglin/signal.h \
+ ../../include/wangyonglin/config.h ../../include/wangyonglin/message.h \
  ../../include/wangyonglin/logging.h ../../include/wangyonglin/string.h \
  ../../include/wangyonglin/error.h ../../include/wangyonglin/pid.h \
  ../../include/wangyonglin/daemon.h ../../include/wangyonglin/time.h \
- ../../include/mosquitto/message.h /usr/include/mosquitto.h \
+ ../../include/wangyonglin/uuid.h ../../include/wangyonglin/socket.h \
+ ../../include/mosquitto/message.h /usr/local/include/mosquitto.h \
  ../../include/mosquitto/mosquitto.h
 
 /usr/include/stdc-predef.h:
@@ -535,15 +538,27 @@ message.lo: message.c /usr/include/stdc-predef.h \
 
 /usr/include/openssl/srtp.h:
 
+/usr/include/openssl/rand.h:
+
+/usr/include/openssl/randerr.h:
+
 /usr/lib/gcc/x86_64-redhat-linux/8/include/stdbool.h:
+
+/usr/include/linux/unistd.h:
+
+/usr/include/asm/unistd.h:
+
+/usr/include/asm/unistd_64.h:
+
+/usr/include/sys/syscall.h:
+
+/usr/include/bits/syscall.h:
 
 ../../include/wangyonglin/wangyonglin.h:
 
 ../../include/wangyonglin/memory.h:
 
 ../../include/wangyonglin/buffer.h:
-
-../../include/wangyonglin/base64.h:
 
 ../../include/wangyonglin/conf.h:
 
@@ -552,8 +567,6 @@ message.lo: message.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/config.h:
 
 ../../include/wangyonglin/message.h:
-
-../../include/wangyonglin/core.h:
 
 ../../include/wangyonglin/logging.h:
 
@@ -567,8 +580,12 @@ message.lo: message.c /usr/include/stdc-predef.h \
 
 ../../include/wangyonglin/time.h:
 
+../../include/wangyonglin/uuid.h:
+
+../../include/wangyonglin/socket.h:
+
 ../../include/mosquitto/message.h:
 
-/usr/include/mosquitto.h:
+/usr/local/include/mosquitto.h:
 
 ../../include/mosquitto/mosquitto.h:

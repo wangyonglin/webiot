@@ -9,10 +9,6 @@ struct mosquitto *handler;
 
 wangyonglin_mosquitto_t *wangyonglin_config_initialization(struct wangyonglin__config *config);
 
-
-
-
-
 void *callback_mosquitto_task(void *arg)
 {
     wangyonglin_mosquitto_t *mosquitto_t = (wangyonglin_mosquitto_t *)arg;
@@ -26,7 +22,8 @@ void *callback_mosquitto_task(void *arg)
     ret = mosquitto_lib_init();
     if (ret)
     {
-        printf("Init lib error!\n");
+       log__printf(config, LOG_ERR, "mosquitto lib init fail");
+        pthread_exit(NULL);
     }
     //创建一个发布端实例
     handler = mosquitto_new("wangyonglin", true, mosquitto_t);
@@ -37,10 +34,11 @@ void *callback_mosquitto_task(void *arg)
         mosquitto_lib_cleanup();
         pthread_exit(NULL);
     }
+
     ret = mosquitto_username_pw_set(handler, mosquitto_t->username.data, mosquitto_t->password.data);
     if (ret == MOSQ_ERR_INVAL)
     {
-        wangyonglin__logger(config, LOG_ERR, "mosquitto username or password");
+        log__printf(config, LOG_ERR, "mosquitto username or password");
         mosquitto_lib_cleanup();
         pthread_exit(NULL);
     }

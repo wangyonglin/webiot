@@ -2,20 +2,22 @@
 #define INCLUDE_WANGYONGLIN_WANGYONGLIN_H
 #include <wangyonglin/memory.h>
 #include <wangyonglin/buffer.h>
-#include <wangyonglin/base64.h>
 
 #include <wangyonglin/conf.h>
 #include <wangyonglin/signal.h>
 #include <wangyonglin/config.h>
 #include <wangyonglin/message.h>
 
-#include <wangyonglin/core.h>
+
 #include <wangyonglin/logging.h>
 #include <wangyonglin/string.h>
 #include <wangyonglin/error.h>
 #include <wangyonglin/pid.h>
 #include <wangyonglin/daemon.h>
 #include <wangyonglin/time.h>
+
+#include <wangyonglin/uuid.h>
+#include <wangyonglin/socket.h>
 /* Log types */
 #define LOG_NONE 0
 #define LOG_INFO (1 << 0)

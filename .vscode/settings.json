@@ -38,7 +38,10 @@
         "bn.h": "c",
         "buffer.h": "c",
         "string_view": "c",
-        "base64.h": "c"
+        "base64.h": "c",
+        "mysql.h": "c",
+        "snowflake.h": "c",
+        "unistd.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }

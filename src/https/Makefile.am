@@ -4,5 +4,6 @@ libhttps_la_SOURCES=             \
     https.c \
     openssl.c \
     retsult.c \
-    callback.c
+    callback.c \
+    config.c
 AM_CPPFLAGS=-I ../../include/
