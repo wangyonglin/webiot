@@ -383,7 +383,8 @@ cert_DATA = \
 EXTRA_DIST = \
     $(top_srcdir)/include \
     $(top_srcdir)/logs  \
-    $(top_srcdir)/conf
+    $(top_srcdir)/conf  \
+    $(top_srcdir)/cert
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

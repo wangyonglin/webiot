@@ -17,7 +17,7 @@ wangyonglin_mosquitto_publish_t publish_t;
     */
 char *https__callback_params(https__request_t *request_t, struct evhttp_request *request, const char *query_char);
 
-void https__uri_cb(struct evhttp_request *request, void *arg)
+void https__uri_wangyonglin_rf433(struct evhttp_request *request, void *arg)
 {
     char *out = (char *)malloc(sizeof(char) * 1024);
     https__request_t *request_t = (https__request_t *)arg;
@@ -31,22 +31,61 @@ void https__uri_cb(struct evhttp_request *request, void *arg)
         https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
         return;
     }
-    char *topic = NULL;
+    char *rf433 = NULL;
     char *data = NULL;
-    topic = https__callback_params(request_t, request, "topic"); //获取get请求uri中的sign参数
-    if (topic == NULL || strlen(topic) > 20)
+    rf433 = https__callback_params(request_t, request, "rf433"); //获取get请求uri中的sign参数
+    if (rf433 == NULL || strlen(rf433) > 20)
     {
-        if (topic == NULL)
-            https__failure(request_t, HTTP_BADREQUEST, "request uri no param topic.");
+        if (rf433 == NULL)
+            https__failure(request_t, HTTP_BADREQUEST, "request uri no param rf433.");
         else
-            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 topic.");
+            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 rf433.");
         return;
     }
 
-    data = https__callback_params(request_t, request, "data");
+  //  data = https__callback_params(request_t, request, "data");
 
-    https_add_cjson(request_t,topic,data,out); 
-    if ((rc = mosquitto__publist(config, topic, out, strlen(out))) == 0)
+    https_add_cjson(request_t,"rf433",rf433,out); 
+    if ((rc = mosquitto__publist(config, request_t->topic.data, out, strlen(out))) == 0)
+    {
+        https_successify(request_t, out, strlen(out));
+    }
+    else
+    {
+        https__failure(request_t, rc, "mosquitto fail");
+    }
+
+    free(out);
+}
+void https__uri_wangyonglin_trun(struct evhttp_request *request, void *arg)
+{
+    char *out = (char *)malloc(sizeof(char) * 1024);
+    https__request_t *request_t = (https__request_t *)arg;
+    request_t->request = request;
+    struct wangyonglin__message *message = request_t->message;
+    struct wangyonglin__config *config = request_t->config;
+    int rc = 0;
+    wangyonglin__logger(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
+    if (request == NULL)
+    {
+        https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
+        return;
+    }
+    char *trun = NULL;
+    trun = https__callback_params(request_t, request, "trun"); //获取get请求uri中的sign参数
+    if (trun == NULL || strlen(trun) > 20)
+    {
+        if (trun == NULL)
+            https__failure(request_t, HTTP_BADREQUEST, "request uri no param trun.");
+        else
+            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 trun.");
+        return;
+    }
+
+  //  data = https__callback_params(request_t, request, "data");
+
+    https_add_cjson(request_t,"trun",trun,out); 
+    if ((rc = mosquitto__publist(config, request_t->topic.data, out, strlen(out))) == 0)
     {
         https_successify(request_t, out, strlen(out));
     }
@@ -99,6 +138,7 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     {
         path = "/";
     }
+    wangyonglin_string_setting(&request_t->topic,path);
     //获取uri中的参数部分
     query = (char *)evhttp_uri_get_query(decoded);
     if (query == NULL)

@@ -116,7 +116,8 @@ int https__application(struct wangyonglin__config *config, struct wangyonglin__m
         我们自动完成，我们拿到的数据就已经解密之后的
             */
         evhttp_set_bevcb(pinfo->httpd, https__bufferevent_cb, https_t->ctx);
-        evhttp_set_cb(pinfo->httpd, "/mosquitto", https__uri_cb, &request_t);
+        evhttp_set_cb(pinfo->httpd, "/wangyonglin/rf433", https__uri_wangyonglin_rf433, &request_t);
+        evhttp_set_cb(pinfo->httpd, "/wangyonglin/trun", https__uri_wangyonglin_trun, &request_t);
         evhttp_set_gencb(pinfo->httpd, https__uri_notfound, config);
         /* 设置监听IP和端口 */
         if (evhttp_accept_socket(pinfo->httpd, socket_t->sockfd) != 0)
@@ -155,8 +156,8 @@ static struct bufferevent *https__bufferevent_cb(struct event_base *base, void *
     r = bufferevent_openssl_socket_new(base, -1, ssl, BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE);
     return r;
 }
- 
-void https_add_cjson(https__request_t *request_t, const char *topic,const char *data, char *out)
+
+void https_add_cjson(https__request_t *request_t, const char *topic, const char *data, char *out)
 {
     char timestamp[20] = {0};
     time__timestamp(request_t->config, timestamp, 20);
