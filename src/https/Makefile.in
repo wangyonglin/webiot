@@ -257,6 +257,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+POW_LIB = @POW_LIB@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
@@ -317,6 +318,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libhttps.la
+AM_CPPFLAGS = -I $(top_srcdir)/include/
 libhttps_la_SOURCES = \
     https.c \
     openssl.c \
@@ -324,7 +326,6 @@ libhttps_la_SOURCES = \
     callback.c \
     config.c
 
-AM_CPPFLAGS = -I ../../include/
 all: all-am
 
 .SUFFIXES:

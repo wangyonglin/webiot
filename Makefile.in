@@ -289,6 +289,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+POW_LIB = @POW_LIB@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
@@ -307,14 +308,18 @@ am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
 am__tar = @am__tar@
 am__untar = @am__untar@
-bindir = $(prefix)/bin
+bindir = \
+    $(prefix)/bin
+
 build = @build@
 build_alias = @build_alias@
 build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
-datadir = $(prefix)/share
+datadir = \
+    $(prefix)/share
+
 datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
@@ -325,10 +330,14 @@ host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
 htmldir = @htmldir@
-includedir = $(prefix)/include
+includedir = \
+    $(prefix)/include
+
 infodir = @infodir@
 install_sh = @install_sh@
-libdir = $(prefix)/lib
+libdir = \
+    $(prefix)/lib
+
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
@@ -342,29 +351,40 @@ psdir = @psdir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
-sysconfdir = $(prefix)/etc
+sysconfdir = \
+    $(prefix)/etc
+
 target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = \
-    src/cjson \
     src/wangyonglin \
     src/https \
     src/mosquitto \
-    src/public \
     src/application
 
-logsdir = $(prefix)/logs
-logs_DATA = $(top_srcdir)/logs/wangyonglin.log
+logsdir = \
+    $(prefix)/logs
+
+logs_DATA = \
+    $(top_srcdir)/logs/wangyonglin.log
+
 confdir = $(prefix)/conf
 conf_DATA = $(top_srcdir)/conf/wangyonglin.conf
-certdir = $(prefix)/cert
-cert_DATA = $(top_srcdir)/cert/broker.wangyonglin.com.key  \
-            $(top_srcdir)/cert/broker.wangyonglin.com.pem
+certdir = \
+    $(prefix)/cert
 
-EXTRA_DIST = $(top_srcdir)/include     $(top_srcdir)/logs  $(top_srcdir)/conf  $(top_srcdir)/wangyonglin
+cert_DATA = \
+    $(top_srcdir)/cert/broker.wangyonglin.com.key  \
+    $(top_srcdir)/cert/broker.wangyonglin.com.pem
+
+EXTRA_DIST = \
+    $(top_srcdir)/include \
+    $(top_srcdir)/logs  \
+    $(top_srcdir)/conf
+
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

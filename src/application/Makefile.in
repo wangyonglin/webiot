@@ -103,11 +103,10 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_wangyonglin_OBJECTS = app.$(OBJEXT)
 wangyonglin_OBJECTS = $(am_wangyonglin_OBJECTS)
-wangyonglin_DEPENDENCIES = $(top_srcdir)/src/cjson/libjson.la \
+wangyonglin_DEPENDENCIES =  \
 	$(top_srcdir)/src/wangyonglin/libwangyonglin.la \
 	$(top_srcdir)/src/https/libhttps.la \
-	$(top_srcdir)/src/mosquitto/libmqtt.la \
-	$(top_srcdir)/src/public/libpublic.la
+	$(top_srcdir)/src/mosquitto/libmqtt.la
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -210,7 +209,7 @@ LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@ -Wall -pedantic -lmosquitto -lm -levent -lssl -lcrypto \
-	-lpthread -levent_openssl
+	-lpthread -levent_openssl -lcjson
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
@@ -233,6 +232,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+POW_LIB = @POW_LIB@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
@@ -295,11 +295,9 @@ AUTOMAKE_OPTIONS = foreign
 wangyonglin_SOURCES = app.c 
 AM_CPPFLAGS = -I $(top_srcdir)/include/
 wangyonglin_LDADD = \
-    $(top_srcdir)/src/cjson/libjson.la \
     $(top_srcdir)/src/wangyonglin/libwangyonglin.la \
     $(top_srcdir)/src/https/libhttps.la \
     $(top_srcdir)/src/mosquitto/libmqtt.la \
-    $(top_srcdir)/src/public/libpublic.la \
     $(FLIBS)
 
 all: all-am

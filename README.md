@@ -2,7 +2,7 @@
 ### https 测试成功
     https://broker.wangyonglin.com/mosquitto?&topic=wangyonglin&data=4543rtnj43t4gf
 ### 安装其他依赖包
-    yum install make gcc openssl-devel mosquitto-devel mosquitto libevent-devel
+    yum install make gcc openssl-devel mosquitto-devel mosquitto libevent-devel cjson-devel
 #### 如果 mosquitto-devel mosquitto 没法安装 就运行 sudo yum install epel-release
 ##安装Tengine 编译参数
 ```shell

@@ -266,7 +266,7 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lpthread 
+LIBS = 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
@@ -284,17 +284,18 @@ OTOOL64 =
 PACKAGE = wangyonglin
 PACKAGE_BUGREPORT = admin@wangyonglin.com
 PACKAGE_NAME = wangyonglin
-PACKAGE_STRING = wangyonglin 1.0.0
+PACKAGE_STRING = wangyonglin 1.0
 PACKAGE_TARNAME = wangyonglin
 PACKAGE_URL = 
-PACKAGE_VERSION = 1.0.0
+PACKAGE_VERSION = 1.0
 PATH_SEPARATOR = :
+POW_LIB = 
 RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 1.0.0
+VERSION = 1.0
 abs_builddir = /home/wangyonglin/Github/wangyonglin
 abs_srcdir = /home/wangyonglin/Github/wangyonglin
 abs_top_builddir = /home/wangyonglin/Github/wangyonglin
@@ -307,14 +308,18 @@ am__leading_dot = .
 am__quote = 
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
-bindir = $(prefix)/bin
+bindir = \
+    $(prefix)/bin
+
 build = x86_64-pc-linux-gnu
 build_alias = 
 build_cpu = x86_64
 build_os = linux-gnu
 build_vendor = pc
 builddir = .
-datadir = $(prefix)/share
+datadir = \
+    $(prefix)/share
+
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
@@ -325,10 +330,14 @@ host_cpu = x86_64
 host_os = linux-gnu
 host_vendor = pc
 htmldir = ${docdir}
-includedir = $(prefix)/include
+includedir = \
+    $(prefix)/include
+
 infodir = ${datarootdir}/info
 install_sh = ${SHELL} /home/wangyonglin/Github/wangyonglin/install-sh
-libdir = $(prefix)/lib
+libdir = \
+    $(prefix)/lib
+
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
@@ -342,29 +351,40 @@ psdir = ${docdir}
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 srcdir = .
-sysconfdir = $(prefix)/etc
+sysconfdir = \
+    $(prefix)/etc
+
 target_alias = 
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = \
-    src/cjson \
     src/wangyonglin \
     src/https \
     src/mosquitto \
-    src/public \
     src/application
 
-logsdir = $(prefix)/logs
-logs_DATA = $(top_srcdir)/logs/wangyonglin.log
+logsdir = \
+    $(prefix)/logs
+
+logs_DATA = \
+    $(top_srcdir)/logs/wangyonglin.log
+
 confdir = $(prefix)/conf
 conf_DATA = $(top_srcdir)/conf/wangyonglin.conf
-certdir = $(prefix)/cert
-cert_DATA = $(top_srcdir)/cert/broker.wangyonglin.com.key  \
-            $(top_srcdir)/cert/broker.wangyonglin.com.pem
+certdir = \
+    $(prefix)/cert
 
-EXTRA_DIST = $(top_srcdir)/include     $(top_srcdir)/logs  $(top_srcdir)/conf  $(top_srcdir)/wangyonglin
+cert_DATA = \
+    $(top_srcdir)/cert/broker.wangyonglin.com.key  \
+    $(top_srcdir)/cert/broker.wangyonglin.com.pem
+
+EXTRA_DIST = \
+    $(top_srcdir)/include \
+    $(top_srcdir)/logs  \
+    $(top_srcdir)/conf
+
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

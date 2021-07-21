@@ -4,8 +4,6 @@
 #include <mosquitto.h>
 #include <https/https.h>
 #include <https/openssl.h>
-#include <public/hexstring.h>
-#include <public/password.h>
 #include <cjson/json.h>
 struct wangyonglin__buffer payload_data_t;
 void msg_callback(int signum, siginfo_t *s_t, void *p)

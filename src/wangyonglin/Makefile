@@ -240,7 +240,7 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lpthread 
+LIBS = 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
@@ -258,17 +258,18 @@ OTOOL64 =
 PACKAGE = wangyonglin
 PACKAGE_BUGREPORT = admin@wangyonglin.com
 PACKAGE_NAME = wangyonglin
-PACKAGE_STRING = wangyonglin 1.0.0
+PACKAGE_STRING = wangyonglin 1.0
 PACKAGE_TARNAME = wangyonglin
 PACKAGE_URL = 
-PACKAGE_VERSION = 1.0.0
+PACKAGE_VERSION = 1.0
 PATH_SEPARATOR = :
+POW_LIB = 
 RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = strip
-VERSION = 1.0.0
+VERSION = 1.0
 abs_builddir = /home/wangyonglin/Github/wangyonglin/src/wangyonglin
 abs_srcdir = /home/wangyonglin/Github/wangyonglin/src/wangyonglin
 abs_top_builddir = /home/wangyonglin/Github/wangyonglin
@@ -323,6 +324,7 @@ top_builddir = ../..
 top_srcdir = ../..
 AUTOMAKE_OPTIONS = foreign
 lib_LTLIBRARIES = libwangyonglin.la
+AM_CPPFLAGS = -I $(top_srcdir)/include/
 libwangyonglin_la_SOURCES = \
     message.c \
     memory.c \
@@ -340,7 +342,6 @@ libwangyonglin_la_SOURCES = \
     uuid.c \
     socket.c
 
-AM_CPPFLAGS = -I $(top_srcdir)/include/
 all: all-am
 
 .SUFFIXES:
