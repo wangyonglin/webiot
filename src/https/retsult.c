@@ -15,8 +15,6 @@ int https__retsult_success(configify_t *config, struct evhttp_request *request, 
     char *reason = (char *)calloc(1, 512);
     sprintf(reason, format, args);
     struct evbuffer *evb = NULL;
-    char timestamp[20] = {0};
-    timeify_timestamp(config, timestamp, 20);
 
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象
@@ -29,8 +27,6 @@ int https__retsult_success(configify_t *config, struct evhttp_request *request, 
         cJSON_AddStringToObject(root, "result", "");
     else
         cJSON_AddItemToObject(root, "result", text);
-    cJSON_AddNumberToObject(root, "errcode", 200);
-    cJSON_AddStringToObject(root, "timestamp", timestamp);
     char *out = cJSON_Print(root);
     evb = evbuffer_new();
     evbuffer_add(evb, out, strlen(out));
@@ -53,22 +49,15 @@ int https__retsult_failure(configify_t *config, struct evhttp_request *request, 
     char *reason = (char *)calloc(1, 512);
     sprintf(reason, format, args);
     struct evbuffer *evb = NULL;
-    char timestamp[20] = {0};
-    timeify_timestamp(config, timestamp, 20);
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象
     if (!root)
         return -1;
-
     cJSON_AddFalseToObject(root, "success");
     cJSON_AddStringToObject(root, "reason", reason);
     cJSON_AddStringToObject(root, "result", "");
-    cJSON_AddNumberToObject(root, "errcode", code);
-    cJSON_AddStringToObject(root, "timestamp", timestamp);
     char *out = cJSON_Print(root);
-
     evb = evbuffer_new();
-
     evbuffer_add(evb, out, strlen(out));
     evhttp_send_reply(request, code, reason, evb);
 

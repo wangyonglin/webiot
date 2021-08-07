@@ -118,10 +118,11 @@ mosquitto.lo: mosquitto.c /usr/include/stdc-predef.h \
  ../../include/wangyonglin/string.h ../../include/wangyonglin/error.h \
  ../../include/wangyonglin/pid.h ../../include/wangyonglin/daemon.h \
  ../../include/wangyonglin/time.h ../../include/wangyonglin/uuid.h \
- ../../include/wangyonglin/socket.h ../../include/mosquitto/connect.h \
- /usr/local/include/mosquitto.h ../../include/mosquitto/mosquitto.h \
- ../../include/mosquitto/message.h ../../include/mosquitto/subscribe.h \
- ../../include/mosquitto/disconnect.h
+ ../../include/wangyonglin/socket.h \
+ ../../include/application/application.h \
+ ../../include/mosquitto/connect.h /usr/local/include/mosquitto.h \
+ ../../include/mosquitto/mosquitto.h ../../include/mosquitto/message.h \
+ ../../include/mosquitto/subscribe.h ../../include/mosquitto/disconnect.h
 
 /usr/include/stdc-predef.h:
 
@@ -582,6 +583,8 @@ mosquitto.lo: mosquitto.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/uuid.h:
 
 ../../include/wangyonglin/socket.h:
+
+../../include/application/application.h:
 
 ../../include/mosquitto/connect.h:
 

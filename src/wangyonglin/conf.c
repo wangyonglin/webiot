@@ -1358,7 +1358,7 @@ static int parse_select(context_t* ctx)
 
 
 
-wangyonglin_conf_table_t* wangyonglin_conf_parse(char* conf,
+wangyonglin_conf_table_t* confify_parse(char* conf,
 						 char* errbuf,
 						 int errbufsz)
 {
@@ -1427,14 +1427,12 @@ wangyonglin_conf_table_t* wangyonglin_conf_parse(char* conf,
 fail:
 	// Something bad has happened. Free resources and return error.
 	for (int i = 0; i < ctx.tpath.top; i++) xfree(ctx.tpath.key[i]);
-	wangyonglin_conf_free(ctx.root);
+	confify_free(ctx.root);
 	return 0;
 }
 
 
-wangyonglin_conf_table_t* wangyonglin_conf_parse_file(FILE* fp,
-							  char* errbuf,
-							  int errbufsz)
+wangyonglin_conf_table_t* confify_file(FILE* fp, char* errbuf,int errbufsz)
 {
 	int bufsz = 0;
 	char* buf = 0;
@@ -1481,7 +1479,7 @@ wangyonglin_conf_table_t* wangyonglin_conf_parse_file(FILE* fp,
 	buf[off] = 0;
 
 	/* parse it, cleanup and finish */
-	wangyonglin_conf_table_t* ret = wangyonglin_conf_parse(buf, errbuf, errbufsz);
+	wangyonglin_conf_table_t* ret = confify_parse(buf, errbuf, errbufsz);
 	xfree(buf);
 	return ret;
 }
@@ -1538,7 +1536,7 @@ static void xfree_tab(wangyonglin_conf_table_t* p)
 }
 
 
-void wangyonglin_conf_free(wangyonglin_conf_table_t* tab)
+void confify_free(wangyonglin_conf_table_t* tab)
 {
 	xfree_tab(tab);
 }

@@ -21,7 +21,7 @@ struct wangyonglin_https_s
     wangyonglin_string_t certificate_chain;
     wangyonglin_string_t private_key;
     SSL_CTX *ctx;
-    struct wangyonglin__message *message;
+    msgify_t *message;
 };
 typedef struct wangyonglin_https_info
 {
@@ -44,7 +44,7 @@ struct https__request
     const char *query_char;
     msgify_t *message;
 };
-int https__application(struct wangyonglin__config *config, struct wangyonglin__message *message);
+int https__application(configify_t*config, msgify_t *message);
 void https__success(https__request_t *request_t, const char *format, ...);
 void https_successify(https__request_t *request_t, char *result, size_t datlen);
 void https_add_cjson(https__request_t *request_t, const char *topic, const char *data, char *out);

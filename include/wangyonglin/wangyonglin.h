@@ -13,6 +13,7 @@
 #include <wangyonglin/time.h>
 #include <wangyonglin/uuid.h>
 #include <wangyonglin/socket.h>
+#include <application/application.h>
 /* Log types */
 #define LOG_NONE 0
 #define LOG_INFO (1 << 0)
@@ -40,6 +41,6 @@ enum err_t
 	ERR_DAEMON	= 5,
 	ERR_TIMEOUT = 100,
 };
-typedef unsigned char stringify_t;
-typedef int intterify_t;
+
+
 #endif

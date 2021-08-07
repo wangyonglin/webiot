@@ -118,8 +118,10 @@ disconnect.lo: disconnect.c /usr/include/stdc-predef.h \
  ../../include/wangyonglin/string.h ../../include/wangyonglin/error.h \
  ../../include/wangyonglin/pid.h ../../include/wangyonglin/daemon.h \
  ../../include/wangyonglin/time.h ../../include/wangyonglin/uuid.h \
- ../../include/wangyonglin/socket.h ../../include/mosquitto/disconnect.h \
- /usr/local/include/mosquitto.h ../../include/mosquitto/mosquitto.h
+ ../../include/wangyonglin/socket.h \
+ ../../include/application/application.h \
+ ../../include/mosquitto/disconnect.h /usr/local/include/mosquitto.h \
+ ../../include/mosquitto/mosquitto.h
 
 /usr/include/stdc-predef.h:
 
@@ -580,6 +582,8 @@ disconnect.lo: disconnect.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/uuid.h:
 
 ../../include/wangyonglin/socket.h:
+
+../../include/application/application.h:
 
 ../../include/mosquitto/disconnect.h:
 

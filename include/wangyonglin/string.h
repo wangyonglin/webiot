@@ -2,6 +2,26 @@
 #define INCLUDE_WANGYONGLIN_STRING_H
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
+typedef char stringify_t;
+typedef unsigned char dataify_t;
+typedef unsigned long sizeify_t;
+typedef int intterify_t;
+typedef int boolify_t;
+
+#define trueify ((boolify_t)1)
+#define falseify ((boolify_t)0)
+#define noneify ((boolify_t)-1)
+
+typedef struct strify strify_t;
+struct strify{
+    sizeify_t len;
+    dataify_t *data;
+};
+
+#define stringify_setting(str)     { sizeof(str) - 1, (dataify_t *) str }
+#define stringify_init {0, NULL}
+#define stringify_null(str) (str)->len = 0;(str)->data = NULL
+
 typedef struct string_s string_t;
 #define int_t int;
 struct string_s{

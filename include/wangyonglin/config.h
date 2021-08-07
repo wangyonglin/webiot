@@ -2,15 +2,9 @@
 #define INCLUDE_WANGYONGLIN_CONFIG_H
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
-typedef struct wangyonglin__config configify_t;
-typedef struct wangyonglin__config wangyonglin__config_t;
-typedef struct conf_s conf_t;
-struct conf_s
-{
-  const char *pid_file;
-  const char *log_file;
-};
-struct wangyonglin__config
+
+
+typedef struct
 {
   bool daemon;
   pid_t pid;
@@ -24,10 +18,10 @@ struct wangyonglin__config
   FILE *log_fptr;
   char *user;
   char *group;
-  wangyonglin_conf_table_t *conf;
-};
+  wangyonglin_conf_table_t *boot;
+} configify_t;
 
-configify_t* configify();
+configify_t *configify();
 void configify_cleanup(configify_t *config);
 int configify_loader(configify_t *config, const char *filename);
 

@@ -94,7 +94,7 @@ void *callback_mosquitto_task(void *arg)
         ;
 }
 
-int mosquitto__appcation(configify_t *config, struct wangyonglin__message *message)
+int mosquitto__appcation(configify_t *config, msgify_t *message)
 {
 
     wangyonglin_mosquitto_t *mosquitto_t = wangyonglin_config_initialization(config);
@@ -160,7 +160,7 @@ wangyonglin_mosquitto_t *wangyonglin_config_initialization(configify_t *config)
 {
     wangyonglin_mosquitto_t *mosquitto_t = (wangyonglin_mosquitto_t *)calloc(1, sizeof(wangyonglin_mosquitto_t));
 
-    wangyonglin_conf_table_t *mosquitto = wangyonglin_conf_table_in(config->conf, "MOSQUITTO");
+    wangyonglin_conf_table_t *mosquitto = wangyonglin_conf_table_in(config->boot, "MOSQUITTO");
     if (!mosquitto)
     {
         logify_printf(config, LOG_ERR, "missing [mosquitto]", "");

@@ -1,7 +1,7 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-int pidify_create(struct wangyonglin__config *config)
+int pidify_create(configify_t *config)
 {
     int pid_fd;
     char val[16];
@@ -48,7 +48,7 @@ int pidify_create(struct wangyonglin__config *config)
  *
  * \param config to the name of the pid file to write (optarg)
  */
-void pidify_remove(struct wangyonglin__config *config)
+void pidify_remove(configify_t *config)
 {
     if (config->pid_file != NULL)
     {
@@ -66,7 +66,7 @@ void pidify_remove(struct wangyonglin__config *config)
  * \retval ERR_SUCCESS if succes
  * \retval ERR_PID on failure
  */
-int pidify_test(struct wangyonglin__config *config)
+int pidify_test(configify_t *config)
 {
     if (access(config->pid_file, F_OK) == 0)
     {

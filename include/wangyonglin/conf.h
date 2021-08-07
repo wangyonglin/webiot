@@ -42,7 +42,7 @@ typedef struct wangyonglin_conf_datum_t wangyonglin_conf_datum_t;
 /* Parse a file. Return a table on success, or 0 otherwise.
  * Caller must wangyonglin_free(the-return-value) after use.
  */
-WANGYONGLIN_EXTERN wangyonglin_conf_table_t* wangyonglin_conf_parse_file(FILE* fp,
+WANGYONGLIN_EXTERN wangyonglin_conf_table_t* confify_file(FILE* fp,
 										  char* errbuf,
 										  int errbufsz);
 
@@ -50,7 +50,7 @@ WANGYONGLIN_EXTERN wangyonglin_conf_table_t* wangyonglin_conf_parse_file(FILE* f
  * Return a table on success, or 0 otherwise.
  * Caller must wangyonglin_conf_free(the-return-value) after use.
  */
-WANGYONGLIN_EXTERN wangyonglin_conf_table_t* wangyonglin_conf_parse(char* conf, /* NUL terminated, please. */
+WANGYONGLIN_EXTERN wangyonglin_conf_table_t* confify_parse(char* conf, /* NUL terminated, please. */
 									 char* errbuf,
 									 int errbufsz);
 
@@ -58,7 +58,7 @@ WANGYONGLIN_EXTERN wangyonglin_conf_table_t* wangyonglin_conf_parse(char* conf, 
  * this function is called, any handles accessed through this tab
  * directly or indirectly are no longer valid.
  */
-WANGYONGLIN_EXTERN void wangyonglin_conf_free(wangyonglin_conf_table_t* tab);
+WANGYONGLIN_EXTERN void confify_free(wangyonglin_conf_table_t* tab);
 
 
 /* Timestamp types. The year, month, day, hour, minute, second, z

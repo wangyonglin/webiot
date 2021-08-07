@@ -26,7 +26,7 @@ void configify_cleanup(configify_t *config_t)
     memify_free(config_t);
     config_t = NULL;
 }
-int configify_loader(configify_t *config,const char *filename)
+int configify_loader(configify_t *config, const char *filename)
 {
     char errbuf[200];
     FILE *fd;
@@ -36,11 +36,11 @@ int configify_loader(configify_t *config,const char *filename)
         fprintf(stderr, "this is log file not find");
         return ERR_CONFIG;
     }
-    config->conf = wangyonglin_conf_parse_file(fd, errbuf, sizeof(errbuf));
-    if (config->conf == NULL)
+    config->boot = confify_file(fd, errbuf, sizeof(errbuf));
+    if (config->boot == NULL)
         return ERR_CONFIG;
     //读取系统配置文件的内容
-    wangyonglin_conf_table_t *system = wangyonglin_conf_table_in(config->conf, "SYSTEM");
+    wangyonglin_conf_table_t *system = wangyonglin_conf_table_in(config->boot, "SYSTEM");
     if (!system)
     {
         fprintf(stderr, "missing [SYSTEM]\n");

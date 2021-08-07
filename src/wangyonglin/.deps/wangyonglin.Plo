@@ -118,7 +118,8 @@ wangyonglin.lo: wangyonglin.c /usr/include/stdc-predef.h \
  ../../include/wangyonglin/string.h ../../include/wangyonglin/error.h \
  ../../include/wangyonglin/pid.h ../../include/wangyonglin/daemon.h \
  ../../include/wangyonglin/time.h ../../include/wangyonglin/uuid.h \
- ../../include/wangyonglin/socket.h
+ ../../include/wangyonglin/socket.h \
+ ../../include/application/application.h
 
 /usr/include/stdc-predef.h:
 
@@ -579,3 +580,5 @@ wangyonglin.lo: wangyonglin.c /usr/include/stdc-predef.h \
 ../../include/wangyonglin/uuid.h:
 
 ../../include/wangyonglin/socket.h:
+
+../../include/application/application.h:

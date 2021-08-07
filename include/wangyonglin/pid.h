@@ -3,7 +3,7 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-int pidify_create(struct wangyonglin__config *config);
-void pidify_remove(struct wangyonglin__config *config);
-int pidify_test(struct wangyonglin__config *config);
+int pidify_create(configify_t *config);
+void pidify_remove(configify_t *config);
+int pidify_test(configify_t *config);
 #endif

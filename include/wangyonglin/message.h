@@ -3,14 +3,14 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-typedef struct wangyonglin__message msgify_t;
-struct wangyonglin__message
+typedef struct msgify msgify_t;
+struct msgify
 {
     struct sigaction act;
     union sigval sval;
     int signo;
     void (*callback)(int, siginfo_t *, void *);
-    struct wangyonglin__config *config;
+    configify_t *config;
 };
 
 void msgify_sigaction(msgify_t *msg, int signo, void (*callback)(int, siginfo_t *, void *));

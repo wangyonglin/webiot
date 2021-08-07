@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS=foreign
 bin_PROGRAMS=wangyonglin
-wangyonglin_SOURCES=app.c 
+wangyonglin_SOURCES=application.c 
 AM_CPPFLAGS=-I $(top_srcdir)/include/
 wangyonglin_LDADD= \
     $(top_srcdir)/src/wangyonglin/libwangyonglin.la \

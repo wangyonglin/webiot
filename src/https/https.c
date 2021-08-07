@@ -16,7 +16,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(configify_t *config)
     //配置 HTTPS 需要的参数
     wangyonglin_https_t *https_t = (wangyonglin_https_t *)calloc(1, sizeof(wangyonglin_https_t));
     // 2. Traverse to a table.
-    wangyonglin_conf_table_t *https = wangyonglin_conf_table_in(config->conf, "HTTPS");
+    wangyonglin_conf_table_t *https = wangyonglin_conf_table_in(config->boot, "HTTPS");
     if (!https)
     {
         logify_printf(config, LOG_ERR, "missing [https]");
@@ -69,7 +69,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(configify_t *config)
     https_t->port = port.u.i;
     return https_t;
 }
-int https__application(configify_t *config, struct wangyonglin__message *message)
+int https__application(configify_t *config,msgify_t *message)
 {
     https__request_t request_t;
     request_t.config = config;

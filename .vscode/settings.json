@@ -42,7 +42,8 @@
         "mysql.h": "c",
         "snowflake.h": "c",
         "unistd.h": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "pid.h": "c"
     },
     "editor.accessibilityPageSize": 16
 }
