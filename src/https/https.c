@@ -116,8 +116,8 @@ int https__application(configify_t *config,msgify_t *message)
         我们自动完成，我们拿到的数据就已经解密之后的
             */
         evhttp_set_bevcb(pinfo->httpd, https__bufferevent_cb, https_t->ctx);
-        evhttp_set_cb(pinfo->httpd, "/wangyonglin/rf433/set", https__uri_wangyonglin_rf433, &request_t);
-        evhttp_set_cb(pinfo->httpd, "/wangyonglin/trun/set", https__uri_wangyonglin_trun, &request_t);
+        evhttp_set_cb(pinfo->httpd, "/wangyonglin/rf433/get", https__uri_wangyonglin_rf433, &request_t);
+        evhttp_set_cb(pinfo->httpd, "/wangyonglin/trun/get", https__uri_wangyonglin_trun, &request_t);
         evhttp_set_gencb(pinfo->httpd, https__uri_notfound, config);
         /* 设置监听IP和端口 */
         if (evhttp_accept_socket(pinfo->httpd, socket_t->sockfd) != 0)
