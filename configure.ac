@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT(wangyonglin,1.0,admin@wangyonglin.com)
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([src/application/app.c])
+AC_CONFIG_SRCDIR([src/application/application.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.

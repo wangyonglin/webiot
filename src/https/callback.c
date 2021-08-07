@@ -28,7 +28,7 @@ void https__uri_wangyonglin_rf433(struct evhttp_request *request, void *arg)
     logify_printf(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
-        https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
+        https__failure(request_t, "input params is null.");
         return;
     }
     char *rf433 = NULL;
@@ -37,9 +37,9 @@ void https__uri_wangyonglin_rf433(struct evhttp_request *request, void *arg)
     if (rf433 == NULL || strlen(rf433) > 20)
     {
         if (rf433 == NULL)
-            https__failure(request_t, HTTP_BADREQUEST, "request uri no param rf433.");
+            https__failure(request_t, "request uri no param rf433.");
         else
-            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 rf433.");
+            https__failure(request_t, "request uri  param > 20 rf433.");
         return;
     }
 
@@ -52,7 +52,7 @@ void https__uri_wangyonglin_rf433(struct evhttp_request *request, void *arg)
     }
     else
     {
-        https__failure(request_t, rc, "mosquitto fail");
+        https__failure(request_t, "mosquitto fail");
     }
 
     free(out);
@@ -68,7 +68,7 @@ void https__uri_wangyonglin_trun(struct evhttp_request *request, void *arg)
     logify_printf(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
-        https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
+        https__failure(request_t, "input params is null.");
         return;
     }
     char *trun = NULL;
@@ -76,9 +76,9 @@ void https__uri_wangyonglin_trun(struct evhttp_request *request, void *arg)
     if (trun == NULL || strlen(trun) > 20)
     {
         if (trun == NULL)
-            https__failure(request_t, HTTP_BADREQUEST, "request uri no param trun.");
+            https__failure(request_t, "request uri no param trun.");
         else
-            https__failure(request_t, HTTP_BADREQUEST, "request uri  param > 20 trun.");
+            https__failure(request_t, "request uri  param > 20 trun.");
         return;
     }
 
@@ -91,7 +91,7 @@ void https__uri_wangyonglin_trun(struct evhttp_request *request, void *arg)
     }
     else
     {
-        https__failure(request_t, rc, "mosquitto fail");
+        https__failure(request_t,"mosquitto fail error [%d]",rc);
     }
 
     free(out);
@@ -101,7 +101,7 @@ void https__uri_notfound(struct evhttp_request *request, void *arg)
     https__request_t request_t;
     request_t.request = request;
     request_t.config = (configify_t *)arg;
-    https__failure(&request_t, 404, "not Found");
+    https__failure(&request_t, "not Found");
 }
 
 //解析http头，主要用于get请求时解析uri和请求参数
@@ -110,7 +110,7 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     struct evkeyvalq params = {0};
     if (request == NULL || &params == NULL || query_char == NULL)
     {
-        https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
+        https__failure(request_t, "input params is null.");
         return "";
     }
     struct evhttp_uri *decoded = NULL;

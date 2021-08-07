@@ -48,5 +48,5 @@ int https__application(configify_t*config, msgify_t *message);
 void https__success(https__request_t *request_t, const char *format, ...);
 void https_successify(https__request_t *request_t, char *result, size_t datlen);
 void https_add_cjson(https__request_t *request_t, const char *topic, const char *data, char *out);
-void https__failure(https__request_t *request_t, int errcode, const char *format, ...);
+void https__failure(https__request_t *request_t, const char *format, ...);
 #endif

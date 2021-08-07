@@ -159,28 +159,25 @@ static struct bufferevent *https__bufferevent_cb(struct event_base *base, void *
 
 void https_add_cjson(https__request_t *request_t, const char *topic, const char *data, char *out)
 {
-    char timestamp[20] = {0};
-    timeify_timestamp(request_t->config, timestamp, 20);
+
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象
     if (!root)
     {
-        https__failure(request_t, 444, "cJSON_CreateObject filt");
+        https__failure(request_t,"cJSON_CreateObject filt");
         return;
     }
 
     cJSON *result = cJSON_CreateObject();
     if (!result)
     {
-        https__failure(request_t, 444, "cJSON_CreateObject filt");
+        https__failure(request_t,"cJSON_CreateObject filt");
         return;
     }
     cJSON_AddTrueToObject(root, "success");
     cJSON_AddStringToObject(root, "message", "ok");
     cJSON_AddStringToObject(result, topic, data);
     cJSON_AddItemToObject(root, "result", result);
-    cJSON_AddNumberToObject(root, "errcode", 200);
-    cJSON_AddStringToObject(root, "timestamp", timestamp);
     char *res = cJSON_Print(root);
     bzero(out, sizeof(out));
     strcpy(out, res);
@@ -199,7 +196,7 @@ void https_successify(https__request_t *request_t, char *result, size_t datlen)
         evbuffer_free(evb);
 }
 
-void https__failure(https__request_t *request_t, int errcode, const char *format, ...)
+void https__failure(https__request_t *request_t,const char *format, ...)
 {
     struct evhttp_request *request = request_t->request;
     evhttp_add_header(request->output_headers, "Content-Type", "application/json;charset=UTF-8");
@@ -209,9 +206,6 @@ void https__failure(https__request_t *request_t, int errcode, const char *format
     char *message = (char *)calloc(1, 512);
     sprintf(message, format, args);
     struct evbuffer *evb = NULL;
-    char timestamp[20] = {0};
-    timeify_timestamp(request_t->config, timestamp, 20);
-
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象
     if (!root)
@@ -220,12 +214,10 @@ void https__failure(https__request_t *request_t, int errcode, const char *format
     cJSON_AddFalseToObject(root, "success");
     cJSON_AddStringToObject(root, "message", message);
     cJSON_AddNullToObject(root, "result");
-    cJSON_AddNumberToObject(root, "errcode", errcode);
-    cJSON_AddStringToObject(root, "timestamp", timestamp);
     char *out = cJSON_Print(root);
     evb = evbuffer_new();
     evbuffer_add(evb, out, strlen(out));
-    evhttp_send_reply(request_t->request, errcode, message, evb);
+    evhttp_send_reply(request_t->request, 500, message, evb);
     if (evb)
         evbuffer_free(evb);
     free(message);
