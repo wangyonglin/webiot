@@ -1,21 +1,16 @@
 #ifndef INCLUDE_WANGYONGLIN_WANGYONGLIN_H
 #define INCLUDE_WANGYONGLIN_WANGYONGLIN_H
 #include <wangyonglin/memory.h>
-#include <wangyonglin/buffer.h>
-
 #include <wangyonglin/conf.h>
 #include <wangyonglin/signal.h>
 #include <wangyonglin/config.h>
 #include <wangyonglin/message.h>
-
-
 #include <wangyonglin/logging.h>
 #include <wangyonglin/string.h>
 #include <wangyonglin/error.h>
 #include <wangyonglin/pid.h>
 #include <wangyonglin/daemon.h>
 #include <wangyonglin/time.h>
-
 #include <wangyonglin/uuid.h>
 #include <wangyonglin/socket.h>
 /* Log types */
@@ -45,5 +40,6 @@ enum err_t
 	ERR_DAEMON	= 5,
 	ERR_TIMEOUT = 100,
 };
-
+typedef unsigned char stringify_t;
+typedef int intterify_t;
 #endif

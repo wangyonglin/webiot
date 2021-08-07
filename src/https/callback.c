@@ -22,10 +22,10 @@ void https__uri_wangyonglin_rf433(struct evhttp_request *request, void *arg)
     char *out = (char *)malloc(sizeof(char) * 1024);
     https__request_t *request_t = (https__request_t *)arg;
     request_t->request = request;
-    struct wangyonglin__message *message = request_t->message;
-    struct wangyonglin__config *config = request_t->config;
+    msgify_t *message = request_t->message;
+    configify_t *config = request_t->config;
     int rc = 0;
-    wangyonglin__logger(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
+    logify_printf(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
         https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
@@ -43,9 +43,9 @@ void https__uri_wangyonglin_rf433(struct evhttp_request *request, void *arg)
         return;
     }
 
-  //  data = https__callback_params(request_t, request, "data");
+    //  data = https__callback_params(request_t, request, "data");
 
-    https_add_cjson(request_t,"rf433",rf433,out); 
+    https_add_cjson(request_t, "rf433", rf433, out);
     if ((rc = mosquitto__publist(config, request_t->topic.data, out, strlen(out))) == 0)
     {
         https_successify(request_t, out, strlen(out));
@@ -62,10 +62,10 @@ void https__uri_wangyonglin_trun(struct evhttp_request *request, void *arg)
     char *out = (char *)malloc(sizeof(char) * 1024);
     https__request_t *request_t = (https__request_t *)arg;
     request_t->request = request;
-    struct wangyonglin__message *message = request_t->message;
-    struct wangyonglin__config *config = request_t->config;
+    msgify_t *message = request_t->message;
+    configify_t *config = request_t->config;
     int rc = 0;
-    wangyonglin__logger(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
+    logify_printf(config, LOG_INFO, "IP: %s:%d CODE: %d URL: %s", request->remote_host, request->remote_port, HTTP_OK, evhttp_request_get_uri(request));
     if (request == NULL)
     {
         https__failure(request_t, HTTP_BADREQUEST, "input params is null.");
@@ -82,9 +82,9 @@ void https__uri_wangyonglin_trun(struct evhttp_request *request, void *arg)
         return;
     }
 
-  //  data = https__callback_params(request_t, request, "data");
+    //  data = https__callback_params(request_t, request, "data");
 
-    https_add_cjson(request_t,"trun",trun,out); 
+    https_add_cjson(request_t, "trun", trun, out);
     if ((rc = mosquitto__publist(config, request_t->topic.data, out, strlen(out))) == 0)
     {
         https_successify(request_t, out, strlen(out));
@@ -100,7 +100,7 @@ void https__uri_notfound(struct evhttp_request *request, void *arg)
 {
     https__request_t request_t;
     request_t.request = request;
-    request_t.config = (struct wangyonglin__config *)arg;
+    request_t.config = (configify_t *)arg;
     https__failure(&request_t, 404, "not Found");
 }
 
@@ -120,7 +120,7 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     const char *uri = evhttp_request_get_uri(request); //获取请求uri
     if (uri == NULL)
     {
-        wangyonglin__logger(request_t->config, LOG_INFO, "====line:%d,evhttp_request_get_uri return null\n", __LINE__);
+        logify_printf(request_t->config, LOG_INFO, "====line:%d,evhttp_request_get_uri return null\n", __LINE__);
 
         return "";
     }
@@ -128,7 +128,7 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     decoded = evhttp_uri_parse(uri);
     if (!decoded)
     {
-        wangyonglin__logger(request_t->config, LOG_INFO, "====line:%d,It's not a good URI. Sending BADREQUEST\n", __LINE__);
+        logify_printf(request_t->config, LOG_INFO, "====line:%d,It's not a good URI. Sending BADREQUEST\n", __LINE__);
         evhttp_send_error(request, HTTP_BADREQUEST, 0);
         return "";
     }
@@ -138,12 +138,12 @@ char *https__callback_params(https__request_t *request_t, struct evhttp_request 
     {
         path = "/";
     }
-    wangyonglin_string_setting(&request_t->topic,path);
+    wangyonglin_string_setting(&request_t->topic, path);
     //获取uri中的参数部分
     query = (char *)evhttp_uri_get_query(decoded);
     if (query == NULL)
     {
-        wangyonglin__logger(request_t->config, LOG_INFO, "====line:%d,evhttp_uri_get_query return null\n", __LINE__);
+        logify_printf(request_t->config, LOG_INFO, "====line:%d,evhttp_uri_get_query return null\n", __LINE__);
         return "";
     }
     //查询指定参数的值

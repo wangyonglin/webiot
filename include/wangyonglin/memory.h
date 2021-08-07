@@ -2,8 +2,8 @@
 #define INCLUDE_WANGYONGLIN_MEMORY_H
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
-
-void *wangyonglin__calloc(size_t nmemb, size_t size);
-void wangyonglin__free(void *mem);
-void *wangyonglin__malloc(size_t size);
+#define memify_memset memset
+#define memify_malloc malloc
+#define memify_free free
+#define memify_calloc calloc
 #endif

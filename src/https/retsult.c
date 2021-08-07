@@ -6,7 +6,7 @@
 #include <event2/bufferevent_ssl.h>
 #include <evhttp.h>
 
-int https__retsult_success(struct wangyonglin__config *config, struct evhttp_request *request, cJSON *text, const char *format, ...)
+int https__retsult_success(configify_t *config, struct evhttp_request *request, cJSON *text, const char *format, ...)
 {
     evhttp_add_header(request->output_headers, "Content-Type", "application/json;charset=UTF-8");
     evhttp_add_header(request->output_headers, "Connection", "keep-alive");
@@ -16,7 +16,7 @@ int https__retsult_success(struct wangyonglin__config *config, struct evhttp_req
     sprintf(reason, format, args);
     struct evbuffer *evb = NULL;
     char timestamp[20] = {0};
-    time__timestamp(config, timestamp, 20);
+    timeify_timestamp(config, timestamp, 20);
 
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象
@@ -44,7 +44,7 @@ int https__retsult_success(struct wangyonglin__config *config, struct evhttp_req
     return 0;
 }
 
-int https__retsult_failure(struct wangyonglin__config *config, struct evhttp_request *request, int code, const char *format, ...)
+int https__retsult_failure(configify_t *config, struct evhttp_request *request, int code, const char *format, ...)
 {
     evhttp_add_header(request->output_headers, "Content-Type", "application/json;charset=UTF-8");
     evhttp_add_header(request->output_headers, "Connection", "keep-alive");
@@ -54,7 +54,7 @@ int https__retsult_failure(struct wangyonglin__config *config, struct evhttp_req
     sprintf(reason, format, args);
     struct evbuffer *evb = NULL;
     char timestamp[20] = {0};
-    time__timestamp(config, timestamp, 20);
+    timeify_timestamp(config, timestamp, 20);
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象
     if (!root)

@@ -1,14 +1,14 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-int wangyonglin__daemon(struct wangyonglin__config *config)
+int daemonify(configify_t *config)
 {
     if(!config->daemon) return ERR_SUCCESS;
     int fd;
     switch (fork())
     {
     case -1:
-        log__printf(config, LOG_ERR, "fork() failed");
+        logify_printf(config, LOG_ERR, "fork() failed");
         return ERR_DAEMON;
 
     case 0:
@@ -19,12 +19,12 @@ int wangyonglin__daemon(struct wangyonglin__config *config)
     }
     if ((chdir("/")) < 0)
     {
-        log__printf(config, LOG_ERR, "could change to root dir");
+        logify_printf(config, LOG_ERR, "could change to root dir");
          return ERR_DAEMON;
     }
     if (setsid() == -1)
     {
-        log__printf(config, LOG_ERR, "\t\tsetsid() failed");
+        logify_printf(config, LOG_ERR, "\t\tsetsid() failed");
           return ERR_DAEMON;
     }
     umask(0);
@@ -32,26 +32,26 @@ int wangyonglin__daemon(struct wangyonglin__config *config)
     fd = open("/dev/null", O_RDWR);
     if (fd == -1)
     {
-        log__printf(config, LOG_ERR, "open(\"/dev/null\") failed");
+        logify_printf(config, LOG_ERR, "open(\"/dev/null\") failed");
           return ERR_DAEMON;
     }
 
     if (dup2(fd, STDIN_FILENO) == -1)
     {
-        log__printf(config, LOG_ERR, "dup2(STDIN) failed");
+        logify_printf(config, LOG_ERR, "dup2(STDIN) failed");
           return ERR_DAEMON;
     }
 
     if (dup2(fd, STDOUT_FILENO) == -1)
     {
-        log__printf(config, LOG_ERR, "dup2(STDOUT) failed");
+        logify_printf(config, LOG_ERR, "dup2(STDOUT) failed");
           return ERR_DAEMON;
     }
     if (fd > STDERR_FILENO)
     {
         if (close(fd) == -1)
         {
-            log__printf(config, LOG_ERR, "close() failed");
+            logify_printf(config, LOG_ERR, "close() failed");
              return ERR_DAEMON;
         }
     }

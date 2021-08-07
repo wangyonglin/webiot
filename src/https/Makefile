@@ -128,8 +128,7 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libhttps_la_LIBADD =
-am_libhttps_la_OBJECTS = https.lo openssl.lo retsult.lo callback.lo \
-	config.lo
+am_libhttps_la_OBJECTS = https.lo openssl.lo retsult.lo callback.lo
 libhttps_la_OBJECTS = $(am_libhttps_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -150,9 +149,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/callback.Plo ./$(DEPDIR)/config.Plo \
-	./$(DEPDIR)/https.Plo ./$(DEPDIR)/openssl.Plo \
-	./$(DEPDIR)/retsult.Plo
+am__depfiles_remade = ./$(DEPDIR)/callback.Plo ./$(DEPDIR)/https.Plo \
+	./$(DEPDIR)/openssl.Plo ./$(DEPDIR)/retsult.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -323,8 +321,7 @@ libhttps_la_SOURCES = \
     https.c \
     openssl.c \
     retsult.c \
-    callback.c \
-    config.c
+    callback.c 
 
 all: all-am
 
@@ -405,7 +402,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/callback.Plo # am--include-marker
-include ./$(DEPDIR)/config.Plo # am--include-marker
 include ./$(DEPDIR)/https.Plo # am--include-marker
 include ./$(DEPDIR)/openssl.Plo # am--include-marker
 include ./$(DEPDIR)/retsult.Plo # am--include-marker
@@ -572,7 +568,6 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/callback.Plo
-	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/https.Plo
 	-rm -f ./$(DEPDIR)/openssl.Plo
 	-rm -f ./$(DEPDIR)/retsult.Plo
@@ -622,7 +617,6 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/callback.Plo
-	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/https.Plo
 	-rm -f ./$(DEPDIR)/openssl.Plo
 	-rm -f ./$(DEPDIR)/retsult.Plo

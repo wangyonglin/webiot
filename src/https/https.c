@@ -8,10 +8,10 @@
 #define MYHTTPD_SIGNATURE "wangyonglin v0.1"
 void *https__dispatch(void *args);
 static struct bufferevent *https__bufferevent_cb(struct event_base *base, void *arg);
-int https__socket_create(struct wangyonglin__config *config, wangyonglin_https_t *https_t);
+int https__socket_create(configify_t *config, wangyonglin_https_t *https_t);
 //static void login_cb(struct evhttp_request *req, void *arg);
-static wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__config *config);
-wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__config *config)
+static wangyonglin_https_t *wangyonglin_config_initialization(configify_t *config);
+wangyonglin_https_t *wangyonglin_config_initialization(configify_t *config)
 {
     //配置 HTTPS 需要的参数
     wangyonglin_https_t *https_t = (wangyonglin_https_t *)calloc(1, sizeof(wangyonglin_https_t));
@@ -19,7 +19,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     wangyonglin_conf_table_t *https = wangyonglin_conf_table_in(config->conf, "HTTPS");
     if (!https)
     {
-        wangyonglin__logger(config, LOG_ERR, "missing [https]");
+        logify_printf(config, LOG_ERR, "missing [https]");
         return NULL;
     }
 
@@ -27,7 +27,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     wangyonglin_conf_datum_t port = wangyonglin_conf_int_in(https, "port");
     if (!port.ok)
     {
-        wangyonglin__logger(config, LOG_ERR, "cannot read https.host", "");
+        logify_printf(config, LOG_ERR, "cannot read https.host", "");
         return NULL;
     }
 
@@ -35,7 +35,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     wangyonglin_conf_datum_t backlog = wangyonglin_conf_int_in(https, "backlog");
     if (!backlog.ok)
     {
-        wangyonglin__logger(config, LOG_ERR, "cannot read https.backlog", "");
+        logify_printf(config, LOG_ERR, "cannot read https.backlog", "");
         return NULL;
     }
 
@@ -43,7 +43,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     wangyonglin_conf_datum_t threads = wangyonglin_conf_int_in(https, "threads");
     if (!threads.ok)
     {
-        wangyonglin__logger(config, LOG_ERR, "cannot read https.threads", "");
+        logify_printf(config, LOG_ERR, "cannot read https.threads", "");
         return NULL;
     }
 
@@ -51,7 +51,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     wangyonglin_conf_datum_t certificate_chain = wangyonglin_conf_string_in(https, "certificate_chain");
     if (!certificate_chain.ok)
     {
-        wangyonglin__logger(config, LOG_ERR, "cannot read https.certificate_chain", "");
+        logify_printf(config, LOG_ERR, "cannot read https.certificate_chain", "");
         return NULL;
     }
 
@@ -59,7 +59,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     wangyonglin_conf_datum_t private_key = wangyonglin_conf_string_in(https, "private_key");
     if (!private_key.ok)
     {
-        wangyonglin__logger(config, LOG_ERR, "cannot read https.private_key", "");
+        logify_printf(config, LOG_ERR, "cannot read https.private_key", "");
         return NULL;
     }
     wangyonglin_string_setting(&https_t->private_key, private_key.u.s);
@@ -69,7 +69,7 @@ wangyonglin_https_t *wangyonglin_config_initialization(struct wangyonglin__confi
     https_t->port = port.u.i;
     return https_t;
 }
-int https__application(struct wangyonglin__config *config, struct wangyonglin__message *message)
+int https__application(configify_t *config, struct wangyonglin__message *message)
 {
     https__request_t request_t;
     request_t.config = config;
@@ -86,10 +86,10 @@ int https__application(struct wangyonglin__config *config, struct wangyonglin__m
     /* 选择服务器证书 和 服务器私钥. 2/2  设置服务器证书 和 服务器私钥 到 OPENSSL ctx上下文句柄中 */
     https__openssl_set(config, https_t->ctx, https_t->certificate_chain.data, https_t->private_key.data);
     /* 配置 SOCKET */
-    struct wangyonglin__socket *socket_t = wangyonglin__socket_tcp(config, https_t->port, https_t->backlog);
+    sockify_t *socket_t = sockify_tcp(config, https_t->port, https_t->backlog);
     if (socket_t == NULL)
     {
-        log__printf(config, LOG_ERR, "Couldn't create an socket: exiting");
+        logify_printf(config, LOG_ERR, "Couldn't create an socket: exiting");
         return -7;
     }
     pthread_t ths[https_t->threads];
@@ -101,13 +101,13 @@ int https__application(struct wangyonglin__config *config, struct wangyonglin__m
         pinfo->base = event_base_new();
         if (pinfo->base == NULL)
         {
-            log__printf(config, LOG_ERR, "Couldn't create an event_base: exiting");
+            logify_printf(config, LOG_ERR, "Couldn't create an event_base: exiting");
             return -8;
         }
         pinfo->httpd = evhttp_new(pinfo->base);
         if (pinfo->httpd == NULL)
         {
-            log__printf(config, LOG_ERR, "couldn't create evhttp. exiting.");
+            logify_printf(config, LOG_ERR, "couldn't create evhttp. exiting.");
             return -9;
         }
         /* 
@@ -116,13 +116,13 @@ int https__application(struct wangyonglin__config *config, struct wangyonglin__m
         我们自动完成，我们拿到的数据就已经解密之后的
             */
         evhttp_set_bevcb(pinfo->httpd, https__bufferevent_cb, https_t->ctx);
-        evhttp_set_cb(pinfo->httpd, "/wangyonglin/rf433", https__uri_wangyonglin_rf433, &request_t);
-        evhttp_set_cb(pinfo->httpd, "/wangyonglin/trun", https__uri_wangyonglin_trun, &request_t);
+        evhttp_set_cb(pinfo->httpd, "/wangyonglin/rf433/set", https__uri_wangyonglin_rf433, &request_t);
+        evhttp_set_cb(pinfo->httpd, "/wangyonglin/trun/set", https__uri_wangyonglin_trun, &request_t);
         evhttp_set_gencb(pinfo->httpd, https__uri_notfound, config);
         /* 设置监听IP和端口 */
         if (evhttp_accept_socket(pinfo->httpd, socket_t->sockfd) != 0)
         {
-            log__printf(config, LOG_ERR, "evhttp_accept_socket failed! port:%d\n", socket_t->__hostshort);
+            logify_printf(config, LOG_ERR, "evhttp_accept_socket failed! port:%d\n", socket_t->__hostshort);
             return -10;
         }
         ret = pthread_create(&ths[i], NULL, https__dispatch, pinfo);
@@ -160,7 +160,7 @@ static struct bufferevent *https__bufferevent_cb(struct event_base *base, void *
 void https_add_cjson(https__request_t *request_t, const char *topic, const char *data, char *out)
 {
     char timestamp[20] = {0};
-    time__timestamp(request_t->config, timestamp, 20);
+    timeify_timestamp(request_t->config, timestamp, 20);
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象
     if (!root)
@@ -210,7 +210,7 @@ void https__failure(https__request_t *request_t, int errcode, const char *format
     sprintf(message, format, args);
     struct evbuffer *evb = NULL;
     char timestamp[20] = {0};
-    time__timestamp(request_t->config, timestamp, 20);
+    timeify_timestamp(request_t->config, timestamp, 20);
 
     /* 输出 JSON*/
     cJSON *root = cJSON_CreateObject(); //创建一个对象

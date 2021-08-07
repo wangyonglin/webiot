@@ -1,10 +1,10 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-struct wangyonglin__config *wangyonglin__config_new()
+configify_t *configify()
 {
 
-    struct wangyonglin__config *config = (struct wangyonglin__config *)malloc(sizeof(struct wangyonglin__config));
+    configify_t *config = (configify_t *)malloc(sizeof(configify_t));
     memset(config, 0, sizeof(config));
 
     config->daemon = true;
@@ -13,7 +13,7 @@ struct wangyonglin__config *wangyonglin__config_new()
         fclose(config->log_fptr);
         config->log_fptr = NULL;
     }
-    wangyonglin__free(config->log_file);
+    memify_free(config->log_file);
     config->log_file = NULL;
     config->log_timestamp_format = "%Y-%m-%d %H:%M:%S";
     config->log_timestamp = true;
@@ -21,12 +21,12 @@ struct wangyonglin__config *wangyonglin__config_new()
 
     return config;
 }
-void wangyonglin__config_cleanup(struct wangyonglin__config *config_t)
+void configify_cleanup(configify_t *config_t)
 {
-    wangyonglin__free(config_t);
+    memify_free(config_t);
     config_t = NULL;
 }
-int wangyonglin__config_load(struct wangyonglin__config *config,const char *filename)
+int configify_loader(configify_t *config,const char *filename)
 {
     char errbuf[200];
     FILE *fd;

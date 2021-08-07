@@ -5,7 +5,7 @@
 
 void https__openssl_init();
 void https__openssl_cleanup();
-SSL_CTX *https__openssl_create(struct wangyonglin__config *config);
-void https__openssl_set(struct wangyonglin__config *config, SSL_CTX *ctx, const char *certificate_chain, const char *key);
+SSL_CTX *https__openssl_create(configify_t *config);
+void https__openssl_set(configify_t *config, SSL_CTX *ctx, const char *certificate_chain, const char *key);
 
 #endif

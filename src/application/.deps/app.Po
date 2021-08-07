@@ -111,16 +111,15 @@ app.o: app.c /usr/include/stdc-predef.h ../../include/wangyonglin/linux.h \
  /usr/include/linux/unistd.h /usr/include/asm/unistd.h \
  /usr/include/asm/unistd_64.h /usr/include/sys/syscall.h \
  /usr/include/bits/syscall.h ../../include/wangyonglin/wangyonglin.h \
- ../../include/wangyonglin/memory.h ../../include/wangyonglin/buffer.h \
- ../../include/wangyonglin/conf.h ../../include/wangyonglin/signal.h \
- ../../include/wangyonglin/config.h ../../include/wangyonglin/message.h \
- ../../include/wangyonglin/logging.h ../../include/wangyonglin/string.h \
- ../../include/wangyonglin/error.h ../../include/wangyonglin/pid.h \
- ../../include/wangyonglin/daemon.h ../../include/wangyonglin/time.h \
- ../../include/wangyonglin/uuid.h ../../include/wangyonglin/socket.h \
- ../../include/mosquitto/mosquitto.h /usr/local/include/mosquitto.h \
- ../../include/https/https.h ../../include/cjson/json.h \
- /usr/include/evhttp.h /usr/include/event.h \
+ ../../include/wangyonglin/memory.h ../../include/wangyonglin/conf.h \
+ ../../include/wangyonglin/signal.h ../../include/wangyonglin/config.h \
+ ../../include/wangyonglin/message.h ../../include/wangyonglin/logging.h \
+ ../../include/wangyonglin/string.h ../../include/wangyonglin/error.h \
+ ../../include/wangyonglin/pid.h ../../include/wangyonglin/daemon.h \
+ ../../include/wangyonglin/time.h ../../include/wangyonglin/uuid.h \
+ ../../include/wangyonglin/socket.h ../../include/mosquitto/mosquitto.h \
+ /usr/local/include/mosquitto.h ../../include/https/https.h \
+ ../../include/cjson/json.h /usr/include/evhttp.h /usr/include/event.h \
  /usr/include/event2/event-config.h /usr/include/event2/event-config-64.h \
  /usr/include/evutil.h /usr/include/event2/util.h \
  /usr/include/event2/visibility.h /usr/include/event2/event_struct.h \
@@ -569,8 +568,6 @@ app.o: app.c /usr/include/stdc-predef.h ../../include/wangyonglin/linux.h \
 ../../include/wangyonglin/wangyonglin.h:
 
 ../../include/wangyonglin/memory.h:
-
-../../include/wangyonglin/buffer.h:
 
 ../../include/wangyonglin/conf.h:
 

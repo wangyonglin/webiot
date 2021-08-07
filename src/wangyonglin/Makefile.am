@@ -3,7 +3,6 @@ lib_LTLIBRARIES=libwangyonglin.la
 AM_CPPFLAGS=-I $(top_srcdir)/include/
 libwangyonglin_la_SOURCES=             \
     message.c \
-    memory.c \
     config.c \
     string.c \
     error.c \
@@ -12,8 +11,6 @@ libwangyonglin_la_SOURCES=             \
     pid.c            \
     daemon.c    \
     time.c \
-    signal.c \
     logging.c \
-    buffer.c \
     uuid.c \
     socket.c

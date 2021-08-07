@@ -2,6 +2,7 @@
 #define INCLUDE_WANGYONGLIN_CONFIG_H
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
+typedef struct wangyonglin__config configify_t;
 typedef struct wangyonglin__config wangyonglin__config_t;
 typedef struct conf_s conf_t;
 struct conf_s
@@ -26,8 +27,8 @@ struct wangyonglin__config
   wangyonglin_conf_table_t *conf;
 };
 
-struct wangyonglin__config *wangyonglin__config_new();
-void wangyonglin__config_cleanup(struct wangyonglin__config *config);
-int wangyonglin__config_load(struct wangyonglin__config *config, const char *filename);
+configify_t* configify();
+void configify_cleanup(configify_t *config);
+int configify_loader(configify_t *config, const char *filename);
 
 #endif

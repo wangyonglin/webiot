@@ -128,9 +128,9 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libwangyonglin_la_LIBADD =
-am_libwangyonglin_la_OBJECTS = message.lo memory.lo config.lo \
-	string.lo error.lo wangyonglin.lo conf.lo pid.lo daemon.lo \
-	time.lo signal.lo logging.lo buffer.lo uuid.lo socket.lo
+am_libwangyonglin_la_OBJECTS = message.lo config.lo string.lo error.lo \
+	wangyonglin.lo conf.lo pid.lo daemon.lo time.lo logging.lo \
+	uuid.lo socket.lo
 libwangyonglin_la_OBJECTS = $(am_libwangyonglin_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -151,14 +151,12 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/buffer.Plo ./$(DEPDIR)/conf.Plo \
-	./$(DEPDIR)/config.Plo ./$(DEPDIR)/daemon.Plo \
-	./$(DEPDIR)/error.Plo ./$(DEPDIR)/logging.Plo \
-	./$(DEPDIR)/memory.Plo ./$(DEPDIR)/message.Plo \
-	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/signal.Plo \
-	./$(DEPDIR)/socket.Plo ./$(DEPDIR)/string.Plo \
-	./$(DEPDIR)/time.Plo ./$(DEPDIR)/uuid.Plo \
-	./$(DEPDIR)/wangyonglin.Plo
+am__depfiles_remade = ./$(DEPDIR)/conf.Plo ./$(DEPDIR)/config.Plo \
+	./$(DEPDIR)/daemon.Plo ./$(DEPDIR)/error.Plo \
+	./$(DEPDIR)/logging.Plo ./$(DEPDIR)/message.Plo \
+	./$(DEPDIR)/pid.Plo ./$(DEPDIR)/socket.Plo \
+	./$(DEPDIR)/string.Plo ./$(DEPDIR)/time.Plo \
+	./$(DEPDIR)/uuid.Plo ./$(DEPDIR)/wangyonglin.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -327,7 +325,6 @@ lib_LTLIBRARIES = libwangyonglin.la
 AM_CPPFLAGS = -I $(top_srcdir)/include/
 libwangyonglin_la_SOURCES = \
     message.c \
-    memory.c \
     config.c \
     string.c \
     error.c \
@@ -336,9 +333,7 @@ libwangyonglin_la_SOURCES = \
     pid.c            \
     daemon.c    \
     time.c \
-    signal.c \
     logging.c \
-    buffer.c \
     uuid.c \
     socket.c
 
@@ -420,16 +415,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buffer.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/conf.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/daemon.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/error.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logging.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memory.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/message.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pid.Plo@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/signal.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/socket.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/string.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/time.Plo@am__quote@ # am--include-marker
@@ -597,16 +589,13 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/buffer.Plo
-	-rm -f ./$(DEPDIR)/conf.Plo
+		-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/logging.Plo
-	-rm -f ./$(DEPDIR)/memory.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
-	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo
@@ -657,16 +646,13 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/buffer.Plo
-	-rm -f ./$(DEPDIR)/conf.Plo
+		-rm -f ./$(DEPDIR)/conf.Plo
 	-rm -f ./$(DEPDIR)/config.Plo
 	-rm -f ./$(DEPDIR)/daemon.Plo
 	-rm -f ./$(DEPDIR)/error.Plo
 	-rm -f ./$(DEPDIR)/logging.Plo
-	-rm -f ./$(DEPDIR)/memory.Plo
 	-rm -f ./$(DEPDIR)/message.Plo
 	-rm -f ./$(DEPDIR)/pid.Plo
-	-rm -f ./$(DEPDIR)/signal.Plo
 	-rm -f ./$(DEPDIR)/socket.Plo
 	-rm -f ./$(DEPDIR)/string.Plo
 	-rm -f ./$(DEPDIR)/time.Plo

@@ -45,7 +45,7 @@ int atomic_incr(int id)
 	__sync_add_and_fetch( &id, 1 );
 	return id;
 }
-uint64_t wangyonglin__uuid(struct wangyonglin__config * config,int workid)
+uint64_t uidify(configify_t * config,int workid)
 {
     g_info.workid = workid;
 	uint64_t  uniqueId=0;
@@ -55,7 +55,7 @@ uint64_t wangyonglin__uuid(struct wangyonglin__config * config,int workid)
 
 	if (nowtime <g_info.last_stamp)
 	{
-		log__printf(config,LOG_ERR,"make uuid faile!");
+		logify_printf(config,LOG_ERR,"make uuid faile!");
 		exit(EXIT_FAILURE);
 	}
 	if (nowtime == g_info.last_stamp)

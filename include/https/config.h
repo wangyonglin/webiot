@@ -15,5 +15,5 @@ struct https__config
     const char *private_key;
 };
 
-void https__config_init(struct wangyonglin__config *config, struct https__config *config_t);
+void https__config_init(configify_t *config, struct https__config *config_t);
 #endif

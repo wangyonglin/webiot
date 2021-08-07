@@ -3,5 +3,5 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-int wangyonglin__daemon(struct wangyonglin__config *config);
+int daemonify(configify_t *config);
 #endif 

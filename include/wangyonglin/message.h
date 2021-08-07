@@ -3,7 +3,7 @@
 #include <wangyonglin/linux.h>
 #include <wangyonglin/wangyonglin.h>
 
-typedef struct wangyonglin__message wangyonglin__message_t;
+typedef struct wangyonglin__message msgify_t;
 struct wangyonglin__message
 {
     struct sigaction act;
@@ -13,7 +13,7 @@ struct wangyonglin__message
     struct wangyonglin__config *config;
 };
 
-void wangyonglin__message_sigaction(struct wangyonglin__message *message, int signo, void (*callback)(int, siginfo_t *, void *));
-void wangyonglin__message_sigqueue(struct wangyonglin__message *message, int signo, int sival_int, void *sival_ptr);
-void wangyonglin__message_new(struct wangyonglin__message *message, struct wangyonglin__config *config);
+void msgify_sigaction(msgify_t *msg, int signo, void (*callback)(int, siginfo_t *, void *));
+void msgify_sigqueue(msgify_t *msg, int signo, int sival_int, void *sival_ptr);
+void msgify_init(configify_t *config,msgify_t *msg);
 #endif
